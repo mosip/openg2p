@@ -1,5 +1,4 @@
-root: ./docs/
+root: ./design-docs/
 
 structure:
-    summary: summary.md
-
+  summary: summary.md
