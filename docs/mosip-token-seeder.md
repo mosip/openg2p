@@ -56,16 +56,16 @@ A multi-point system which can cater any type of input and output to make the MO
 
 ### API
 
-| API                                            | Input                                              | Output                                               | Method | Notes                                                              |
-| ---------------------------------------------- | -------------------------------------------------- | ---------------------------------------------------- | ------ | ------------------------------------------------------------------ |
-| /kyctoken/authfields                           |                                                    | Array                                                | get    | Get the MOSIP Auth Fields                                          |
-| /kyctoken/setup/odkpull                        | json                                               |                                                      | put    | Setup the ODK pull cycle schedule and the credentials for the same |
-| /kyctoken/status/{id}                          |                                                    | json                                                 | get    | Get the status of Token Seeding Request submitted earlier          |
-| /[kyctoken](mosip-token-seeder.md#output-type) | ref [Input Type](mosip-token-seeder.md#input-type) | ref [Output Type](mosip-token-seeder.md#output-type) | post   | Seeder service for one single KYC record                           |
+| API                                               | Input                                              | Output                                               | Method | Notes                                                     |
+| ------------------------------------------------- | -------------------------------------------------- | ---------------------------------------------------- | ------ | --------------------------------------------------------- |
+| /authtoken/authfields                             |                                                    | Array                                                | get    | Get the MOSIP Auth Fields                                 |
+| /authtoken/status/{id}                            | GUID                                               | json                                                 | get    | Get the status of Token Seeding Request submitted earlier |
+| /authtoken/file/{id}                              | GUID                                               | file                                                 | get    | Gets the file (csv/json) if the seeding is completed.     |
+| /[authtoken](mosip-token-seeder.md#kyc-token-api) | ref [Input Type](mosip-token-seeder.md#input-type) | ref [Output Type](mosip-token-seeder.md#output-type) | post   | KYC Token generation service                              |
 
 ### KYC token API&#x20;
 
-`/kyctoken/input/{input-type}/output/{output-type}/delivery/{delivery-type}`
+`/authtoken/input/{input-type}/output/{output-type}/delivery/{delivery-type}`
 
 #### Input type
 
@@ -81,7 +81,7 @@ A multi-point system which can cater any type of input and output to make the MO
 * json
 * csv
 
-#### Delivery Method
+#### Delivery method
 
 * websub
 * download
@@ -89,11 +89,11 @@ A multi-point system which can cater any type of input and output to make the MO
 
 #### Sample API endpoint
 
-* `/kyctoken/input/json/output/json/delivery/websub`
-* `/kyctoken/input/csv/output/json/delivery/websup`
-* `/kyctoken/input/vc/output/json/delivery/sftp`
-* `/kyctoken/input/vc/output/csv/delivery/download`
-* `/kyctoken/input/csv/output/csv/delivery/sftp`
+* `/authtoken/input/json/output/json/delivery/websub`
+* `/authtoken/input/csv/output/json/delivery/websup`
+* `/authtoken/input/vc/output/json/delivery/sftp`
+* `/authtoken/input/vc/output/csv/delivery/download`
+* `/authtoken/input/csv/output/csv/delivery/sftp`
 
 
 
