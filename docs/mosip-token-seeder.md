@@ -2,7 +2,7 @@
 
 
 
-## Initial Thoughts
+## Initial thoughts
 
 * We are addressing one of the last mile problems
 * Token seeding - main function
@@ -14,7 +14,7 @@
 * Data at rest (in WebSub) encoded using public key of subscribed department (like partner management in MOSIP).
 * No persistence of PII data
 
-## Octopus Model Architecture
+## Octopus model architecture
 
 A multi-point system which can cater any type of input and output to make the MOSIP Token Seeder effective in any possible use cases.
 
@@ -34,25 +34,25 @@ A multi-point system which can cater any type of input and output to make the MO
 2. CSV
 3. JSON
 
-### Delivery Method
+### Delivery method
 
 1. Synchronous Response
 2. WebSub
 3. SFTP
 4. Download URL
 
-### Design Considerations/Open Questions
+### Design considerations/open questions
 
-* **Secrets Management** - Save the credentials for SFTP/ODK etc.
+* **Secrets management** - Save the credentials for SFTP/ODK etc.
 * **Status management** - Various status of a token seeding request. (Uploaded/Processing/Completed/Archived)
 * **Database** - Data persistence for the whole system
 * **Processed CSV/JSON** - How do we persist the csv/json for which token generation is completed.
 * **VC** - Should we be verifying the Digital Signature
 * **VC** - Shouldn't we define a output fields?
 * **Biometric inputs** - Should we consider Biometric inputs for the authentication?
-* **Scheduled Jobs** - Repeated tasks can be configured through a API call (for instance, Daily ODK Pull)
-* **Status Check** - API for querying on the status of a token seeding request.
-* **MOSIP Authentication Fields** - API to fetch the list of MOSIP Authentication fields so that a mapper configuration can be generated to make CSV/JSON token seeder request.   &#x20;
+* **Scheduled jobs** - Repeated tasks can be configured through a API call (for instance, Daily ODK Pull)
+* **Status check** - API for querying on the status of a token seeding request.
+* **MOSIP authentication fields** - API to fetch the list of MOSIP Authentication fields so that a mapper configuration can be generated to make CSV/JSON token seeder request.   &#x20;
 
 ### API
 
@@ -63,11 +63,11 @@ A multi-point system which can cater any type of input and output to make the MO
 | /kyctoken/status/{id}                          |                                                    | json                                                 | get    | Get the status of Token Seeding Request submitted earlier          |
 | /[kyctoken](mosip-token-seeder.md#output-type) | ref [Input Type](mosip-token-seeder.md#input-type) | ref [Output Type](mosip-token-seeder.md#output-type) | post   | Seeder service for one single KYC record                           |
 
-### KYC Token API&#x20;
+### KYC token API&#x20;
 
 `/kyctoken/input/{input-type}/output/{output-type}/delivery/{delivery-type}`
 
-#### Input Type
+#### Input type
 
 * `json`
 * `odk`
@@ -76,7 +76,7 @@ A multi-point system which can cater any type of input and output to make the MO
 * `form.io`
 * `googlsheet`
 
-#### Output Type <a href="#output-type" id="output-type"></a>
+#### Output type <a href="#output-type" id="output-type"></a>
 
 * json
 * csv
@@ -87,7 +87,7 @@ A multi-point system which can cater any type of input and output to make the MO
 * download
 * sftp
 
-#### Sample API Endpoint
+#### Sample API endpoint
 
 * `/kyctoken/input/json/output/json/delivery/websub`
 * `/kyctoken/input/csv/output/json/delivery/websup`
