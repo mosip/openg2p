@@ -2,81 +2,48 @@
 
 ## Overview
 
-The notes here capture the discussions around vision and roadmap for OpenG2P-NG. This is **work-in-progress**.
+The notes here capture the discussions around the vision and roadmap for OpenG2P-NG. This is **work-in-progress**.
 
-## Roadmap
-
-### Active Engagements
-
-* Sierra Leone&#x20;
-* Philippines DSWD
-  * Social Protection (the equivalent of Social Security - food coupons, unemployment benefits, etc)
-  * Other benefits or contexts
-* Afghanistan (UNDP) (Low Priority)
-* Ukraine (UNDP) (Low Priority)
-
-### Agenda
-
-* Proper alignment on the active engagement&#x20;
-* Combine all our implementations into a single code base
-  * Access to repository
-  * Licensing
-* Define our roadmap
-
-### Roadmap
-
-* **Phase 1**
-  * Focus on use cases close to ID to showcase how ID can be used effectively
-  * Tool kits to integrate into their solution or build their solution into it
-    * Onboarding users
-      * Deduplication - demographic and/or biometrics using an ABIS middleware
-      * Removal of ghost beneficiaries
-    * Benefits delivery
-      * Direct benefits transfer
-      * Vouchers
-    * Authentication at the point of delivery
-      * Proof of delivery
-      * Verification of recipient
-* **Phase 2**
-  * Anonymous eligibility engine
-  * Query systems about eligibility
-* **Phase 3**
-  * Datashare and Event Publishing
-    * [Beckn protocol](https://becknprotocol.io/) can be used to share data
-  * Token translation
+## Discussion
 
 
 
 * Help showcase how ID can be used effectively
-* Other areas where IDs are involved
-  * Onboarding new beneficiaries
-  * Token seeding for existing registries
-  * Proof of receipt - voucher
-  * Proof of delivery - ?
-* How do we on board a new beneficiary?
+* Demonstrate:
+  * MEC environment
+  * Field deployment - Afghanistan or Ukraine (UNDP)
+  * Philippines DSWD
+    * Social Protection (the equivalent of Social Security - food coupons, unemployment benefits, etc)
+    * Other benefits or contexts
+  * Other areas where IDs are involved
+    * Onboarding new beneficiaries
+    * Token seeding for existing registries
+    * Proof of receipt - voucher
+    * Proof of delivery
+* How do we onboard a new beneficiary?
   * Who has a national ID
   * Who does not have a national ID
-* Person who has is a beneficiary how do we link them to the national ID?
+* The person who has is a beneficiary how do we link them to the national ID?
   * Deduplication
   * Removal of ghost beneficiaries
   * Identifying potential beneficiaries for a new program or scheme (ability to filter)
   * Seamless delivery
-    * Self service
+    * Self-service
     * Assisted mode
 * List of beneficiaries who are already there. How to choose them for a new program?
 * Proof of receipt or delivery
 * Monetary Benefits
   * Banked
     * Direct beneficiary transfer (DBT)
-    * Monetary benefit - transferred to a bank account or wallet or pre-paid card (option to store some money which can be withdrawn and spent by the benifitiary)
+    * Monetary benefit - transferred to a bank account, wallet or pre-paid card (option to store some money which can be withdrawn and spent by the benefitiary)
     * Disbursement list
     * Registry of Person and Bank Accounts
       * Collect during onboarding of beneficiary (default preference)
       * Scheme provides the account details
-      * GovStack - Person’s preference - Maintain the person to account map
+      * GovStack - Person’s preference - Maintain the person-to-account map
       * Social Protection account (Ukraine)
   * Unbanked
-    * Take money from an intermediary agent (kiosk, village officer, third party shop keeper)
+    * Take money from an intermediary agent (kiosk, village officer, third party shopkeeper)
     * Cash or Voucher/Coupon - Physical or Digital
     * Voucher - that can be used to collect the money
     * Agency Model
@@ -84,17 +51,17 @@ The notes here capture the discussions around vision and roadmap for OpenG2P-NG.
       * Agent is offline
         * Problems:
           * Multiple claims are made
-          * Amount is not shared with the resident
-          * Whole amount might not be shared with the resident
+          * The amount is not shared with the resident
+          * The whole amount might not be shared with the resident
         * Solutions:
           * OTP or Delivery PIN (provided the beneficiary has a phone and the contact details are listed and they have received the PIN)
           * Voucher acting as a PIN
             * Do we need vouchers? - Physical evidence to receive the money
-            * Can we think of an alternate mechanism rather than voucher?
-            * A officer is going to distribute a voucher and then an officer is verifying the voucher?
+            * Can we think of an alternate mechanism rather than a voucher?
+            * An officer is going to distribute a voucher and then an officer is verifying the voucher?
           * Presence verification by taking a Photograph (together mode | timestamped and attested photograph)
-          * Resident is informed how much amount he or she should be receiving
-* Non Monetary Benefits
+          * The Resident is informed how much amount he or she should be receiving
+* Non-Monetary Benefits
   * Types
     * Health
       * Vaccination
@@ -113,14 +80,10 @@ The notes here capture the discussions around vision and roadmap for OpenG2P-NG.
       * Employment Programs
     * Subsidised Products (Eligibility Check)
       * Cashback
-      * During delivery the cost is reduced
+      * During delivery, the cost is reduced
       * Money is provided to buy goods\*\*  
 * Getting the List of eligible beneficiaries (beneficiary identification)
   * Surveys
   * Analysis of the data
   * Slice and dice the data (filter)
   * Applying and Sign up
-
-
-
-Road Map with priority (6 month and 1 year road map) and ecosystem
