@@ -1,7 +1,5 @@
 # MOSIP Token Seeder
 
-![](<.gitbook/assets/Screenshot 2022-06-27 at 11.17.41 AM.png>)
-
 ## Initial thoughts
 
 * We are addressing one of the last mile problems
