@@ -4,20 +4,55 @@
 
 The notes here capture the discussions around vision and roadmap for OpenG2P-NG. This is **work-in-progress**.
 
-## Discussion
+## Roadmap
+
+### Active Engagements
+
+* Sierra Leone&#x20;
+* Philippines DSWD
+  * Social Protection (the equivalent of Social Security - food coupons, unemployment benefits, etc)
+  * Other benefits or contexts
+* Afghanistan (UNDP) (Low Priority)
+* Ukraine (UNDP) (Low Priority)
+
+### Agenda
+
+* Proper alignment on the active engagement&#x20;
+* Combine all our implementations into a single code base
+  * Access to repository
+  * Licensing
+* Define our roadmap
+
+### Roadmap
+
+* **Phase 1**
+  * Focus on use cases close to ID to showcase how ID can be used effectively
+  * Tool kits to integrate into their solution or build their solution into it
+    * Onboarding users
+      * Deduplication - demographic and/or biometrics using an ABIS middleware
+      * Removal of ghost beneficiaries
+    * Benefits delivery
+      * Direct benefits transfer
+      * Vouchers
+    * Authentication at the point of delivery
+      * Proof of delivery
+      * Verification of recipient
+* **Phase 2**
+  * Anonymous eligibility engine
+  * Query systems about eligibility
+* **Phase 3**
+  * Datashare and Event Publishing
+    * [Beckn protocol](https://becknprotocol.io/) can be used to share data
+  * Token translation
+
+
 
 * Help showcase how ID can be used effectively
-* Demonstrate:
-  * MEC environment
-  * Field deployment - Afghanistan or Ukraine (UNDP)
-  * Philippines DSWD
-    * Social Protection (equivalent of Social Security - food coupons, unemployment benefits, etc)
-    * Other benefits or contexts
-  * Other areas where IDs are involved
-    * Onboarding new beneficiaries
-    * Token seeding for existing registries
-    * Proof of receipt - voucher
-    * Proof of delivery - ?
+* Other areas where IDs are involved
+  * Onboarding new beneficiaries
+  * Token seeding for existing registries
+  * Proof of receipt - voucher
+  * Proof of delivery - ?
 * How do we on board a new beneficiary?
   * Who has a national ID
   * Who does not have a national ID
@@ -85,3 +120,7 @@ The notes here capture the discussions around vision and roadmap for OpenG2P-NG.
   * Analysis of the data
   * Slice and dice the data (filter)
   * Applying and Sign up
+
+
+
+Road Map with priority (6 month and 1 year road map) and ecosystem

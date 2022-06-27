@@ -6,3 +6,4 @@
 * [Use Cases](use-cases.md)
 * [Payments](payments.md)
 * [MOSIP Token Seeder](mosip-token-seeder.md)
+* [Roadmap (Draft)](roadmap-draft.md)
