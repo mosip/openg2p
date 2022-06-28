@@ -2,6 +2,10 @@
 
 ## Overview
 
+![](https://github.com/mosip/openg2p/raw/main/docs/.gitbook/assets/seeder.png)
+
+## Overview
+
 ## Initial thoughts
 
 * We are addressing one of the last mile problems
@@ -56,16 +60,17 @@ A multi-point system which can cater any type of input and output to make the MO
 
 ### API
 
-| API                                               | Input                                              | Output                                               | Method | Notes                                                     |
-| ------------------------------------------------- | -------------------------------------------------- | ---------------------------------------------------- | ------ | --------------------------------------------------------- |
-| /authtoken/authfields                             |                                                    | Array                                                | get    | Get the MOSIP Auth Fields                                 |
-| /authtoken/status/{id}                            | GUID                                               | json                                                 | get    | Get the status of Token Seeding Request submitted earlier |
-| /authtoken/file/{id}                              | GUID                                               | file                                                 | get    | Gets the file (csv/json) if the seeding is completed.     |
-| /[authtoken](mosip-token-seeder.md#kyc-token-api) | ref [Input Type](mosip-token-seeder.md#input-type) | ref [Output Type](mosip-token-seeder.md#output-type) | post   | KYC Token generation service                              |
+| API                    | Input      | Output | Method | Notes                                                                                                                                                            |
+| ---------------------- | ---------- | ------ | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| /authtoken/authfields  |            | array  | get    | Get the MOSIP Auth Fields                                                                                                                                        |
+| /authtoken/status/{id} | GUID       | json   | get    | Get the status of Token Seeding Request submitted earlier                                                                                                        |
+| /authtoken/file/{id}   | GUID       | file   | get    | Gets the file (csv/json) if the seeding is completed.                                                                                                            |
+| /authtoken/json        | json       | json   | post   | Takes in json array along with field mapping and process the token seeding.                                                                                      |
+| /authtoken/csv         | file, json | json   | post   | Takes in csv file along with field mapping and process the token seeding.                                                                                        |
+| /authtoken/odk         | json       | json   | post   | Takes in input in VC format and process the token seeding.                                                                                                       |
+| /authtoken/vc          | json       | json   | post   | Takes in odk setup configuration and credentials to enable real-time odk pull or setup a scheduled odk pull.  Token seeding will be done subsequent to odk pull. |
 
 ### KYC token API&#x20;
-
-`/authtoken/input/{input-type}/output/{output-type}/delivery/{delivery-type}`
 
 #### Input type
 
@@ -97,4 +102,24 @@ A multi-point system which can cater any type of input and output to make the MO
 
 
 
-## Design
+### Design
+
+****
+
+**Token seeder request flow**
+
+1. Validate the request input
+2. Do a scan for the input.
+3. Split the input and validate
+4. If valid&#x20;
+   1. Create Identifier
+   2. Create Default status equals "Submitted"
+   3. Split the input, convert to JSON and persist with the status "Submitted"
+   4. Return status submitted with the identifier
+5. Else
+   1. Return Error
+
+#### Notes
+
+* SourceIndex to keep the sequence of row intact.
+* Expiring the processed data as soon as its downloaded or reaches the expiry after the processing.
