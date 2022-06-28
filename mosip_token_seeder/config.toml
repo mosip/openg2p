@@ -1,0 +1,27 @@
+[root]
+context_path = '/'
+pid_grep_name = 'gunicorn'
+
+[kafka]
+server_host = 'localhost'
+server_port = 9092
+
+[datasource]
+server_host = 'localhost'
+server_port = 5432
+db_user = 'postgres'
+db_pass = ''
+db_name = 'mosip_tokenseeder'
+
+[gunicorn]
+worker_id = 0
+# the following are set using env variables
+# workers
+# max_requests
+# timeout
+# keep_alive
+
+[docker]
+pod_name = 'token-seeder-0'
+pod_id = 0
+replicas = 1

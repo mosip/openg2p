@@ -1,0 +1,7 @@
+setuptools
+wheel
+# flask == 2.1.2
+dynaconf == 3.1.9
+fastapi == 0.78.0
+uvicorn == 0.18.2
+gunicorn == 20.1.0
