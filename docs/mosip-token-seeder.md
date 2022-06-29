@@ -71,13 +71,13 @@ A multi-point system which can cater any type of input and output to make the MO
 
 | API                    | Input      | Output | Method | Notes                                                                                                                                                            |
 | ---------------------- | ---------- | ------ | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| /authtoken/authfields  |            | array  | get    | Get the MOSIP Auth Fields                                                                                                                                        |
-| /authtoken/status/{id} | GUID       | json   | get    | Get the status of Token Seeding Request submitted earlier                                                                                                        |
-| /authtoken/file/{id}   | GUID       | file   | get    | Gets the file (csv/json) if the seeding is completed.                                                                                                            |
-| /authtoken/json        | json       | json   | post   | Takes in json array along with field mapping and process the token seeding.                                                                                      |
-| /authtoken/csv         | file, json | json   | post   | Takes in csv file along with field mapping and process the token seeding.                                                                                        |
-| /authtoken/odk         | json       | json   | post   | Takes in input in VC format and process the token seeding.                                                                                                       |
-| /authtoken/vc          | json       | json   | post   | Takes in odk setup configuration and credentials to enable real-time odk pull or setup a scheduled odk pull.  Token seeding will be done subsequent to odk pull. |
+| /authtoken/authfields  |            | array  | GET    | Get the MOSIP Auth Fields                                                                                                                                        |
+| /authtoken/status/{id} | GUID       | json   | GET    | Get the status of Token Seeding Request submitted earlier                                                                                                        |
+| /authtoken/file/{id}   | GUID       | file   | GET    | Gets the file (csv/json) if the seeding is completed.                                                                                                            |
+| /authtoken/json        | json       | json   | POST   | Takes in json array along with field mapping and process the token seeding.                                                                                      |
+| /authtoken/csv         | file, json | json   | POST   | Takes in csv file along with field mapping and process the token seeding.                                                                                        |
+| /authtoken/odk         | json       | json   | POST   | Takes in input in VC format and process the token seeding.                                                                                                       |
+| /authtoken/vc          | json       | json   | POST   | Takes in odk setup configuration and credentials to enable real-time odk pull or setup a scheduled odk pull.  Token seeding will be done subsequent to odk pull. |
 
 ### KYC token API&#x20;
 
