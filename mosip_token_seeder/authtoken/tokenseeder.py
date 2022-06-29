@@ -14,7 +14,7 @@ supported_delivery_types = ['download']
 def authtoken_json(requestbody : AuthTokenRequestModel):
     if requestbody is None:
         return {
-            "message": "N]no input found"
+            "message": "no input found"
         }, 400
 
     if requestbody.request is None:
