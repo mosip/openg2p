@@ -11,7 +11,7 @@ app = FastAPI(
 
 @app.get(settings.root.context_path + "ping")
 def ping():
-    return "ping"
+    return "pong"
 
 def get_current_worker_id(config):
     if config.root.pid_grep_name=='local':
@@ -29,5 +29,5 @@ def get_pod_id(config):
 get_current_worker_id(settings)
 get_pod_id(settings)
 
-from . import authengine
-from . import tokenseeder
+from . import authtoken
+from .authtoken import tokenseeder
