@@ -3,7 +3,7 @@ import traceback
 from fastapi import FastAPI
 from dynaconf import Dynaconf
 
-settings = Dynaconf(settings_files=[os.path.join(__name__,"config.toml"), "/app/token_seeder.conf"], envvar_prefix="TOKENSEEDER", environments=False)
+settings = Dynaconf(settings_files=[os.path.join(__name__,"config.toml"),"config.toml","/app/token_seeder.conf"], envvar_prefix="TOKENSEEDER", environments=False)
 app = FastAPI(
     title="MOSIP Token Seeder",
     version='0.1.0',
@@ -11,7 +11,7 @@ app = FastAPI(
 
 @app.get(settings.root.context_path + "ping")
 def ping():
-    return "ping"
+    return "[" + str(settings.docker.pod_id) + ' - ' +  str(settings.gunicorn.worker_id) + "] ping"
 
 def get_current_worker_id(config):
     if config.root.pid_grep_name=='local':

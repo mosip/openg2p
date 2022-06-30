@@ -2,9 +2,35 @@
 context_path = '/'
 pid_grep_name = 'gunicorn'
 
-[kafka]
-server_host = 'localhost'
-server_port = 9092
+[mosip_auth]
+timestamp_format = "%Y-%m-%d'T'%H:%M:%S"
+ida_auth_version = '1.0'
+ida_auth_request_id = 'mosip.identity.auth'
+ida_auth_env = 'Staging'
+# oidc_token_endpoint =
+# ida_auth_url =
+# ida_auth_domain_uri =
+# ida_partner_cert_path =
+# partner_apikey =
+# partner_misp_lk =
+# partner_cert_path =
+# partner_privkey_path =
+# partner_client_id =
+# partner_client_secret =
+# partner_username =
+# partner_password =
+
+[crypto]
+# symmetric_encrypt_alogrithm = 'aes/gcm'
+symmetric_encrypt_key_length = 256
+symmetric_encrypt_gcm_tag_length = 128
+
+# asymmetric_encrypt_alogrithm = 'rsa/oaep_with_sha256_and_mgf1_sha256_padding'
+asymmetric_encrypt_public_key_path = '@format {this.mosip_auth.ida_partner_cert_path}'
+
+sign_algorithm = 'RS256'
+sign_public_key_path = '@format {this.mosip_auth.partner_cert_path}'
+sign_private_key_path = '@format {this.mosip_auth.partner_privkey_path}'
 
 [datasource]
 server_host = 'localhost'
