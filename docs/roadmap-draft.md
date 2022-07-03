@@ -9,14 +9,6 @@
 * Afghanistan (UNDP) (Low Priority)
 * Ukraine (UNDP) (Low Priority)
 
-### Agenda
-
-* Proper alignment on the active engagement&#x20;
-* Combine all our implementations into a single code base
-  * Access to repository
-  * Licensing
-* Define our roadmap
-
 ### Roadmap
 
 * **Phase 1**
@@ -39,7 +31,5 @@
     * [Beckn protocol](https://becknprotocol.io/) can be used to share data
   * Token translation
 
-Why one should go for openG2P?
 
-How do we expect people to use this?
 
