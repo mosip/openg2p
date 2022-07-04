@@ -18,20 +18,6 @@ authorization_header_constant = 'Authorization'
 # partner_privkey_path =
 # partner_id =
 
-oidc_token_endpoint = 'https://iam.iiitb.mosip.net/auth/realms/mosip/protocol/openid-connect/token'
-ida_auth_url = 'https://api-internal.iiitb.mosip.net/idauthentication/v1/auth'
-ida_auth_domain_uri = 'https://api-internal.iiitb.mosip.net'
-ida_partner_cert_path = '/home/lalithkota/IMT2016132/mosip/mosip-openg2p-token-seeder/certs/ida.partner.cert'
-partner_apikey = '449869'
-partner_misp_lk = 'bmgDCMGV8zSnpBV5b0Qe1L3GtY9RXPSBkUcVfONP9AkOsKYVLy'
-partner_cert_path = '/home/lalithkota/IMT2016132/mosip/mosip-openg2p-token-seeder/certs/openg2p.cert'
-partner_privkey_path = '/home/lalithkota/IMT2016132/mosip/mosip-openg2p-token-seeder/certs/openg2p.key'
-partner_id = 'openg2p'
-# partner_client_id = 'openg2p'
-# partner_client_secret = 'ffca16b8-d165-4466-9222-1383bdda5dee'
-# partner_username = 'openg2p'
-# partner_password = 'abc123'
-
 [crypto]
 
     [crypto.encrypt]
