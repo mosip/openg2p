@@ -1,4 +1,3 @@
-from importlib.metadata import metadata
 from pydantic import BaseModel
 from typing import List
 
