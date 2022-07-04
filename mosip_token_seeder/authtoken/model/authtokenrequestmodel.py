@@ -1,10 +1,10 @@
-import datetime
+from datetime import datetime
 import json
 
 from pydantic import BaseModel
 from typing import List
 
-from model.authtokenmodel import AuthTokenModel
+from . import AuthTokenModel
 
 class AuthTokenRequestModel(BaseModel):
     id: str
