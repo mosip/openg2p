@@ -29,5 +29,5 @@ def get_pod_id(config):
 get_current_worker_id(settings)
 get_pod_id(settings)
 
-from . import authengine
+from . import authenticator
 from . import tokenseeder

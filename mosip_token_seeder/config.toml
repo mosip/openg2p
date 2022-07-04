@@ -7,6 +7,7 @@ timestamp_format = "%Y-%m-%d'T'%H:%M:%S"
 ida_auth_version = '1.0'
 ida_auth_request_id = 'mosip.identity.auth'
 ida_auth_env = 'Staging'
+authorization_header_constant = 'Authorization'
 # oidc_token_endpoint =
 # ida_auth_url =
 # ida_auth_domain_uri =
@@ -15,22 +16,41 @@ ida_auth_env = 'Staging'
 # partner_misp_lk =
 # partner_cert_path =
 # partner_privkey_path =
-# partner_client_id =
-# partner_client_secret =
-# partner_username =
-# partner_password =
+# partner_id =
+
+oidc_token_endpoint = 'https://iam.iiitb.mosip.net/auth/realms/mosip/protocol/openid-connect/token'
+ida_auth_url = 'https://api-internal.iiitb.mosip.net/idauthentication/v1/auth'
+ida_auth_domain_uri = 'https://api-internal.iiitb.mosip.net'
+ida_partner_cert_path = '/home/lalithkota/IMT2016132/mosip/mosip-openg2p-token-seeder/certs/ida.partner.cert'
+partner_apikey = '449869'
+partner_misp_lk = 'bmgDCMGV8zSnpBV5b0Qe1L3GtY9RXPSBkUcVfONP9AkOsKYVLy'
+partner_cert_path = '/home/lalithkota/IMT2016132/mosip/mosip-openg2p-token-seeder/certs/openg2p.cert'
+partner_privkey_path = '/home/lalithkota/IMT2016132/mosip/mosip-openg2p-token-seeder/certs/openg2p.key'
+partner_id = 'openg2p'
+# partner_client_id = 'openg2p'
+# partner_client_secret = 'ffca16b8-d165-4466-9222-1383bdda5dee'
+# partner_username = 'openg2p'
+# partner_password = 'abc123'
 
 [crypto]
-# symmetric_encrypt_alogrithm = 'aes/gcm'
-symmetric_encrypt_key_length = 256
-symmetric_encrypt_gcm_tag_length = 128
 
-# asymmetric_encrypt_alogrithm = 'rsa/oaep_with_sha256_and_mgf1_sha256_padding'
-asymmetric_encrypt_public_key_path = '@format {this.mosip_auth.ida_partner_cert_path}'
+    [crypto.encrypt]
+    # symmetric_alogrithm = 'aes/gcm'
+    # asymmetric_alogrithm = 'rsa/oaep_with_sha256_and_mgf1_sha256_padding'
+    algorithm = '@none'
+    symmetric_key_size = 256
+    symmetric_gcm_tag_size = 128
+    public_key_path = '@format {this.mosip_auth.ida_partner_cert_path}'
+    public_key_password = '@none'
+    private_key_path = '@none'
+    private_key_password = '@none'
 
-sign_algorithm = 'RS256'
-sign_public_key_path = '@format {this.mosip_auth.partner_cert_path}'
-sign_private_key_path = '@format {this.mosip_auth.partner_privkey_path}'
+    [crypto.signature]
+    algorithm = 'RS256'
+    public_key_path = '@format {this.mosip_auth.partner_cert_path}'
+    public_key_password = '@none'
+    private_key_path = '@format {this.mosip_auth.partner_privkey_path}'
+    private_key_password = '@none'
 
 [datasource]
 server_host = 'localhost'

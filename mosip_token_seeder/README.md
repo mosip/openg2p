@@ -24,7 +24,7 @@ deactivate
   - Configure `mosip_auth` section in `config.toml`. And place the certificate and keys appropriately.
   - Then run (sample json given in samples folder):
       ```sh
-      python3 -m authengine authenticator <json>
+      python3 -m authenticator demoauth <json>
       ```
 
 

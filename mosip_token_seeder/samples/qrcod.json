@@ -1,24 +1,9 @@
 {
-  "lang": "eng",
-  "fullname": "EMANASAR-TEST-6",
+  "vid": "2014391641351279",
+  "name": [{"language":"eng", "value": "EMANASAR-TEST-6"}],
+  "gender": [{"language":"eng", "value": "Male"}],
   "dateOfBirth": "1976-01-01",
-  "phone": "8360334018",
-  "id": "2014391641351279",
-  "UIN": "3201657287",
-  "zip": "560016",
-  "email": "PRASHANT.SINGH@IIITB.AC.IN",
-  "address": "BANGALORE",
-  "gender": "Male",
-  "city": "Bengaluru",
-  "locality": "Electronics City",
-  "state": "Karnataka",
-  "fullAddress": "BANGALORE, Electronics City, Bengaluru, Karnataka, 560016",
-  "mapping": {
-    "vid" : {"from": "id","withLangCode": false},
-    "phoneNumber" : {"from": "phone","withLangCode": false},
-    "emailId" : {"from": "email","withLangCode": false},
-    "name" : {"from": "fullname","withLangCode": true},
-    "gender" : {"from": "gender","withLangCode": true},
-    "fullAddress" : {"from": "fullAddress","withLangCode": true}
-  }
+  "phoneNumber": "8360334018",
+  "emailId": "PRASHANT.SINGH@IIITB.AC.IN",
+  "fullAddress": [{"language":"eng", "value": "BANGALORE, Electronics City, Bengaluru, Karnataka, 560016"}]
 }
