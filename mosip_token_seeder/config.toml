@@ -7,11 +7,12 @@ server_host = 'localhost'
 server_port = 9092
 
 [datasource]
-server_host = 'localhost'
-server_port = 5432
-db_user = 'postgres'
-db_pass = ''
-db_name = 'mosip_tokenseeder'
+db_connection = 'sqlite:///auth_token_seeder.db'
+# server_host = 'localhost'
+# server_port = 5432
+# db_user = 'postgres'
+# db_pass = ''
+# db_name = 'mosip_tokenseeder'
 
 [gunicorn]
 worker_id = 0

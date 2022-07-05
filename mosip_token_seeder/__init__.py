@@ -1,12 +1,33 @@
+#from msilib import schema
 import os
+from pydoc import describe
 import traceback
+from unicodedata import name
 from fastapi import FastAPI
 from dynaconf import Dynaconf
 
 settings = Dynaconf(settings_files=[os.path.join(__name__,"config.toml"), "/app/token_seeder.conf"], envvar_prefix="TOKENSEEDER", environments=False)
+description = """
+MOSIP Token Seeder API is a toolkit for generating MOSIP token for the enrolled users
+
+***********************************
+Further details goes here 
+***********************************
+"""
 app = FastAPI(
     title="MOSIP Token Seeder",
     version='0.1.0',
+    description=description,
+    contact={
+        "url": "https://mosip.io/contact.php",
+        "email": "info@mosip.io",
+    },
+    license_info={
+        "name":"Mozilla Public License 2.0",
+        "url": "https://www.mozilla.org/en-US/MPL/2.0/",
+    },
+
+
 )
 
 @app.get(settings.root.context_path + "ping")
@@ -30,4 +51,4 @@ get_current_worker_id(settings)
 get_pod_id(settings)
 
 from . import authtoken
-from .authtoken import tokenseeder
+from .authtoken import token_seeder
