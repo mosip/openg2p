@@ -14,6 +14,7 @@ class CryptoUtility:
         private_key_password,
         algorithm=None,
         symmetric_key_size=256,
+        symmetric_nonce_size=128,
         symmetric_gcm_tag_size=128,
         **kwargs
     ):
@@ -31,6 +32,7 @@ class CryptoUtility:
         )
 
         self.symmetric_key_size = symmetric_key_size
+        self.symmetric_nonce_size = symmetric_nonce_size
         self.symmetric_gcm_tag_size = symmetric_gcm_tag_size
         self.algorithm = algorithm
     
@@ -61,21 +63,41 @@ class CryptoUtility:
         )
     
     def symmetric_encrypt(self, data, key):
-        iv = os.urandom(int(self.symmetric_key_size/8))
+        iv = os.urandom(int(self.symmetric_nonce_size/8))
         encryptor = ciphers.Cipher(
             ciphers.algorithms.AES(key),
             ciphers.modes.GCM(iv, tag=None, min_tag_length=int(self.symmetric_gcm_tag_size/8)),
         ).encryptor()
-        return encryptor.update(data) + encryptor.finalize() + iv
+        final = encryptor.update(data) + encryptor.finalize()
+        final += encryptor.tag + iv
+        return final
+    
+    def symmetric_decrypt(self, data, key):
+        nonce_size = int(self.symmetric_nonce_size/8)
+        tag_size = int(self.symmetric_gcm_tag_size/8)
+        iv = data[-nonce_size:]
+        tag = data[-(nonce_size + tag_size):-nonce_size]
+        data_without_iv = data[:-(nonce_size + tag_size)]
+        decryptor = ciphers.Cipher(
+            ciphers.algorithms.AES(key),
+            ciphers.modes.GCM(iv, tag=tag, min_tag_length=int(self.symmetric_gcm_tag_size/8)),
+        ).decryptor()
+        final = decryptor.update(data_without_iv) + decryptor.finalize()
+        return final
     
     def encrypt(self, data):
-        data_bytes = data.encode('UTF-8')
+        if isinstance(data, str):
+            data_bytes = data.encode('UTF-8')
+        elif isinstance(data, bytes):
+            data_bytes = data
+        else:
+            raise Exception('Unrecognised type')
         key = os.urandom(int(self.symmetric_key_size/8))
         data_hash = hashes.Hash(hashes.SHA256())
         data_hash.update(data_bytes)
         request = base64.urlsafe_b64encode(self.symmetric_encrypt(data_bytes,key)).decode('UTF-8')
         encrypted_key = base64.urlsafe_b64encode(self.asymmetric_encrypt(key)).decode('UTF-8')
-        hmac_digest = base64.urlsafe_b64encode(self.symmetric_encrypt(data_hash.finalize(),key)).decode('UTF-8')
+        hmac_digest = base64.urlsafe_b64encode(self.symmetric_encrypt(data_hash.finalize().hex().upper().encode('UTF-8'),key)).decode('UTF-8')
         return request, encrypted_key, hmac_digest
     
     def json_sign(self, data):
