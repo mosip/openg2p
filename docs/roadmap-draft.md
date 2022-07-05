@@ -1,13 +1,6 @@
 # Roadmap (Draft)
 
-### Active Engagements
 
-* Sierra Leone&#x20;
-* Philippines DSWD
-  * Social Protection (the equivalent of Social Security - food coupons, unemployment benefits, etc)
-  * Other benefits or contexts
-* Afghanistan (UNDP) (Low Priority)
-* Ukraine (UNDP) (Low Priority)
 
 ### Roadmap
 
