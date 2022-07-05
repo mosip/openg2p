@@ -3,7 +3,7 @@ context_path = '/'
 pid_grep_name = 'gunicorn'
 
 [mosip_auth]
-timestamp_format = "%Y-%m-%d'T'%H:%M:%S"
+timestamp_format = "%Y-%m-%dT%H:%M:%S"
 ida_auth_version = '1.0'
 ida_auth_request_id = 'mosip.identity.auth'
 ida_auth_env = 'Staging'
@@ -25,6 +25,7 @@ authorization_header_constant = 'Authorization'
     # asymmetric_alogrithm = 'rsa/oaep_with_sha256_and_mgf1_sha256_padding'
     algorithm = '@none'
     symmetric_key_size = 256
+    symmetric_nonce_size = 128
     symmetric_gcm_tag_size = 128
     public_key_path = '@format {this.mosip_auth.ida_partner_cert_path}'
     public_key_password = '@none'

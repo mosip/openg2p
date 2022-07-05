@@ -1,3 +1,4 @@
+import string
 import secrets
 from datetime import datetime
 from . import model
@@ -57,10 +58,12 @@ class MOSIPAuthenticator:
         vid = data.pop('vid')
         demographicData = model.DemographicsModel(**data)
         timestamp = datetime.utcnow()
-        timestamp_str = timestamp.strftime(self.timestamp_format) + timestamp.strftime('.%f')[0:3] + timestamp.strftime('%z')
+        timestamp_str = timestamp.strftime(self.timestamp_format) + timestamp.strftime('.%f')[0:4] + 'Z'
         self.auth_request.requestTime = timestamp_str
-        self.auth_request.transactionID = secrets.token_hex(10)
+        self.auth_request.transactionID = ''.join([secrets.choice(string.digits) for _ in range(10)])
         self.auth_request.individualId = vid
+
+        self.auth_request.requestedAuth.demo = True
         
         request = model.MOSIPEncryptAuthRequest(
             timestamp=timestamp_str,
@@ -77,8 +80,6 @@ class MOSIPAuthenticator:
             'content-type': 'application/json',
         }
         auth_headers['Signature'] = self.sign_cryptoutil.json_sign(full_request_json)
-        # print(auth_headers['Signature'])
-        # self.auth_rest_util.headers['Authorization'] = 'Authorization=' + self.oidc_rest_util.perform().json()['access_token']
 
         response = self.auth_rest_util.post(data=full_request_json,headers=auth_headers)
         return response.json()

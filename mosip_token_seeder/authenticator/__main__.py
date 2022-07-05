@@ -10,4 +10,4 @@ subcommand = sys.argv[1]
 if subcommand == available_subcommands[0]:
     if len(sys.argv)<3:
         sys.exit('Usage:\n\tpython -m %s %s <data_json>' % ('authenticator',subcommand))
-    print(authenticator.perform_demo_auth(json.loads(sys.argv[2])))
+    print(json.dumps(authenticator.perform_demo_auth(json.loads(sys.argv[2]))))
