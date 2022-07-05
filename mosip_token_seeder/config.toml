@@ -2,9 +2,42 @@
 context_path = '/'
 pid_grep_name = 'gunicorn'
 
-[kafka]
-server_host = 'localhost'
-server_port = 9092
+[mosip_auth]
+timestamp_format = "%Y-%m-%dT%H:%M:%S"
+ida_auth_version = '1.0'
+ida_auth_request_id = 'mosip.identity.auth'
+ida_auth_env = 'Staging'
+authorization_header_constant = 'Authorization'
+# oidc_token_endpoint =
+# ida_auth_url =
+# ida_auth_domain_uri =
+# ida_partner_cert_path =
+# partner_apikey =
+# partner_misp_lk =
+# partner_cert_path =
+# partner_privkey_path =
+# partner_id =
+
+[crypto]
+
+    [crypto.encrypt]
+    # symmetric_alogrithm = 'aes/gcm'
+    # asymmetric_alogrithm = 'rsa/oaep_with_sha256_and_mgf1_sha256_padding'
+    algorithm = '@none'
+    symmetric_key_size = 256
+    symmetric_nonce_size = 128
+    symmetric_gcm_tag_size = 128
+    public_key_path = '@format {this.mosip_auth.ida_partner_cert_path}'
+    public_key_password = '@none'
+    private_key_path = '@none'
+    private_key_password = '@none'
+
+    [crypto.signature]
+    algorithm = 'RS256'
+    public_key_path = '@format {this.mosip_auth.partner_cert_path}'
+    public_key_password = '@none'
+    private_key_path = '@format {this.mosip_auth.partner_privkey_path}'
+    private_key_password = '@none'
 
 [datasource]
 db_connection = 'sqlite:///auth_token_seeder.db'

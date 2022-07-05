@@ -14,13 +14,19 @@ deactivate
 ```
 
 ## Running
-```sh
-cd ..
-source mosip_token_seeder/venv_token_seeder/bin/activate
-run_token_seeder_dev
-```
+-   ```sh
+    cd ..
+    source mosip_token_seeder/venv_token_seeder/bin/activate
+    run_token_seeder_dev
+    ```
+    Access localhost:8080 on browser. Access localhost:8080/docs for apidocs.
+- For running only the authenticator for single authentication:
+  - Configure `mosip_auth` section in `config.toml`. And place the certificate and keys appropriately.
+  - Then run (sample json given in samples folder):
+      ```sh
+      python3 -m authenticator demoauth <json>
+      ```
 
-Access localhost:8080 on browser. Access localhost:8080/docs for apidocs.
 
 ## Docker
 ```sh
