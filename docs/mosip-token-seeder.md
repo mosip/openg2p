@@ -101,16 +101,6 @@ A multi-point system which can cater any type of input and output to make the MO
 * download
 * sftp
 
-#### Sample API endpoint
-
-* `/authtoken/input/json/output/json/delivery/websub`
-* `/authtoken/input/csv/output/json/delivery/websup`
-* `/authtoken/input/vc/output/json/delivery/sftp`
-* `/authtoken/input/vc/output/csv/delivery/download`
-* `/authtoken/input/csv/output/csv/delivery/sftp`
-
-
-
 ### Design
 
 ****
