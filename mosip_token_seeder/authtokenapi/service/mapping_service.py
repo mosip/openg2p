@@ -67,20 +67,6 @@ class MappingService:
         return json.loads(mapped_auth_object.json())
 
     def validate_map_fields(self,authdata_json, mapping_json):
-        # print(json.dumps(mapping_json))
-        # Mapping code goes here
-        # request_json['mapping'] will hold the mapping fields.
-        # Sample JSON Expected
-        # {
-        #     "vid": "2014391641351279",
-        #     "name": [{"language":"eng", "value": "EMANASAR-TEST-6"}],
-        #     "gender": [{"language":"eng", "value": "Male"}],
-        #     "dateOfBirth": "1976-01-01",
-        #     "phoneNumber": "8360334018",
-        #     "emailId": "PRASHANT.SINGH@IIITB.AC.IN",
-        #     "fullAddress": [{"language":"eng", "value": "BANGALORE, Electronics City, Bengaluru, Karnataka, 560016"}]
-        # }
-        
 
         mapped_auth_object = AuthTokenBaseModel()
        
@@ -88,52 +74,64 @@ class MappingService:
         if 'vid' not in authdata_json :
             mapped_field = self.get_mapped_field(mapping_json, 'vid')
             if mapped_field == None:
-                raise exception("no mapping found for vid")
+                return False, 'ATS-REQ-009'
+            elif mapped_field not in authdata_json:
+                print(authdata_json)
+                print(mapped_field)
+                return False, 'ATS-REQ-009'
 
         
         if 'name' not in authdata_json :
             mapped_field = self.get_mapped_field(mapping_json, 'name')
             if mapped_field == None:
-                raise exception("no mapping found for name")
+                return False, 'ATS-REQ-010'
+            elif mapped_field not in authdata_json:
+                return False, 'ATS-REQ-010'
 
 
         
         if 'gender' not in authdata_json :
             mapped_field = self.get_mapped_field(mapping_json, 'gender')
             if mapped_field == None:
-                raise exception("no mapping found for gender")
-
+               return False, 'ATS-REQ-011'
+            elif mapped_field not in authdata_json:
+                return False, 'ATS-REQ-011'
 
         if 'dateOfBirth' not in authdata_json :
             mapped_field = self.get_mapped_field(mapping_json, 'dateOfBirth')
             if mapped_field == None:
-                raise exception("no mapping found for dateOfBirth")
+                return False, 'ATS-REQ-012'
+            elif mapped_field not in authdata_json:
+                return False, 'ATS-REQ-012'
 
         
         if 'phoneNumber' not in authdata_json :
             mapped_field = self.get_mapped_field(mapping_json, 'phoneNumber')
             if mapped_field == None:
-                raise exception("no mapping found for phoneNumber")
+                return False, 'ATS-REQ-013'
+            elif mapped_field not in authdata_json:
+                return False, 'ATS-REQ-013'
     
 
         if 'emailId' not in authdata_json :
             mapped_field = self.get_mapped_field(mapping_json, 'emailId')
             if mapped_field == None:
-                raise exception("no mapping found for emailId")
+                return False, 'ATS-REQ-014'
+            elif mapped_field not in authdata_json:
+                return False, 'ATS-REQ-014'
 
 
         if 'fullAddress' not in authdata_json :
             mapped_field = self.get_mapped_field(mapping_json, 'fullAddress')
             if mapped_field == None:
-                raise exception("no mapping found for fullAddress")
+                return False, 'ATS-REQ-015'
+            elif mapped_field not in authdata_json:
+                return False, 'ATS-REQ-015'
 
         return True
 
         
     def get_mapped_field(self, mapping_json,field):
-        # print("*****************************************************")
-        # print(mapping_json)
-        # print(field)
         
         output = None
         for map_field in mapping_json:
@@ -141,7 +139,6 @@ class MappingService:
                
                 output = map_field['mappingfield']   
                 break
-        # print("*****************************************************")
         return output
 
     

@@ -49,8 +49,6 @@ def get_pod_id(config):
 
     get_current_worker_id(config)
     get_pod_id(config)
-
-from . import authenticator
-from . import tokenseeder
 from . import authtokenapi
+from . import authenticator
 
