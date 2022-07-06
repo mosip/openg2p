@@ -13,6 +13,7 @@ class AuthTokenRequestDataRepository:
             Column('auth_data_input', String),
             Column('auth_data_output', String),
             Column('token', String),
+            Column('error_code', String),
             Column('status', String),
             Column('created_time', String),
             Column('updated_time', String)

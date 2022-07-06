@@ -1,6 +1,3 @@
-# import sqlite3
-from ..model.authtoken_request_model import AuthTokenRequestModel
-
 from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String
 
 
