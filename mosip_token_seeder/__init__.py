@@ -6,7 +6,7 @@ from unicodedata import name
 from fastapi import FastAPI
 from dynaconf import Dynaconf
 
-settings = Dynaconf(settings_files=[os.path.join(__name__,"config.toml"), "/app/token_seeder.conf"], envvar_prefix="TOKENSEEDER", environments=False)
+config = Dynaconf(settings_files=[os.path.join(__name__,"config.toml"), "/app/token_seeder.conf"], envvar_prefix="TOKENSEEDER", environments=False)
 description = """
 MOSIP Token Seeder API is a toolkit for generating MOSIP token for the enrolled users
 
@@ -52,5 +52,5 @@ def get_pod_id(config):
 
 from . import authenticator
 from . import tokenseeder
-from . import authtoken
-from .authtoken import token_seeder
+from . import authtokenapi
+

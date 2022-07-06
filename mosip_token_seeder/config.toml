@@ -9,14 +9,14 @@ ida_auth_request_id = 'mosip.identity.auth'
 ida_auth_env = 'Staging'
 authorization_header_constant = 'Authorization'
 # oidc_token_endpoint =
-# ida_auth_url =
-# ida_auth_domain_uri =
-# ida_partner_cert_path =
-# partner_apikey =
-# partner_misp_lk =
-# partner_cert_path =
-# partner_privkey_path =
-# partner_id =
+ida_auth_url = 'https://api-internal.iiitb.mosip.net/idauthentication/v1/auth'
+ida_auth_domain_uri = 'https://api-internal.iiitb.mosip.net'
+ida_partner_cert_path = '/media/shibu/Workspace1/openg2p/mosip_token_seeder/certs/ida.partner.cert'
+partner_apikey = '449869'
+partner_misp_lk = 'bmgDCMGV8zSnpBV5b0Qe1L3GtY9RXPSBkUcVfONP9AkOsKYVLy'
+partner_cert_path = '/media/shibu/Workspace1/openg2p/mosip_token_seeder/certs/openg2p.cert'
+partner_privkey_path = '/media/shibu/Workspace1/openg2p/mosip_token_seeder/certs/openg2p.key'
+partner_id = 'openg2p'
 
 [crypto]
 
