@@ -121,11 +121,12 @@ class MappingService:
     def get_mapped_value(self,auth_data, mapped_field):
         output = None
         if 'from' in mapped_field and isinstance(mapped_field['from'], list):
+            delimiter = mapped_field['delimiter'] if 'delimiter' in mapped_field else ' '
+            output = ""
             for field_item in mapped_field['from']:
-                output = ""
                 if field_item in auth_data:
-                    output = output + auth_data[field_item] + " "
-            output = output.strip()
+                    output = output + auth_data[field_item] + delimiter
+            output = output.strip(delimiter)
         elif 'from' in mapped_field:
             output = auth_data[mapped_field['from']]
         
