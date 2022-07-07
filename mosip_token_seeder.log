@@ -1,0 +1,190 @@
+2022-07-07 12:55:24,595 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 12:55:24,596 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 12:55:24,596 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 12:55:24,597 - sqlalchemy.engine.Engine - INFO - PRAGMA temp.table_info("auth_requests")
+2022-07-07 12:55:24,597 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 12:55:24,610 - sqlalchemy.engine.Engine - INFO - 
+CREATE TABLE auth_requests (
+	auth_request_id VARCHAR NOT NULL, 
+	input_type VARCHAR, 
+	output_type VARCHAR, 
+	delivery_type VARCHAR, 
+	status VARCHAR, 
+	created_time VARCHAR, 
+	updated_time VARCHAR, 
+	PRIMARY KEY (auth_request_id)
+)
+
+
+2022-07-07 12:55:24,610 - sqlalchemy.engine.Engine - INFO - [no key 0.00028s] ()
+2022-07-07 12:55:24,610 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 12:55:24,612 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 12:55:24,616 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 12:55:24,616 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 12:55:24,617 - sqlalchemy.engine.Engine - INFO - PRAGMA temp.table_info("auth_request_data")
+2022-07-07 12:55:24,617 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 12:55:24,618 - sqlalchemy.engine.Engine - INFO - 
+CREATE TABLE auth_request_data (
+	auth_request_id VARCHAR NOT NULL, 
+	auth_request_line_no INTEGER NOT NULL, 
+	auth_data_recieved VARCHAR, 
+	auth_data_input VARCHAR, 
+	auth_data_output VARCHAR, 
+	token VARCHAR, 
+	error_code VARCHAR, 
+	status VARCHAR, 
+	created_time VARCHAR, 
+	updated_time VARCHAR, 
+	PRIMARY KEY (auth_request_id, auth_request_line_no)
+)
+
+
+2022-07-07 12:55:24,618 - sqlalchemy.engine.Engine - INFO - [no key 0.00020s] ()
+2022-07-07 12:55:24,618 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 12:55:24,625 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.auth_request_id, auth_requests.input_type, auth_requests.output_type, auth_requests.delivery_type, auth_requests.status, auth_requests.created_time, auth_requests.updated_time 
+FROM auth_requests 
+WHERE 1 = 1
+2022-07-07 12:55:24,625 - sqlalchemy.engine.Engine - INFO - [generated in 0.00031s] ()
+2022-07-07 14:01:46,297 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 14:01:46,299 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 14:01:46,299 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:01:46,300 - sqlalchemy.engine.Engine - INFO - PRAGMA temp.table_info("auth_requests")
+2022-07-07 14:01:46,300 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:01:46,301 - sqlalchemy.engine.Engine - INFO - 
+CREATE TABLE auth_requests (
+	auth_request_id VARCHAR NOT NULL, 
+	input_type VARCHAR, 
+	output_type VARCHAR, 
+	delivery_type VARCHAR, 
+	status VARCHAR, 
+	created_time VARCHAR, 
+	updated_time VARCHAR, 
+	PRIMARY KEY (auth_request_id)
+)
+
+
+2022-07-07 14:01:46,302 - sqlalchemy.engine.Engine - INFO - [no key 0.00043s] ()
+2022-07-07 14:01:46,302 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 14:01:46,304 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 14:01:46,304 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 14:01:46,305 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:01:46,305 - sqlalchemy.engine.Engine - INFO - PRAGMA temp.table_info("auth_request_data")
+2022-07-07 14:01:46,306 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:01:46,314 - sqlalchemy.engine.Engine - INFO - 
+CREATE TABLE auth_request_data (
+	auth_request_id VARCHAR NOT NULL, 
+	auth_request_line_no INTEGER NOT NULL, 
+	auth_data_recieved VARCHAR, 
+	auth_data_input VARCHAR, 
+	auth_data_output VARCHAR, 
+	token VARCHAR, 
+	error_code VARCHAR, 
+	status VARCHAR, 
+	created_time VARCHAR, 
+	updated_time VARCHAR, 
+	PRIMARY KEY (auth_request_id, auth_request_line_no)
+)
+
+
+2022-07-07 14:01:46,314 - sqlalchemy.engine.Engine - INFO - [no key 0.00337s] ()
+2022-07-07 14:01:46,316 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 14:01:46,322 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.auth_request_id, auth_requests.input_type, auth_requests.output_type, auth_requests.delivery_type, auth_requests.status, auth_requests.created_time, auth_requests.updated_time 
+FROM auth_requests 
+WHERE 1 = 1
+2022-07-07 14:01:46,322 - sqlalchemy.engine.Engine - INFO - [generated in 0.00047s] ()
+2022-07-07 14:02:46,543 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 14:02:46,544 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 14:02:46,544 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:02:46,545 - sqlalchemy.engine.Engine - INFO - PRAGMA temp.table_info("auth_requests")
+2022-07-07 14:02:46,545 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:02:46,546 - sqlalchemy.engine.Engine - INFO - 
+CREATE TABLE auth_requests (
+	auth_request_id VARCHAR NOT NULL, 
+	input_type VARCHAR, 
+	output_type VARCHAR, 
+	delivery_type VARCHAR, 
+	status VARCHAR, 
+	created_time VARCHAR, 
+	updated_time VARCHAR, 
+	PRIMARY KEY (auth_request_id)
+)
+
+
+2022-07-07 14:02:46,546 - sqlalchemy.engine.Engine - INFO - [no key 0.00037s] ()
+2022-07-07 14:02:46,547 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 14:02:46,548 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 14:02:46,549 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 14:02:46,549 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:02:46,550 - sqlalchemy.engine.Engine - INFO - PRAGMA temp.table_info("auth_request_data")
+2022-07-07 14:02:46,550 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:02:46,551 - sqlalchemy.engine.Engine - INFO - 
+CREATE TABLE auth_request_data (
+	auth_request_id VARCHAR NOT NULL, 
+	auth_request_line_no INTEGER NOT NULL, 
+	auth_data_recieved VARCHAR, 
+	auth_data_input VARCHAR, 
+	auth_data_output VARCHAR, 
+	token VARCHAR, 
+	error_code VARCHAR, 
+	status VARCHAR, 
+	created_time VARCHAR, 
+	updated_time VARCHAR, 
+	PRIMARY KEY (auth_request_id, auth_request_line_no)
+)
+
+
+2022-07-07 14:02:46,551 - sqlalchemy.engine.Engine - INFO - [no key 0.00044s] ()
+2022-07-07 14:02:46,551 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 14:02:46,553 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.auth_request_id, auth_requests.input_type, auth_requests.output_type, auth_requests.delivery_type, auth_requests.status, auth_requests.created_time, auth_requests.updated_time 
+FROM auth_requests 
+WHERE 1 = 1
+2022-07-07 14:02:46,554 - sqlalchemy.engine.Engine - INFO - [generated in 0.00038s] ()
+2022-07-07 14:13:30,339 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 14:13:30,340 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 14:13:30,341 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:13:30,345 - sqlalchemy.engine.Engine - INFO - PRAGMA temp.table_info("auth_requests")
+2022-07-07 14:13:30,345 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:13:30,346 - sqlalchemy.engine.Engine - INFO - 
+CREATE TABLE auth_requests (
+	auth_request_id VARCHAR NOT NULL, 
+	input_type VARCHAR, 
+	output_type VARCHAR, 
+	delivery_type VARCHAR, 
+	status VARCHAR, 
+	created_time VARCHAR, 
+	updated_time VARCHAR, 
+	PRIMARY KEY (auth_request_id)
+)
+
+
+2022-07-07 14:13:30,347 - sqlalchemy.engine.Engine - INFO - [no key 0.00095s] ()
+2022-07-07 14:13:30,349 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 14:13:30,351 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 14:13:30,352 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 14:13:30,353 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:13:30,356 - sqlalchemy.engine.Engine - INFO - PRAGMA temp.table_info("auth_request_data")
+2022-07-07 14:13:30,357 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:13:30,360 - sqlalchemy.engine.Engine - INFO - 
+CREATE TABLE auth_request_data (
+	auth_request_id VARCHAR NOT NULL, 
+	auth_request_line_no INTEGER NOT NULL, 
+	auth_data_recieved VARCHAR, 
+	auth_data_input VARCHAR, 
+	auth_data_output VARCHAR, 
+	token VARCHAR, 
+	error_code VARCHAR, 
+	status VARCHAR, 
+	created_time VARCHAR, 
+	updated_time VARCHAR, 
+	PRIMARY KEY (auth_request_id, auth_request_line_no)
+)
+
+
+2022-07-07 14:13:30,367 - sqlalchemy.engine.Engine - INFO - [no key 0.00643s] ()
+2022-07-07 14:13:30,369 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 14:13:30,523 - sqlalchemy.engine.Engine - INFO - INSERT INTO auth_requests (auth_request_id, input_type, output_type, delivery_type, status, created_time) VALUES (?, ?, ?, ?, ?, ?)
+2022-07-07 14:13:30,527 - sqlalchemy.engine.Engine - INFO - [generated in 0.00435s] ('e09f4014-fdd0-11ec-b04d-0bb744b260a0', 'json', 'json', 'download', 'submitted', '2022-07-07')
+2022-07-07 14:13:30,528 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 14:13:30,554 - sqlalchemy.engine.Engine - INFO - INSERT INTO auth_request_data (auth_request_id, auth_request_line_no, auth_data_recieved, auth_data_input, auth_data_output, token, status, created_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+2022-07-07 14:13:30,555 - sqlalchemy.engine.Engine - INFO - [generated in 0.00140s] ('e09f4014-fdd0-11ec-b04d-0bb744b260a0', 1, '{"DateIssued": "21 September 2021", "Issuer": "PSA", "Suffix": "", "fullname": "aaron-o-niel mName lName", "gender": "Male", "BF": "[1,7]", "dateOfBi ... (136 characters truncated) ... : "12312312", "signature": "WhIOttcRfEpANgUxs4mtTo7YCq2IDQj8/nQYQk1QtrUDnt3EB+WQgwHqIzOqAxTqxf7zxu3pSi7ctwXAHGPSCQ==", "email": "test@somewhere.com"}', '{"vid": "5073-0634-8709-1024", "name": "aaron-o-niel mName lName", "gender": "Male", "dateOfBirth": "2020-12-12", "phoneNumber": "12312312", "emailId": "test@somewhere.com", "fullAddress": "State 1"}', None, None, 'submitted', '2022-07-07')
+2022-07-07 14:13:30,557 - sqlalchemy.engine.Engine - INFO - COMMIT

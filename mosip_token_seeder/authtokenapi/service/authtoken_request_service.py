@@ -1,5 +1,6 @@
 from datetime import date, datetime
 import json
+import logging
 
 from .mosip_token_seeder_exception import MOSIPTokenSeederException
 from ..model.authtoken_request_model import AuthTokenRequestModel
@@ -8,6 +9,9 @@ from mosip_token_seeder.repository.authtoken_request_repository import AuthToken
 from mosip_token_seeder.repository.authtoken_request_data_repository import AuthTokenRequestDataRepository
 from .mapping_service import MappingService
 import uuid
+
+logger = logging.getLogger(__name__)
+
 
 class AuthTokenService:
     def __init__(self) :
@@ -42,7 +46,6 @@ class AuthTokenService:
             for authdata in request_json['authdata']:
 
                 is_valid_authdata, error_code = self.validate_auth_data(authdata, mapping_required, request_json['mapping'])
-              
                 if is_valid_authdata == True:    
                     mapped_authdata = self.mapper.map_fields(authdata, request_json['mapping'] if 'mapping' in request_json else None)
 
@@ -68,17 +71,16 @@ class AuthTokenService:
                     authdata_model.error_code = error_code
 
             if(error_count == line_no) :
+                logger.error('ATS-REQ-101')
                 raise MOSIPTokenSeederException('ATS-REQ-101', 'none of the record form a valid request')
             else:
                 return authtoken_request.auth_request_id 
-        
 
-    def __del__(self):
-        # self.conn.close()
-        pass
+    def fetch_status(self, request_identifier):
+        return self.auth_request_repository.fetch_status(request_identifier)
+
 
     def validate_json(self, request_json):
-
         if 'authdata' not in  request_json :
             raise MOSIPTokenSeederException('ATH-STA-001','json is not in valid format ')
 
@@ -87,8 +89,8 @@ class AuthTokenService:
 
         return True
 
+
     def validate_auth_data(self, authdata, mapping_required, mapping_json):
-     
         if mapping_required == False and ('vid' not in authdata or 'name' not in authdata or 'gender' not in authdata or'dateOfBirth' not in authdata or 'phoneNumber' not in authdata or'emailId' not in authdata or'fullAddress' not in authdata ):
             return False, 'ATS-REQ-001'
         elif mapping_required == True:
@@ -124,7 +126,6 @@ class AuthTokenService:
         if len(authdata['fullAddress']) == 0:
             return False, 'ATS-REQ-008' 
             
-                
         return True,""
                 
         

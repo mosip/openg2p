@@ -1,6 +1,4 @@
-from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String
-
-
+from sqlalchemy import create_engine, MetaData, Table, Column, String
 
 class AuthTokenRequestRepository:
     def __init__(self) :
@@ -17,7 +15,6 @@ class AuthTokenRequestRepository:
             Column('updated_time', String)
         )
         self.meta.create_all(self.engine)
-        
     
     def add(self,authtokenrequest):
 
@@ -32,22 +29,27 @@ class AuthTokenRequestRepository:
         conn = self.engine.connect()
         result = conn.execute(insert_obj)
 
+    def fetch_status(self, auth_request_id):
+        select_query = self.auth_requests.select().where(auth_request_id == auth_request_id)   
+        conn = self.engine.connect()
+        output = conn.execute(select_query)
+        print("output", output)
 
 
-    def update(self,authtokenrequest, auth_request_id):
-        auth_request_id, input_type, output_type, delivery_type, status, created_time, updated_time = ""
+    # def update(self,authtokenrequest, auth_request_id):
+    #     auth_request_id, input_type, output_type, delivery_type, status, created_time, updated_time = ""
 
-        insert_query = """
-        UPDATE "main"."auth_request"  SET 
-                "input_type" = ?, 
-                "output_type" ?, 
-                "delivery_type" = ?, 
-                "status" = ?, 
-                "created_time" = ?, 
-                "updated_time = ?"
-            WHERE  "auth_request_id" = ?;
-        """
-        data_tuple = (auth_request_id, input_type, output_type, delivery_type, status, created_time, updated_time)
-        self.dbsession.execute("UPDATE Person SET firstname=(\"Shibu\", lastname=\"Narayanan\" where id = 1")
-        self.conn.commit()
+    #     insert_query = """
+    #     UPDATE "main"."auth_request"  SET 
+    #             "input_type" = ?, 
+    #             "output_type" ?, 
+    #             "delivery_type" = ?, 
+    #             "status" = ?, 
+    #             "created_time" = ?, 
+    #             "updated_time = ?"
+    #         WHERE  "auth_request_id" = ?;
+    #     """
+    #     data_tuple = (auth_request_id, input_type, output_type, delivery_type, status, created_time, updated_time)
+    #     self.dbsession.execute("UPDATE Person SET firstname=(\"Shibu\", lastname=\"Narayanan\" where id = 1")
+    #     self.conn.commit()
     
