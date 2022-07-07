@@ -48,7 +48,7 @@ class AuthTokenService:
                 is_valid_authdata, error_code = self.validate_auth_data(authdata, mapping_required, request_json['mapping'])
                 if is_valid_authdata == True:    
                     mapped_authdata = self.mapper.map_fields(authdata, request_json['mapping'] if 'mapping' in request_json else None)
-
+                    print('Mapped Input',mapped_authdata)
                     line_no += 1
                     authdata_model = AuthTokenRequestDataModel()
                     authdata_model.auth_request_id = authtoken_request.auth_request_id
