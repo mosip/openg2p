@@ -4,10 +4,10 @@ import traceback
 from fastapi import Request
 import uuid
 
+
+
 from mosip_token_seeder.authtokenapi.service.authtoken_request_service import AuthTokenService
 from mosip_token_seeder.authtokenapi.service.mosip_token_seeder_exception import MOSIPTokenSeederException
-
-
 
 # from ..model.authtokenrequestmodel import AuthTokenRequestModel
 from .. import app, config
@@ -15,11 +15,8 @@ from .. import app, config
 supported_output_types = ['json','csv']
 supported_delivery_types = ['download']
 
-
-
 @app.post(config.root.context_path + "authtoken/json")
 async def authtoken_json(request : Request):
-    print(config.root.context_path)
     requestjson = await request.json()
     if requestjson is None:
         return {
@@ -52,7 +49,6 @@ async def authtoken_json(request : Request):
             "message": "delivery type not supported"
         }, 400
 
-
     ##call service to save the details.
     
     authtoken_service = AuthTokenService()
@@ -71,10 +67,6 @@ async def authtoken_json(request : Request):
         }  
         request_identifier
     except MOSIPTokenSeederException as exception:
-        print("******************************")
-        print(exception)
-        print(exception.error_code,exception.error_message)
-        print("******************************")
         #pass on proper response object 
         return {
             'id': '',
@@ -90,11 +82,7 @@ async def authtoken_json(request : Request):
             'response': None
         } 
     except Exception as exception:
-        print("******************************")
-        print(exception)
-        print(traceback.format_exc())
-        print("******************************")
-        
+          
         #pass on proper response object 
         return {
             "id": "string",
@@ -103,28 +91,16 @@ async def authtoken_json(request : Request):
             "responsetime": "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
             "errors": [
                 {
-                "errorCode": 'ATS-REQ-009',
+                "errorCode": 'ATS-REQ-100',
                 "message": str(exception)
                 }
             ],
             "response": None
         } 
-        
-        {
+    
+@app.get(config.root.context_path + "authtoken/status/{id}")
+async def authtoken_json(id):
+    print("id :",id)
+    authtoken_service = AuthTokenService()
+    status = authtoken_service.fetch_status(id)
 
-
-
-            "message": str(exception)
-        }, 200
-    #     pass
-        
-
-    txn_id = str(uuid.uuid4())
-
-    return {
-        'txnId': txn_id,
-        # 'data': data.dict(),
-        'input': 'json',
-        # 'output': output,
-        # 'deliverytype': deliverytype,
-    }

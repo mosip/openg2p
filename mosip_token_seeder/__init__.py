@@ -1,6 +1,8 @@
 #from msilib import schema
+import logging
 import os
 from pydoc import describe
+import sys
 import traceback
 from unicodedata import name
 from fastapi import FastAPI
@@ -49,6 +51,24 @@ def get_pod_id(config):
 
     get_current_worker_id(config)
     get_pod_id(config)
+
+
+
+def init_logger(filename):
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    fileHandler = logging.FileHandler(filename)
+    streamHandler = logging.StreamHandler(sys.stdout)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    streamHandler.setFormatter(formatter)
+    fileHandler.setFormatter(formatter)
+    logger.addHandler(streamHandler)
+    logger.addHandler(fileHandler)
+    return logger
+
+
+logger = init_logger('mosip_token_seeder.log')
+
 from . import authtokenapi
 from . import authenticator
 
