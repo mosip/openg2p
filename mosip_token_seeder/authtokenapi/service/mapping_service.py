@@ -10,7 +10,7 @@ class MappingService:
     def __init__(self) :
         pass
     
-    def map_fields(self,authdata_json, mapping_json):
+    def map_fields(self,authdata_json, mapping_json, language):
         mapped_auth_object = AuthTokenBaseModel()
 
         if 'vid' in authdata_json :
@@ -20,16 +20,16 @@ class MappingService:
             mapped_auth_object.vid = self.get_mapped_value(authdata_json,mapped_field)
         
         if 'name' in authdata_json :
-            mapped_auth_object.name = authdata_json['name']
+            mapped_auth_object.name = [{"language" : language, "value": authdata_json['name']}]
         else :
             mapped_field = self.get_mapped_field(mapping_json, 'name')
-            mapped_auth_object.name = self.get_mapped_value(authdata_json,mapped_field)
+            mapped_auth_object.name = [{"language" : language, "value": self.get_mapped_value(authdata_json,mapped_field)}]
         
         if 'gender' in authdata_json :
-            mapped_auth_object.gender = authdata_json['gender']
+            mapped_auth_object.gender = [{"language" : language, "value": authdata_json['gender']}]
         else :
-            mapped_field = self.get_mapped_field(mapping_json, 'gender')
-            mapped_auth_object.gender = self.get_mapped_value(authdata_json,mapped_field)
+            mapped_field = [{"language" : language, "value": self.get_mapped_field(mapping_json, 'gender')}]
+            mapped_auth_object.gender = [{"language" : language, "value": self.get_mapped_value(authdata_json,mapped_field)}]
 
         if 'dateOfBirth' in authdata_json :
             mapped_auth_object.dateOfBirth = authdata_json['dateOfBirth']
@@ -50,10 +50,10 @@ class MappingService:
             mapped_auth_object.emailId = self.get_mapped_value(authdata_json,mapped_field)
 
         if 'fullAddress' in authdata_json :
-            mapped_auth_object.fullAddress = authdata_json['fullAddress']
+            mapped_auth_object.fullAddress = [{"language" : language, "value": authdata_json['fullAddress']}]
         else :
             mapped_field = self.get_mapped_field(mapping_json, 'fullAddress')
-            mapped_auth_object.fullAddress = self.get_mapped_value(authdata_json,mapped_field)
+            mapped_auth_object.fullAddress = [{"language" : language, "value": self.get_mapped_value(authdata_json,mapped_field)}]
             
         return json.loads(mapped_auth_object.json())
 
@@ -120,32 +120,31 @@ class MappingService:
 
     def get_mapped_value(self,auth_data, mapped_field):
         output = None
-        if 'from' in mapped_field and isinstance(mapped_field['from'], list):
-            delimiter = mapped_field['delimiter'] if 'delimiter' in mapped_field else ' '
+        if isinstance(mapped_field, list):
+            # delimiter = mapped_field['delimiter'] if 'delimiter' in mapped_field else ' '
+            delimiter = ' '
             output = ""
-            for field_item in mapped_field['from']:
+            for field_item in mapped_field:
                 if field_item in auth_data:
                     output = output + auth_data[field_item] + delimiter
             output = output.strip(delimiter)
-        elif 'from' in mapped_field:
-            output = auth_data[mapped_field['from']]
+        else:
+            output = auth_data[mapped_field]
         
-        if output != None and  mapped_field["withLangCode"] == true :
-            lang = auth_data["lang"] if "lang" in  auth_data else "eng"
-            output = [{'language': lang, 'value': output}]
+        # if output != None and  mapped_field["withLangCode"] == true :
+        #     lang = auth_data["lang"] if "lang" in  auth_data else "eng"
+        #     output = [{'language': lang, 'value': output}]
             
         return output
 
 
     def is_valid_mapped_field(self,auth_data,mapped_field):
         output = True
-        if 'from' in mapped_field and isinstance(mapped_field['from'], list):
-            for field_item in mapped_field['from']:
+        if isinstance(mapped_field, list):
+            for field_item in mapped_field:
                 if field_item not in auth_data:
                     output = False
                     break
-        elif 'from' in mapped_field:
-            
-            if mapped_field['from'] not in auth_data:
+        elif mapped_field not in auth_data:
                 output = False
         output

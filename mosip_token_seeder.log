@@ -286,3 +286,1161 @@ CREATE TABLE auth_request_data (
 2022-07-07 14:37:46,649 - sqlalchemy.engine.Engine - INFO - INSERT INTO auth_request_data (auth_request_id, auth_request_line_no, auth_data_recieved, auth_data_input, auth_data_output, token, status, created_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
 2022-07-07 14:37:46,650 - sqlalchemy.engine.Engine - INFO - [generated in 0.00046s] ('448a27d0-fdd4-11ec-b04d-0bb744b260a0', 1, '{"DateIssued": "21 September 2021", "Issuer": "PSA", "Suffix": "", "fullname": "aaron-o-niel mName lName", "gender": "Male", "BF": "[1,7]", "dateOfBi ... (136 characters truncated) ... : "12312312", "signature": "WhIOttcRfEpANgUxs4mtTo7YCq2IDQj8/nQYQk1QtrUDnt3EB+WQgwHqIzOqAxTqxf7zxu3pSi7ctwXAHGPSCQ==", "email": "test@somewhere.com"}', '{"vid": "5073-0634-8709-1024", "name": "aaron-o-niel mName lName", "gender": "Male", "dateOfBirth": "2020-12-12", "phoneNumber": "12312312", "emailId": "test@somewhere.com", "fullAddress": "City of Manila,NCR-CITY OF MANILA-State 1"}', None, None, 'submitted', '2022-07-07')
 2022-07-07 14:37:46,650 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 14:52:09,818 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 14:52:09,819 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 14:52:09,820 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:52:09,823 - sqlalchemy.engine.Engine - INFO - PRAGMA temp.table_info("auth_requests")
+2022-07-07 14:52:09,823 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:52:09,825 - sqlalchemy.engine.Engine - INFO - 
+CREATE TABLE auth_requests (
+	auth_request_id VARCHAR NOT NULL, 
+	input_type VARCHAR, 
+	output_type VARCHAR, 
+	delivery_type VARCHAR, 
+	status VARCHAR, 
+	created_time VARCHAR, 
+	updated_time VARCHAR, 
+	PRIMARY KEY (auth_request_id)
+)
+
+
+2022-07-07 14:52:09,825 - sqlalchemy.engine.Engine - INFO - [no key 0.00025s] ()
+2022-07-07 14:52:09,825 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 14:52:09,827 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 14:52:09,827 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 14:52:09,827 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:52:09,827 - sqlalchemy.engine.Engine - INFO - PRAGMA temp.table_info("auth_request_data")
+2022-07-07 14:52:09,828 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:52:09,829 - sqlalchemy.engine.Engine - INFO - 
+CREATE TABLE auth_request_data (
+	auth_request_id VARCHAR NOT NULL, 
+	auth_request_line_no INTEGER NOT NULL, 
+	auth_data_recieved VARCHAR, 
+	auth_data_input VARCHAR, 
+	auth_data_output VARCHAR, 
+	token VARCHAR, 
+	error_code VARCHAR, 
+	status VARCHAR, 
+	created_time VARCHAR, 
+	updated_time VARCHAR, 
+	PRIMARY KEY (auth_request_id, auth_request_line_no)
+)
+
+
+2022-07-07 14:52:09,830 - sqlalchemy.engine.Engine - INFO - [no key 0.00041s] ()
+2022-07-07 14:52:09,832 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 14:52:09,839 - sqlalchemy.engine.Engine - INFO - INSERT INTO auth_requests (auth_request_id, input_type, output_type, delivery_type, status, created_time) VALUES (?, ?, ?, ?, ?, ?)
+2022-07-07 14:52:09,840 - sqlalchemy.engine.Engine - INFO - [generated in 0.00066s] ('470a4394-fdd6-11ec-b04d-0bb744b260a0', 'json', 'json', 'download', 'submitted', '2022-07-07')
+2022-07-07 14:52:09,840 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 14:52:09,845 - sqlalchemy.engine.Engine - INFO - INSERT INTO auth_request_data (auth_request_id, auth_request_line_no, auth_data_recieved, auth_data_input, auth_data_output, token, status, created_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+2022-07-07 14:52:09,847 - sqlalchemy.engine.Engine - INFO - [generated in 0.00056s] ('470a4394-fdd6-11ec-b04d-0bb744b260a0', 1, '{"DateIssued": "21 September 2021", "Issuer": "PSA", "Suffix": "", "fullname": "aaron-o-niel mName lName", "gender": "Male", "BF": "[1,7]", "dateOfBi ... (136 characters truncated) ... : "12312312", "signature": "WhIOttcRfEpANgUxs4mtTo7YCq2IDQj8/nQYQk1QtrUDnt3EB+WQgwHqIzOqAxTqxf7zxu3pSi7ctwXAHGPSCQ==", "email": "test@somewhere.com"}', '{"vid": "5073-0634-8709-1024", "name": "aaron-o-niel mName lName", "gender": "Male", "dateOfBirth": "2020-12-12", "phoneNumber": "12312312", "emailId": "test@somewhere.com", "fullAddress": "City of Manila,NCR-CITY OF MANILA-State 1"}', None, None, 'submitted', '2022-07-07')
+2022-07-07 14:52:09,853 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 14:53:31,355 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 14:53:31,355 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 14:53:31,355 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:53:31,357 - sqlalchemy.engine.Engine - INFO - PRAGMA temp.table_info("auth_requests")
+2022-07-07 14:53:31,358 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:53:31,359 - sqlalchemy.engine.Engine - INFO - 
+CREATE TABLE auth_requests (
+	auth_request_id VARCHAR NOT NULL, 
+	input_type VARCHAR, 
+	output_type VARCHAR, 
+	delivery_type VARCHAR, 
+	status VARCHAR, 
+	created_time VARCHAR, 
+	updated_time VARCHAR, 
+	PRIMARY KEY (auth_request_id)
+)
+
+
+2022-07-07 14:53:31,359 - sqlalchemy.engine.Engine - INFO - [no key 0.00027s] ()
+2022-07-07 14:53:31,359 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 14:53:31,361 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 14:53:31,361 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 14:53:31,361 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:53:31,362 - sqlalchemy.engine.Engine - INFO - PRAGMA temp.table_info("auth_request_data")
+2022-07-07 14:53:31,362 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:53:31,363 - sqlalchemy.engine.Engine - INFO - 
+CREATE TABLE auth_request_data (
+	auth_request_id VARCHAR NOT NULL, 
+	auth_request_line_no INTEGER NOT NULL, 
+	auth_data_recieved VARCHAR, 
+	auth_data_input VARCHAR, 
+	auth_data_output VARCHAR, 
+	token VARCHAR, 
+	error_code VARCHAR, 
+	status VARCHAR, 
+	created_time VARCHAR, 
+	updated_time VARCHAR, 
+	PRIMARY KEY (auth_request_id, auth_request_line_no)
+)
+
+
+2022-07-07 14:53:31,363 - sqlalchemy.engine.Engine - INFO - [no key 0.00022s] ()
+2022-07-07 14:53:31,364 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 14:56:25,932 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 14:56:25,933 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 14:56:25,933 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:56:25,933 - sqlalchemy.engine.Engine - INFO - PRAGMA temp.table_info("auth_requests")
+2022-07-07 14:56:25,934 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:56:25,934 - sqlalchemy.engine.Engine - INFO - 
+CREATE TABLE auth_requests (
+	auth_request_id VARCHAR NOT NULL, 
+	input_type VARCHAR, 
+	output_type VARCHAR, 
+	delivery_type VARCHAR, 
+	status VARCHAR, 
+	created_time VARCHAR, 
+	updated_time VARCHAR, 
+	PRIMARY KEY (auth_request_id)
+)
+
+
+2022-07-07 14:56:25,935 - sqlalchemy.engine.Engine - INFO - [no key 0.00027s] ()
+2022-07-07 14:56:25,935 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 14:56:25,937 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 14:56:25,937 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 14:56:25,938 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:56:25,938 - sqlalchemy.engine.Engine - INFO - PRAGMA temp.table_info("auth_request_data")
+2022-07-07 14:56:25,938 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:56:25,939 - sqlalchemy.engine.Engine - INFO - 
+CREATE TABLE auth_request_data (
+	auth_request_id VARCHAR NOT NULL, 
+	auth_request_line_no INTEGER NOT NULL, 
+	auth_data_recieved VARCHAR, 
+	auth_data_input VARCHAR, 
+	auth_data_output VARCHAR, 
+	token VARCHAR, 
+	error_code VARCHAR, 
+	status VARCHAR, 
+	created_time VARCHAR, 
+	updated_time VARCHAR, 
+	PRIMARY KEY (auth_request_id, auth_request_line_no)
+)
+
+
+2022-07-07 14:56:25,939 - sqlalchemy.engine.Engine - INFO - [no key 0.00026s] ()
+2022-07-07 14:56:25,940 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 14:56:25,942 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.auth_request_id, auth_requests.input_type, auth_requests.output_type, auth_requests.delivery_type, auth_requests.status, auth_requests.created_time, auth_requests.updated_time 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 14:56:25,942 - sqlalchemy.engine.Engine - INFO - [generated in 0.00035s] ('5995092c-fdb8-11ec-825c-a7b0c11b3b83',)
+2022-07-07 14:56:56,492 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 14:56:56,492 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 14:56:56,492 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:56:56,492 - sqlalchemy.engine.Engine - INFO - PRAGMA temp.table_info("auth_requests")
+2022-07-07 14:56:56,493 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:56:56,494 - sqlalchemy.engine.Engine - INFO - 
+CREATE TABLE auth_requests (
+	auth_request_id VARCHAR NOT NULL, 
+	input_type VARCHAR, 
+	output_type VARCHAR, 
+	delivery_type VARCHAR, 
+	status VARCHAR, 
+	created_time VARCHAR, 
+	updated_time VARCHAR, 
+	PRIMARY KEY (auth_request_id)
+)
+
+
+2022-07-07 14:56:56,494 - sqlalchemy.engine.Engine - INFO - [no key 0.00034s] ()
+2022-07-07 14:56:56,495 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 14:56:56,496 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 14:56:56,497 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 14:56:56,497 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:56:56,498 - sqlalchemy.engine.Engine - INFO - PRAGMA temp.table_info("auth_request_data")
+2022-07-07 14:56:56,498 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:56:56,506 - sqlalchemy.engine.Engine - INFO - 
+CREATE TABLE auth_request_data (
+	auth_request_id VARCHAR NOT NULL, 
+	auth_request_line_no INTEGER NOT NULL, 
+	auth_data_recieved VARCHAR, 
+	auth_data_input VARCHAR, 
+	auth_data_output VARCHAR, 
+	token VARCHAR, 
+	error_code VARCHAR, 
+	status VARCHAR, 
+	created_time VARCHAR, 
+	updated_time VARCHAR, 
+	PRIMARY KEY (auth_request_id, auth_request_line_no)
+)
+
+
+2022-07-07 14:56:56,507 - sqlalchemy.engine.Engine - INFO - [no key 0.00094s] ()
+2022-07-07 14:56:56,510 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 14:56:56,513 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.auth_request_id, auth_requests.input_type, auth_requests.output_type, auth_requests.delivery_type, auth_requests.status, auth_requests.created_time, auth_requests.updated_time 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 14:56:56,514 - sqlalchemy.engine.Engine - INFO - [generated in 0.00162s] ('5995092c-fdb8-11ec-825c-a7b0c11b3b83',)
+2022-07-07 14:59:25,882 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 14:59:25,883 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 14:59:25,883 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:59:25,884 - sqlalchemy.engine.Engine - INFO - PRAGMA temp.table_info("auth_requests")
+2022-07-07 14:59:25,885 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:59:25,886 - sqlalchemy.engine.Engine - INFO - 
+CREATE TABLE auth_requests (
+	auth_request_id VARCHAR NOT NULL, 
+	input_type VARCHAR, 
+	output_type VARCHAR, 
+	delivery_type VARCHAR, 
+	status VARCHAR, 
+	created_time VARCHAR, 
+	updated_time VARCHAR, 
+	PRIMARY KEY (auth_request_id)
+)
+
+
+2022-07-07 14:59:25,886 - sqlalchemy.engine.Engine - INFO - [no key 0.00029s] ()
+2022-07-07 14:59:25,887 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 14:59:25,888 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 14:59:25,888 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 14:59:25,889 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:59:25,889 - sqlalchemy.engine.Engine - INFO - PRAGMA temp.table_info("auth_request_data")
+2022-07-07 14:59:25,890 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:59:25,897 - sqlalchemy.engine.Engine - INFO - 
+CREATE TABLE auth_request_data (
+	auth_request_id VARCHAR NOT NULL, 
+	auth_request_line_no INTEGER NOT NULL, 
+	auth_data_recieved VARCHAR, 
+	auth_data_input VARCHAR, 
+	auth_data_output VARCHAR, 
+	token VARCHAR, 
+	error_code VARCHAR, 
+	status VARCHAR, 
+	created_time VARCHAR, 
+	updated_time VARCHAR, 
+	PRIMARY KEY (auth_request_id, auth_request_line_no)
+)
+
+
+2022-07-07 14:59:25,898 - sqlalchemy.engine.Engine - INFO - [no key 0.00130s] ()
+2022-07-07 14:59:25,899 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 14:59:25,902 - sqlalchemy.engine.Engine - INFO - INSERT INTO auth_requests (auth_request_id, input_type, output_type, delivery_type, status, created_time) VALUES (?, ?, ?, ?, ?, ?)
+2022-07-07 14:59:25,905 - sqlalchemy.engine.Engine - INFO - [generated in 0.00240s] ('4af4ff5c-fdd7-11ec-b04d-0bb744b260a0', 'json', 'json', 'download', 'submitted', '2022-07-07')
+2022-07-07 14:59:25,905 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 14:59:25,909 - sqlalchemy.engine.Engine - INFO - INSERT INTO auth_request_data (auth_request_id, auth_request_line_no, auth_data_recieved, auth_data_input, auth_data_output, token, status, created_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+2022-07-07 14:59:25,909 - sqlalchemy.engine.Engine - INFO - [generated in 0.00046s] ('4af4ff5c-fdd7-11ec-b04d-0bb744b260a0', 1, '{"DateIssued": "21 September 2021", "Issuer": "PSA", "Suffix": "", "fullname": "aaron-o-niel mName lName", "gender": "Male", "BF": "[1,7]", "dateOfBi ... (136 characters truncated) ... : "12312312", "signature": "WhIOttcRfEpANgUxs4mtTo7YCq2IDQj8/nQYQk1QtrUDnt3EB+WQgwHqIzOqAxTqxf7zxu3pSi7ctwXAHGPSCQ==", "email": "test@somewhere.com"}', '{"vid": "5073-0634-8709-1024", "name": "aaron-o-niel mName lName", "gender": "Male", "dateOfBirth": "2020-12-12", "phoneNumber": "12312312", "emailId": "test@somewhere.com", "fullAddress": "City of Manila,NCR-CITY OF MANILA-State 1"}', None, None, 'submitted', '2022-07-07')
+2022-07-07 14:59:25,910 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 14:59:28,592 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 14:59:28,593 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 14:59:28,593 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:59:28,593 - sqlalchemy.engine.Engine - INFO - PRAGMA temp.table_info("auth_requests")
+2022-07-07 14:59:28,593 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:59:28,596 - sqlalchemy.engine.Engine - INFO - 
+CREATE TABLE auth_requests (
+	auth_request_id VARCHAR NOT NULL, 
+	input_type VARCHAR, 
+	output_type VARCHAR, 
+	delivery_type VARCHAR, 
+	status VARCHAR, 
+	created_time VARCHAR, 
+	updated_time VARCHAR, 
+	PRIMARY KEY (auth_request_id)
+)
+
+
+2022-07-07 14:59:28,597 - sqlalchemy.engine.Engine - INFO - [no key 0.00043s] ()
+2022-07-07 14:59:28,597 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 14:59:28,599 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 14:59:28,599 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 14:59:28,599 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:59:28,600 - sqlalchemy.engine.Engine - INFO - PRAGMA temp.table_info("auth_request_data")
+2022-07-07 14:59:28,600 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 14:59:28,601 - sqlalchemy.engine.Engine - INFO - 
+CREATE TABLE auth_request_data (
+	auth_request_id VARCHAR NOT NULL, 
+	auth_request_line_no INTEGER NOT NULL, 
+	auth_data_recieved VARCHAR, 
+	auth_data_input VARCHAR, 
+	auth_data_output VARCHAR, 
+	token VARCHAR, 
+	error_code VARCHAR, 
+	status VARCHAR, 
+	created_time VARCHAR, 
+	updated_time VARCHAR, 
+	PRIMARY KEY (auth_request_id, auth_request_line_no)
+)
+
+
+2022-07-07 14:59:28,601 - sqlalchemy.engine.Engine - INFO - [no key 0.00032s] ()
+2022-07-07 14:59:28,601 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 14:59:28,619 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.auth_request_id, auth_requests.input_type, auth_requests.output_type, auth_requests.delivery_type, auth_requests.status, auth_requests.created_time, auth_requests.updated_time 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 14:59:28,620 - sqlalchemy.engine.Engine - INFO - [generated in 0.00089s] ('5995092c-fdb8-11ec-825c-a7b0c11b3b83',)
+2022-07-07 15:01:46,422 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:01:46,422 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 15:01:46,423 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:01:46,424 - sqlalchemy.engine.Engine - INFO - PRAGMA temp.table_info("auth_requests")
+2022-07-07 15:01:46,425 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:01:46,426 - sqlalchemy.engine.Engine - INFO - 
+CREATE TABLE auth_requests (
+	auth_request_id VARCHAR NOT NULL, 
+	input_type VARCHAR, 
+	output_type VARCHAR, 
+	delivery_type VARCHAR, 
+	status VARCHAR, 
+	created_time VARCHAR, 
+	updated_time VARCHAR, 
+	PRIMARY KEY (auth_request_id)
+)
+
+
+2022-07-07 15:01:46,427 - sqlalchemy.engine.Engine - INFO - [no key 0.00080s] ()
+2022-07-07 15:01:46,453 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:02:11,751 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:02:11,751 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 15:02:11,752 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:02:11,753 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:02:11,755 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:02:11,755 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 15:02:11,756 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:02:11,756 - sqlalchemy.engine.Engine - INFO - PRAGMA temp.table_info("auth_request_data")
+2022-07-07 15:02:11,756 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:02:11,757 - sqlalchemy.engine.Engine - INFO - 
+CREATE TABLE auth_request_data (
+	auth_request_id VARCHAR NOT NULL, 
+	auth_request_line_no INTEGER NOT NULL, 
+	auth_data_recieved VARCHAR, 
+	auth_data_input VARCHAR, 
+	auth_data_output VARCHAR, 
+	token VARCHAR, 
+	error_code VARCHAR, 
+	status VARCHAR, 
+	created_time VARCHAR, 
+	updated_time VARCHAR, 
+	PRIMARY KEY (auth_request_id, auth_request_line_no)
+)
+
+
+2022-07-07 15:02:11,758 - sqlalchemy.engine.Engine - INFO - [no key 0.00043s] ()
+2022-07-07 15:02:11,769 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:02:11,772 - sqlalchemy.engine.Engine - INFO - INSERT INTO auth_requests (auth_request_id, input_type, output_type, delivery_type, status, created_time) VALUES (?, ?, ?, ?, ?, ?)
+2022-07-07 15:02:11,772 - sqlalchemy.engine.Engine - INFO - [generated in 0.00046s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0', 'json', 'json', 'download', 'submitted', '2022-07-07')
+2022-07-07 15:02:11,775 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:02:11,783 - sqlalchemy.engine.Engine - INFO - INSERT INTO auth_request_data (auth_request_id, auth_request_line_no, auth_data_recieved, auth_data_input, auth_data_output, token, status, created_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+2022-07-07 15:02:11,784 - sqlalchemy.engine.Engine - INFO - [generated in 0.00043s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0', 1, '{"DateIssued": "21 September 2021", "Issuer": "PSA", "Suffix": "", "fullname": "aaron-o-niel mName lName", "gender": "Male", "BF": "[1,7]", "dateOfBi ... (136 characters truncated) ... : "12312312", "signature": "WhIOttcRfEpANgUxs4mtTo7YCq2IDQj8/nQYQk1QtrUDnt3EB+WQgwHqIzOqAxTqxf7zxu3pSi7ctwXAHGPSCQ==", "email": "test@somewhere.com"}', '{"vid": "5073-0634-8709-1024", "name": "aaron-o-niel mName lName", "gender": "Male", "dateOfBirth": "2020-12-12", "phoneNumber": "12312312", "emailId": "test@somewhere.com", "fullAddress": "City of Manila,NCR-CITY OF MANILA-State 1"}', None, None, 'submitted', '2022-07-07')
+2022-07-07 15:02:11,785 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:02:15,150 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:02:15,151 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 15:02:15,151 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:02:15,151 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:02:15,155 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:02:15,155 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 15:02:15,155 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:02:15,156 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:02:15,165 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.auth_request_id, auth_requests.input_type, auth_requests.output_type, auth_requests.delivery_type, auth_requests.status, auth_requests.created_time, auth_requests.updated_time 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 15:02:15,165 - sqlalchemy.engine.Engine - INFO - [generated in 0.00029s] ('5995092c-fdb8-11ec-825c-a7b0c11b3b83',)
+2022-07-07 15:03:59,761 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:03:59,763 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 15:03:59,767 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:03:59,768 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:03:59,770 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:03:59,771 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 15:03:59,771 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:03:59,772 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:03:59,777 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.auth_request_id, auth_requests.input_type, auth_requests.output_type, auth_requests.delivery_type, auth_requests.status, auth_requests.created_time, auth_requests.updated_time 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 15:03:59,779 - sqlalchemy.engine.Engine - INFO - [generated in 0.00050s] ('5995092c-fdb8-11ec-825c-a7b0c11b3b83',)
+2022-07-07 15:04:38,484 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:04:38,484 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 15:04:38,484 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:04:38,486 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:04:38,487 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:04:38,487 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 15:04:38,487 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:04:38,488 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:04:38,492 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.auth_request_id, auth_requests.input_type, auth_requests.output_type, auth_requests.delivery_type, auth_requests.status, auth_requests.created_time, auth_requests.updated_time 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 15:04:38,493 - sqlalchemy.engine.Engine - INFO - [generated in 0.00109s] ('5995092c-fdb8-11ec-825c-a7b0c11b3b83',)
+2022-07-07 15:05:12,971 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:05:12,971 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 15:05:12,971 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:05:12,972 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:05:12,974 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:05:12,981 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 15:05:12,982 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:05:12,982 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:05:12,986 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.auth_request_id, auth_requests.input_type, auth_requests.output_type, auth_requests.delivery_type, auth_requests.status, auth_requests.created_time, auth_requests.updated_time 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 15:05:12,988 - sqlalchemy.engine.Engine - INFO - [generated in 0.00242s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 15:06:26,023 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:06:26,025 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 15:06:26,025 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:06:26,026 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:06:26,029 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:06:26,029 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 15:06:26,030 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:06:26,033 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:06:26,036 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.auth_request_id, auth_requests.input_type, auth_requests.output_type, auth_requests.delivery_type, auth_requests.status, auth_requests.created_time, auth_requests.updated_time 
+FROM auth_requests 
+WHERE auth_requests.status AND auth_requests.auth_request_id = ?
+2022-07-07 15:06:26,037 - sqlalchemy.engine.Engine - INFO - [generated in 0.00044s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 15:08:26,320 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:08:26,320 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 15:08:26,321 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:08:26,321 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:08:26,323 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:08:26,323 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 15:08:26,323 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:08:26,324 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:08:26,326 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.auth_request_id, auth_requests.input_type, auth_requests.output_type, auth_requests.delivery_type, auth_requests.status, auth_requests.created_time, auth_requests.updated_time 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 15:08:26,326 - sqlalchemy.engine.Engine - INFO - [generated in 0.00025s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 15:09:12,430 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:09:12,431 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 15:09:12,431 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:09:12,433 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:09:12,434 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:09:12,435 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 15:09:12,435 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:09:12,436 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:12:32,078 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:12:32,079 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 15:12:32,080 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:12:32,085 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:12:32,090 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:12:32,091 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 15:12:32,092 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:12:32,093 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:12:32,096 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.status 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 15:12:32,098 - sqlalchemy.engine.Engine - INFO - [generated in 0.00153s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 15:12:56,956 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:12:56,958 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 15:12:56,958 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:12:56,960 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:12:56,962 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:12:56,962 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 15:12:56,963 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:12:56,964 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:12:56,974 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.status 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 15:12:56,974 - sqlalchemy.engine.Engine - INFO - [generated in 0.00035s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 15:20:37,931 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:20:37,931 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 15:20:37,931 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:20:37,932 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:20:37,934 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:20:37,934 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 15:20:37,935 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:20:37,936 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:20:37,938 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.status 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 15:20:37,939 - sqlalchemy.engine.Engine - INFO - [generated in 0.00069s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 15:20:47,406 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:20:47,407 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 15:20:47,407 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:20:47,408 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:20:47,409 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:20:47,410 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 15:20:47,410 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:20:47,411 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:20:47,416 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.status 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 15:20:47,416 - sqlalchemy.engine.Engine - INFO - [generated in 0.00042s] ('add2aade-fdd7-11ec-b04d-0bb744b260a2',)
+2022-07-07 15:47:52,611 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:47:52,611 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 15:47:52,611 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:47:52,613 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:47:52,615 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:47:52,615 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 15:47:52,615 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:47:52,616 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:47:52,620 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.status 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 15:47:52,620 - sqlalchemy.engine.Engine - INFO - [generated in 0.00048s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 15:48:06,813 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:48:06,817 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 15:48:06,817 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:48:06,819 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:48:06,821 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:48:06,821 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 15:48:06,822 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:48:06,822 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:48:06,824 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.status 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 15:48:06,825 - sqlalchemy.engine.Engine - INFO - [generated in 0.00051s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 15:48:27,317 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:48:27,317 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 15:48:27,317 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:48:27,318 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:48:27,319 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:48:27,320 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 15:48:27,320 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:48:27,320 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:48:27,321 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.status 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 15:48:27,322 - sqlalchemy.engine.Engine - INFO - [generated in 0.00021s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 15:48:41,506 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:48:41,507 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 15:48:41,507 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:48:41,508 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:48:41,510 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:48:41,511 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 15:48:41,511 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:48:41,512 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:48:41,515 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.status 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 15:48:41,521 - sqlalchemy.engine.Engine - INFO - [generated in 0.00203s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 15:49:18,326 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:49:18,327 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 15:49:18,327 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:49:18,328 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:49:18,330 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:49:18,330 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 15:49:18,330 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:49:18,331 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:49:18,336 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.status 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 15:49:18,336 - sqlalchemy.engine.Engine - INFO - [generated in 0.00035s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 15:49:20,891 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:49:20,891 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 15:49:20,891 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:49:20,892 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:49:20,893 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:49:20,893 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 15:49:20,893 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:49:20,894 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:49:20,895 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.status 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 15:49:20,895 - sqlalchemy.engine.Engine - INFO - [generated in 0.00038s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 15:49:20,897 - sqlalchemy.engine.Engine - INFO - SELECT auth_request_data.auth_data_output 
+FROM auth_request_data 
+WHERE auth_request_data.auth_request_id = ? ORDER BY auth_request_data.auth_request_line_no ASC
+2022-07-07 15:49:20,898 - sqlalchemy.engine.Engine - INFO - [generated in 0.00029s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 15:51:26,378 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:51:26,379 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 15:51:26,379 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:51:26,380 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:51:26,384 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:51:26,384 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 15:51:26,384 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:51:26,389 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:51:26,394 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.status 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 15:51:26,404 - sqlalchemy.engine.Engine - INFO - [generated in 0.01042s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 15:51:26,406 - sqlalchemy.engine.Engine - INFO - SELECT auth_request_data.auth_data_output 
+FROM auth_request_data 
+WHERE auth_request_data.auth_request_id = ? ORDER BY auth_request_data.auth_request_line_no ASC
+2022-07-07 15:51:26,410 - sqlalchemy.engine.Engine - INFO - [generated in 0.00346s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 15:59:16,542 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:59:16,543 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 15:59:16,545 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:59:16,551 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:59:16,555 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:59:16,557 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 15:59:16,557 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:59:16,559 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:59:16,564 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.status 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 15:59:16,565 - sqlalchemy.engine.Engine - INFO - [generated in 0.00033s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 15:59:16,566 - sqlalchemy.engine.Engine - INFO - SELECT auth_request_data.auth_data_output 
+FROM auth_request_data 
+WHERE auth_request_data.auth_request_id = ? ORDER BY auth_request_data.auth_request_line_no ASC
+2022-07-07 15:59:16,573 - sqlalchemy.engine.Engine - INFO - [generated in 0.00656s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 15:59:48,099 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:59:48,100 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 15:59:48,101 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:59:48,103 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:59:48,107 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 15:59:48,110 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 15:59:48,111 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 15:59:48,113 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 15:59:48,117 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.status 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 15:59:48,118 - sqlalchemy.engine.Engine - INFO - [generated in 0.00147s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 15:59:48,127 - sqlalchemy.engine.Engine - INFO - SELECT auth_request_data.auth_data_output 
+FROM auth_request_data 
+WHERE auth_request_data.auth_request_id = ? ORDER BY auth_request_data.auth_request_line_no ASC
+2022-07-07 15:59:48,128 - sqlalchemy.engine.Engine - INFO - [generated in 0.00093s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 16:00:32,790 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 16:00:32,791 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 16:00:32,793 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 16:00:32,795 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 16:00:32,798 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 16:00:32,798 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 16:00:32,798 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 16:00:32,799 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 16:00:32,802 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.status 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 16:00:32,802 - sqlalchemy.engine.Engine - INFO - [generated in 0.00040s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 16:00:32,805 - sqlalchemy.engine.Engine - INFO - SELECT auth_request_data.auth_data_output 
+FROM auth_request_data 
+WHERE auth_request_data.auth_request_id = ? ORDER BY auth_request_data.auth_request_line_no ASC
+2022-07-07 16:00:32,805 - sqlalchemy.engine.Engine - INFO - [generated in 0.00033s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 16:04:33,467 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 16:04:33,468 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 16:04:33,468 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 16:04:33,469 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 16:04:33,471 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 16:04:33,476 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 16:04:33,477 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 16:04:33,477 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 16:04:33,480 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.status 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 16:04:33,481 - sqlalchemy.engine.Engine - INFO - [generated in 0.00038s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 16:04:33,485 - sqlalchemy.engine.Engine - INFO - SELECT auth_request_data.auth_data_output 
+FROM auth_request_data 
+WHERE auth_request_data.auth_request_id = ? ORDER BY auth_request_data.auth_request_line_no ASC
+2022-07-07 16:04:33,485 - sqlalchemy.engine.Engine - INFO - [generated in 0.00038s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 16:05:00,307 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 16:05:00,311 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 16:05:00,312 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 16:05:00,313 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 16:05:00,315 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 16:05:00,317 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 16:05:00,317 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 16:05:00,319 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 16:05:00,322 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.status 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 16:05:00,322 - sqlalchemy.engine.Engine - INFO - [generated in 0.00054s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 16:05:00,331 - sqlalchemy.engine.Engine - INFO - SELECT auth_request_data.auth_data_output 
+FROM auth_request_data 
+WHERE auth_request_data.auth_request_id = ? ORDER BY auth_request_data.auth_request_line_no ASC
+2022-07-07 16:05:00,332 - sqlalchemy.engine.Engine - INFO - [generated in 0.00497s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 16:06:14,623 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 16:06:14,623 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 16:06:14,623 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 16:06:14,624 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 16:06:14,625 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 16:06:14,626 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 16:06:14,626 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 16:06:14,626 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 16:06:14,628 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.status 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 16:06:14,629 - sqlalchemy.engine.Engine - INFO - [generated in 0.00051s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 16:06:14,631 - sqlalchemy.engine.Engine - INFO - SELECT auth_request_data.auth_data_output 
+FROM auth_request_data 
+WHERE auth_request_data.auth_request_id = ? ORDER BY auth_request_data.auth_request_line_no ASC
+2022-07-07 16:06:14,631 - sqlalchemy.engine.Engine - INFO - [generated in 0.00034s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 16:09:16,588 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 16:09:16,592 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 16:09:16,592 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 16:09:16,594 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 16:09:16,596 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 16:09:16,596 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 16:09:16,597 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 16:09:16,597 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 16:09:16,600 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.status 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 16:09:16,601 - sqlalchemy.engine.Engine - INFO - [generated in 0.00070s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 16:09:16,603 - sqlalchemy.engine.Engine - INFO - SELECT auth_request_data.auth_data_output 
+FROM auth_request_data 
+WHERE auth_request_data.auth_request_id = ? ORDER BY auth_request_data.auth_request_line_no ASC
+2022-07-07 16:09:16,603 - sqlalchemy.engine.Engine - INFO - [generated in 0.00036s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 16:09:39,470 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 16:09:39,470 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 16:09:39,471 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 16:09:39,472 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 16:09:39,474 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 16:09:39,475 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 16:09:39,475 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 16:09:39,476 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 16:09:39,479 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.status 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 16:09:39,479 - sqlalchemy.engine.Engine - INFO - [generated in 0.00055s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 16:09:39,481 - sqlalchemy.engine.Engine - INFO - SELECT auth_request_data.auth_data_output 
+FROM auth_request_data 
+WHERE auth_request_data.auth_request_id = ? ORDER BY auth_request_data.auth_request_line_no ASC
+2022-07-07 16:09:39,482 - sqlalchemy.engine.Engine - INFO - [generated in 0.00054s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 16:39:03,536 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 16:39:03,538 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 16:39:03,539 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 16:39:03,541 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 16:39:03,548 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 16:39:03,548 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 16:39:03,549 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 16:39:03,549 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 16:39:03,551 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.status 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 16:39:03,552 - sqlalchemy.engine.Engine - INFO - [generated in 0.00029s] ('add2aade-fdd7-11ec-b04d-0bb744b260a1',)
+2022-07-07 16:59:42,535 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 16:59:42,535 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 16:59:42,535 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 16:59:42,536 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 16:59:42,537 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 16:59:42,537 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 16:59:42,537 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 16:59:42,538 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 16:59:42,539 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.status 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 16:59:42,539 - sqlalchemy.engine.Engine - INFO - [generated in 0.00022s] ('add2aade-fdd7-11ec-b04d-0bb744b260a1',)
+2022-07-07 17:07:01,255 - mosip_token_seeder.authtokenapi.authtoken - ERROR - Expecting value: line 1 column 1 (char 0)
+Traceback (most recent call last):
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/authtoken.py", line 30, in authtoken_json
+    requestjson = await request.json()
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/venv_token_seeder/lib/python3.8/site-packages/starlette/requests.py", line 242, in json
+    self._json = json.loads(body)
+  File "/usr/lib/python3.8/json/__init__.py", line 357, in loads
+    return _default_decoder.decode(s)
+  File "/usr/lib/python3.8/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/usr/lib/python3.8/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2022-07-07 17:12:02,430 - mosip_token_seeder.authtokenapi.authtoken - ERROR - Expecting value: line 1 column 1 (char 0)
+Traceback (most recent call last):
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/authtoken.py", line 32, in authtoken_json
+    requestjson = await request.json()
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/venv_token_seeder/lib/python3.8/site-packages/starlette/requests.py", line 242, in json
+    self._json = json.loads(body)
+  File "/usr/lib/python3.8/json/__init__.py", line 357, in loads
+    return _default_decoder.decode(s)
+  File "/usr/lib/python3.8/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/usr/lib/python3.8/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2022-07-07 17:25:55,894 - mosip_token_seeder.authtokenapi.authtoken - ERROR - Expecting value: line 1 column 1 (char 0)
+Traceback (most recent call last):
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/authtoken.py", line 23, in authtoken_json
+    requestjson = await request.json()
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/venv_token_seeder/lib/python3.8/site-packages/starlette/requests.py", line 242, in json
+    self._json = json.loads(body)
+  File "/usr/lib/python3.8/json/__init__.py", line 357, in loads
+    return _default_decoder.decode(s)
+  File "/usr/lib/python3.8/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/usr/lib/python3.8/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2022-07-07 17:26:19,445 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 17:26:19,447 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 17:26:19,449 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 17:26:19,460 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 17:26:19,462 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 17:26:19,462 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 17:26:19,462 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 17:26:19,462 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 17:26:19,466 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.status 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 17:26:19,466 - sqlalchemy.engine.Engine - INFO - [generated in 0.00058s] ('add2aade-fdd7-11ec-b04d-0bb744b260a1',)
+2022-07-07 17:26:19,467 - mosip_token_seeder.authtokenapi.authtoken - ERROR - ('ATS-REQ-016', 'no auth request found for the given identifier')
+Traceback (most recent call last):
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/authtoken.py", line 178, in download_file
+    output_bytes = authtoken_service.get_file(id)
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/service/authtoken_request_service.py", line 89, in get_file
+    raise MOSIPTokenSeederException('ATS-REQ-016', 'no auth request found for the given identifier')
+mosip_token_seeder.authtokenapi.service.mosip_token_seeder_exception.MOSIPTokenSeederException: ('ATS-REQ-016', 'no auth request found for the given identifier')
+2022-07-07 17:27:18,992 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 17:27:18,993 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 17:27:18,993 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 17:27:18,993 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 17:27:19,000 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 17:27:19,001 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 17:27:19,001 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 17:27:19,002 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 17:27:19,003 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.status 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 17:27:19,003 - sqlalchemy.engine.Engine - INFO - [generated in 0.00026s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 17:27:30,555 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 17:27:30,555 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 17:27:30,556 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 17:27:30,556 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 17:27:30,558 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 17:27:30,558 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 17:27:30,559 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 17:27:30,559 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 17:27:30,561 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.status 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 17:27:30,562 - sqlalchemy.engine.Engine - INFO - [generated in 0.00038s] ('add2aade-fdd7-11ec-b04d-0bb744b260a1',)
+2022-07-07 17:27:30,562 - mosip_token_seeder.authtokenapi.authtoken - ERROR - ('ATS-REQ-016', 'no auth request found for the given identifier')
+Traceback (most recent call last):
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/authtoken.py", line 178, in download_file
+    output_bytes = authtoken_service.get_file(id)
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/service/authtoken_request_service.py", line 89, in get_file
+    raise MOSIPTokenSeederException('ATS-REQ-016', 'no auth request found for the given identifier')
+mosip_token_seeder.authtokenapi.service.mosip_token_seeder_exception.MOSIPTokenSeederException: ('ATS-REQ-016', 'no auth request found for the given identifier')
+2022-07-07 17:28:26,837 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 17:28:26,839 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 17:28:26,840 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 17:28:26,842 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 17:28:26,843 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 17:28:26,844 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 17:28:26,844 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 17:28:26,845 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 17:28:26,847 - sqlalchemy.engine.Engine - INFO - INSERT INTO auth_requests (auth_request_id, input_type, output_type, delivery_type, status, created_time) VALUES (?, ?, ?, ?, ?, ?)
+2022-07-07 17:28:26,848 - sqlalchemy.engine.Engine - INFO - [generated in 0.00106s] ('1c2ce3b4-fdec-11ec-b04d-0bb744b260a0', 'json', 'json', 'download', 'submitted', '2022-07-07')
+2022-07-07 17:28:26,850 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 17:28:26,868 - sqlalchemy.engine.Engine - INFO - INSERT INTO auth_request_data (auth_request_id, auth_request_line_no, auth_data_recieved, auth_data_input, auth_data_output, token, status, created_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+2022-07-07 17:28:26,868 - sqlalchemy.engine.Engine - INFO - [generated in 0.00051s] ('1c2ce3b4-fdec-11ec-b04d-0bb744b260a0', 1, '{"DateIssued": "21 September 2021", "Issuer": "PSA", "Suffix": "", "fullname": "aaron-o-niel mName lName", "gender": "Male", "BF": "[1,7]", "dateOfBi ... (136 characters truncated) ... : "12312312", "signature": "WhIOttcRfEpANgUxs4mtTo7YCq2IDQj8/nQYQk1QtrUDnt3EB+WQgwHqIzOqAxTqxf7zxu3pSi7ctwXAHGPSCQ==", "email": "test@somewhere.com"}', '{"vid": "5073-0634-8709-1024", "name": "aaron-o-niel mName lName", "gender": "Male", "dateOfBirth": "2020-12-12", "phoneNumber": "12312312", "emailId": "test@somewhere.com", "fullAddress": "City of Manila,NCR-CITY OF MANILA-State 1"}', None, None, 'submitted', '2022-07-07')
+2022-07-07 17:28:26,870 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 17:29:15,365 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 17:29:15,365 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 17:29:15,365 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 17:29:15,366 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 17:29:15,368 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 17:29:15,368 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 17:29:15,368 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 17:29:15,368 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 17:29:15,370 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.status 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 17:29:15,370 - sqlalchemy.engine.Engine - INFO - [generated in 0.00022s] ('1c2ce3b4-fdec-11ec-b04d-0bb744b260a0',)
+2022-07-07 17:29:36,735 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 17:29:36,735 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 17:29:36,735 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 17:29:36,735 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 17:29:36,737 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 17:29:36,737 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 17:29:36,737 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 17:29:36,738 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 17:29:36,739 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.status 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 17:29:36,739 - sqlalchemy.engine.Engine - INFO - [generated in 0.00021s] ('1c2ce3b4-fdec-11ec-b04d-0bb744b260a0',)
+2022-07-07 17:29:59,740 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 17:29:59,764 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 17:29:59,766 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 17:29:59,771 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 17:29:59,776 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 17:29:59,777 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 17:29:59,803 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 17:29:59,805 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 17:29:59,811 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.status 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 17:29:59,812 - sqlalchemy.engine.Engine - INFO - [generated in 0.00291s] ('1c2ce3b4-fdec-11ec-b04d-0bb744b260a0',)
+2022-07-07 17:30:01,235 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 17:30:01,236 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 17:30:01,236 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 17:30:01,236 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 17:30:01,238 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 17:30:01,238 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 17:30:01,238 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 17:30:01,239 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 17:30:01,240 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.status 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 17:30:01,240 - sqlalchemy.engine.Engine - INFO - [generated in 0.00034s] ('1c2ce3b4-fdec-11ec-b04d-0bb744b260a0',)
+2022-07-07 17:30:02,754 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 17:30:02,754 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 17:30:02,754 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 17:30:02,755 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 17:30:02,756 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 17:30:02,757 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 17:30:02,757 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 17:30:02,758 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 17:30:02,773 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.status 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 17:30:02,773 - sqlalchemy.engine.Engine - INFO - [generated in 0.00026s] ('1c2ce3b4-fdec-11ec-b04d-0bb744b260a0',)
+2022-07-07 17:54:46,574 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 17:54:46,576 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 17:54:46,576 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 17:54:46,578 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 17:54:46,592 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 17:54:46,594 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 17:54:46,594 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 17:54:46,596 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 17:54:46,600 - sqlalchemy.engine.Engine - INFO - INSERT INTO auth_requests (auth_request_id, input_type, output_type, delivery_type, status, created_time) VALUES (?, ?, ?, ?, ?, ?)
+2022-07-07 17:54:46,601 - sqlalchemy.engine.Engine - INFO - [generated in 0.00063s] ('c9c7f51a-fdef-11ec-b04d-0bb744b260a0', 'json', 'json', 'download', 'submitted', '2022-07-07')
+2022-07-07 17:54:46,602 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 17:54:46,617 - sqlalchemy.engine.Engine - INFO - INSERT INTO auth_request_data (auth_request_id, auth_request_line_no, auth_data_recieved, auth_data_input, auth_data_output, token, status, created_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+2022-07-07 17:54:46,617 - sqlalchemy.engine.Engine - INFO - [generated in 0.00084s] ('c9c7f51a-fdef-11ec-b04d-0bb744b260a0', 1, '{"lang": "eng", "DateIssued": "21 September 2021", "Issuer": "PSA", "Suffix": "", "fullname": "aaron-o-niel mName lName", "gender": "Male", "BF": "[1 ... (46 characters truncated) ... "City of Manila,NCR", "city": "CITY OF MANILA", "state": "State 1", "PCN": "5073-0634-8709-1024", "phone": "12312312", "email": "test@somewhere.com"}', '{"vid": "5073-0634-8709-1024", "name": "aaron-o-niel mName lName", "gender": "Male", "dateOfBirth": "2020-12-12", "phoneNumber": "12312312", "emailId": "test@somewhere.com", "fullAddress": "City of Manila,NCR CITY OF MANILA State 1"}', None, None, 'submitted', '2022-07-07')
+2022-07-07 17:54:46,621 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 18:02:10,401 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 18:02:10,402 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 18:02:10,402 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 18:02:10,403 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 18:02:10,408 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 18:02:10,408 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 18:02:10,409 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 18:02:10,410 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 18:02:10,413 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.status 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 18:02:10,416 - sqlalchemy.engine.Engine - INFO - [generated in 0.00177s] ('c9c7f51a-fdef-11ec-b04d-0bb744b260a0',)
+2022-07-07 18:02:35,148 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 18:02:35,150 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 18:02:35,150 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 18:02:35,152 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 18:02:35,154 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 18:02:35,155 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 18:02:35,155 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 18:02:35,157 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 18:02:35,167 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.status 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 18:02:35,169 - sqlalchemy.engine.Engine - INFO - [generated in 0.00259s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 18:02:50,789 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 18:02:50,789 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 18:02:50,790 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 18:02:50,791 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 18:02:50,793 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 18:02:50,794 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 18:02:50,794 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 18:02:50,795 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 18:02:50,797 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.status 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 18:02:50,797 - sqlalchemy.engine.Engine - INFO - [generated in 0.00063s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 18:02:50,800 - sqlalchemy.engine.Engine - INFO - SELECT auth_request_data.auth_data_output 
+FROM auth_request_data 
+WHERE auth_request_data.auth_request_id = ? ORDER BY auth_request_data.auth_request_line_no ASC
+2022-07-07 18:02:50,801 - sqlalchemy.engine.Engine - INFO - [generated in 0.00051s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 18:16:43,337 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 18:16:43,338 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 18:16:43,338 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 18:16:43,340 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 18:16:43,344 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 18:16:43,344 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 18:16:43,345 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 18:16:43,346 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 18:16:43,347 - mosip_token_seeder.authtokenapi.authtoken - ERROR - ('ATH-STA-001', 'json is not in valid format ')
+Traceback (most recent call last):
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/authtoken.py", line 78, in authtoken_json
+    request_identifier = authtoken_service.save_authtoken_json((requestjson["request"]))
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/service/authtoken_request_service.py", line 32, in save_authtoken_json
+    if self.validate_json(request_json) == True :
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/service/authtoken_request_service.py", line 104, in validate_json
+    raise MOSIPTokenSeederException('ATH-STA-001','json is not in valid format ')
+mosip_token_seeder.authtokenapi.service.mosip_token_seeder_exception.MOSIPTokenSeederException: ('ATH-STA-001', 'json is not in valid format ')
+2022-07-07 18:18:18,826 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 18:18:18,826 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 18:18:18,828 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 18:18:18,830 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 18:18:18,833 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 18:18:18,834 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 18:18:18,834 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 18:18:18,845 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 18:18:18,853 - sqlalchemy.engine.Engine - INFO - SELECT auth_requests.status 
+FROM auth_requests 
+WHERE auth_requests.auth_request_id = ?
+2022-07-07 18:18:18,863 - sqlalchemy.engine.Engine - INFO - [generated in 0.00946s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 18:18:18,870 - sqlalchemy.engine.Engine - INFO - SELECT auth_request_data.auth_data_output 
+FROM auth_request_data 
+WHERE auth_request_data.auth_request_id = ? ORDER BY auth_request_data.auth_request_line_no ASC
+2022-07-07 18:18:18,878 - sqlalchemy.engine.Engine - INFO - [generated in 0.00751s] ('add2aade-fdd7-11ec-b04d-0bb744b260a0',)
+2022-07-07 19:03:48,344 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 19:03:48,344 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 19:03:48,345 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 19:03:48,346 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 19:03:48,349 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 19:03:48,350 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 19:03:48,350 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 19:03:48,351 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 19:03:48,352 - mosip_token_seeder.authtokenapi.authtoken - ERROR - ('ATH-STA-001', 'json is not in valid format ')
+Traceback (most recent call last):
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/authtoken.py", line 78, in authtoken_json
+    request_identifier = authtoken_service.save_authtoken_json((requestjson["request"]))
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/service/authtoken_request_service.py", line 32, in save_authtoken_json
+    if self.validate_json(request_json) == True :
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/service/authtoken_request_service.py", line 104, in validate_json
+    raise MOSIPTokenSeederException('ATH-STA-001','json is not in valid format ')
+mosip_token_seeder.authtokenapi.service.mosip_token_seeder_exception.MOSIPTokenSeederException: ('ATH-STA-001', 'json is not in valid format ')
+2022-07-07 19:09:32,773 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 19:09:32,774 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 19:09:32,774 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 19:09:32,774 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 19:09:32,776 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 19:09:32,776 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 19:09:32,776 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 19:09:32,777 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 19:09:32,777 - mosip_token_seeder.authtokenapi.authtoken - ERROR - ('ATH-STA-001', 'json is not in valid format ')
+Traceback (most recent call last):
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/authtoken.py", line 78, in authtoken_json
+    request_identifier = authtoken_service.save_authtoken_json((requestjson["request"]))
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/service/authtoken_request_service.py", line 32, in save_authtoken_json
+    if self.validate_json(request_json) == True :
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/service/authtoken_request_service.py", line 104, in validate_json
+    raise MOSIPTokenSeederException('ATH-STA-001','json is not in valid format ')
+mosip_token_seeder.authtokenapi.service.mosip_token_seeder_exception.MOSIPTokenSeederException: ('ATH-STA-001', 'json is not in valid format ')
+2022-07-07 19:20:28,961 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 19:20:28,962 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 19:20:28,962 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 19:20:28,963 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 19:20:28,965 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 19:20:28,965 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 19:20:28,965 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 19:20:28,966 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 19:20:28,968 - sqlalchemy.engine.Engine - INFO - INSERT INTO auth_requests (auth_request_id, input_type, output_type, delivery_type, status, created_time) VALUES (?, ?, ?, ?, ?, ?)
+2022-07-07 19:20:28,969 - sqlalchemy.engine.Engine - INFO - [generated in 0.00045s] ('c2df2d20-fdfb-11ec-b04d-0bb744b260a0', 'json', 'json', 'download', 'submitted', '2022-07-07')
+2022-07-07 19:20:28,976 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 19:20:28,983 - mosip_token_seeder.authtokenapi.authtoken - ERROR - object of type 'NoneType' has no len()
+Traceback (most recent call last):
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/authtoken.py", line 78, in authtoken_json
+    request_identifier = authtoken_service.save_authtoken_json((requestjson["request"]))
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/service/authtoken_request_service.py", line 49, in save_authtoken_json
+    is_valid_authdata, error_code = self.validate_auth_data(authdata, mapping_required, request_json['mapping'])
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/service/authtoken_request_service.py", line 121, in validate_auth_data
+    if len(authdata['vid']) <= 16 and len(authdata['vid']) >= 19:
+TypeError: object of type 'NoneType' has no len()
+2022-07-07 19:21:46,349 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 19:21:46,350 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 19:21:46,350 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 19:21:46,350 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 19:21:46,351 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 19:21:46,352 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 19:21:46,352 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 19:21:46,352 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 19:21:46,354 - sqlalchemy.engine.Engine - INFO - INSERT INTO auth_requests (auth_request_id, input_type, output_type, delivery_type, status, created_time) VALUES (?, ?, ?, ?, ?, ?)
+2022-07-07 19:21:46,354 - sqlalchemy.engine.Engine - INFO - [generated in 0.00037s] ('f0ff681e-fdfb-11ec-b04d-0bb744b260a0', 'json', 'json', 'download', 'submitted', '2022-07-07')
+2022-07-07 19:21:46,355 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 19:21:46,364 - mosip_token_seeder.authtokenapi.authtoken - ERROR - object of type 'NoneType' has no len()
+Traceback (most recent call last):
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/authtoken.py", line 78, in authtoken_json
+    request_identifier = authtoken_service.save_authtoken_json((requestjson["request"]))
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/service/authtoken_request_service.py", line 49, in save_authtoken_json
+    is_valid_authdata, error_code = self.validate_auth_data(authdata, mapping_required, request_json['mapping'])
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/service/authtoken_request_service.py", line 121, in validate_auth_data
+    if len(authdata['vid']) <= 16 and len(authdata['vid']) >= 19:
+TypeError: object of type 'NoneType' has no len()
+2022-07-07 19:22:22,123 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 19:22:22,123 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 19:22:22,123 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 19:22:22,125 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 19:22:22,127 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 19:22:22,127 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 19:22:22,128 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 19:22:22,129 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 19:22:22,136 - sqlalchemy.engine.Engine - INFO - INSERT INTO auth_requests (auth_request_id, input_type, output_type, delivery_type, status, created_time) VALUES (?, ?, ?, ?, ?, ?)
+2022-07-07 19:22:22,136 - sqlalchemy.engine.Engine - INFO - [generated in 0.00033s] ('0652779c-fdfc-11ec-b04d-0bb744b260a0', 'json', 'json', 'download', 'submitted', '2022-07-07')
+2022-07-07 19:22:22,136 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 19:22:22,147 - mosip_token_seeder.authtokenapi.authtoken - ERROR - object of type 'NoneType' has no len()
+Traceback (most recent call last):
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/authtoken.py", line 78, in authtoken_json
+    request_identifier = authtoken_service.save_authtoken_json((requestjson["request"]))
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/service/authtoken_request_service.py", line 49, in save_authtoken_json
+    is_valid_authdata, error_code = self.validate_auth_data(authdata, mapping_required, request_json['mapping'])
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/service/authtoken_request_service.py", line 121, in validate_auth_data
+TypeError: object of type 'NoneType' has no len()
+2022-07-07 19:23:13,003 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 19:23:13,004 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 19:23:13,004 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 19:23:13,004 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 19:23:13,006 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 19:23:13,006 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 19:23:13,006 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 19:23:13,006 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 19:23:13,008 - sqlalchemy.engine.Engine - INFO - INSERT INTO auth_requests (auth_request_id, input_type, output_type, delivery_type, status, created_time) VALUES (?, ?, ?, ?, ?, ?)
+2022-07-07 19:23:13,008 - sqlalchemy.engine.Engine - INFO - [generated in 0.00024s] ('24a5c118-fdfc-11ec-b04d-0bb744b260a0', 'json', 'json', 'download', 'submitted', '2022-07-07')
+2022-07-07 19:23:13,009 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 19:23:13,017 - mosip_token_seeder.authtokenapi.authtoken - ERROR - object of type 'NoneType' has no len()
+Traceback (most recent call last):
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/authtoken.py", line 78, in authtoken_json
+    request_identifier = authtoken_service.save_authtoken_json((requestjson["request"]))
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/service/authtoken_request_service.py", line 49, in save_authtoken_json
+    is_valid_authdata, error_code = self.validate_auth_data(authdata, mapping_required, request_json['mapping'])
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/service/authtoken_request_service.py", line 122, in validate_auth_data
+    if len(authdata['vid']) <= 16 and len(authdata['vid']) >= 19:
+TypeError: object of type 'NoneType' has no len()
+2022-07-07 19:24:20,827 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 19:24:20,827 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 19:24:20,828 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 19:24:20,829 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 19:24:20,830 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 19:24:20,830 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 19:24:20,831 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 19:24:20,831 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 19:24:20,833 - sqlalchemy.engine.Engine - INFO - INSERT INTO auth_requests (auth_request_id, input_type, output_type, delivery_type, status, created_time) VALUES (?, ?, ?, ?, ?, ?)
+2022-07-07 19:24:20,834 - sqlalchemy.engine.Engine - INFO - [generated in 0.00029s] ('4d12fea4-fdfc-11ec-b04d-0bb744b260a0', 'json', 'json', 'download', 'submitted', '2022-07-07')
+2022-07-07 19:24:20,834 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 19:24:20,846 - mosip_token_seeder.authtokenapi.authtoken - ERROR - object of type 'NoneType' has no len()
+Traceback (most recent call last):
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/authtoken.py", line 78, in authtoken_json
+    request_identifier = authtoken_service.save_authtoken_json((requestjson["request"]))
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/service/authtoken_request_service.py", line 49, in save_authtoken_json
+    is_valid_authdata, error_code = self.validate_auth_data(authdata, mapping_required, request_json['mapping'])
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/service/authtoken_request_service.py", line 124, in validate_auth_data
+    if len(authdata['vid']) <= 16 and len(authdata['vid']) >= 19:
+TypeError: object of type 'NoneType' has no len()
+2022-07-07 20:04:52,188 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 20:04:52,188 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 20:04:52,189 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 20:04:52,190 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 20:04:52,192 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 20:04:52,193 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 20:04:52,193 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 20:04:52,202 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 20:04:52,207 - sqlalchemy.engine.Engine - INFO - INSERT INTO auth_requests (auth_request_id, input_type, output_type, delivery_type, status, created_time) VALUES (?, ?, ?, ?, ?, ?)
+2022-07-07 20:04:52,208 - sqlalchemy.engine.Engine - INFO - [generated in 0.00127s] ('f648e114-fe01-11ec-b04d-0bb744b260a0', 'json', 'json', 'download', 'submitted', '2022-07-07')
+2022-07-07 20:04:52,211 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 20:04:52,221 - mosip_token_seeder.authtokenapi.authtoken - ERROR - map_fields() missing 1 required positional argument: 'language'
+Traceback (most recent call last):
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/authtoken.py", line 78, in authtoken_json
+    request_identifier = authtoken_service.save_authtoken_json((requestjson["request"]))
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/service/authtoken_request_service.py", line 49, in save_authtoken_json
+    is_valid_authdata, error_code = self.validate_auth_data(authdata, mapping_required, request_json['mapping'])
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/service/authtoken_request_service.py", line 118, in validate_auth_data
+    authdata = self.mapper.map_fields(authdata,mapping_json)
+TypeError: map_fields() missing 1 required positional argument: 'language'
+2022-07-07 20:06:47,924 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 20:06:47,924 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 20:06:47,925 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 20:06:47,930 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 20:06:47,931 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 20:06:47,934 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 20:06:47,934 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 20:06:47,935 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 20:06:47,938 - sqlalchemy.engine.Engine - INFO - INSERT INTO auth_requests (auth_request_id, input_type, output_type, delivery_type, status, created_time) VALUES (?, ?, ?, ?, ?, ?)
+2022-07-07 20:06:47,939 - sqlalchemy.engine.Engine - INFO - [generated in 0.00041s] ('3b44479a-fe02-11ec-b04d-0bb744b260a0', 'json', 'json', 'download', 'submitted', '2022-07-07')
+2022-07-07 20:06:47,939 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 20:06:47,948 - mosip_token_seeder.authtokenapi.authtoken - ERROR - map_fields() missing 1 required positional argument: 'language'
+Traceback (most recent call last):
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/authtoken.py", line 78, in authtoken_json
+    request_identifier = authtoken_service.save_authtoken_json((requestjson["request"]))
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/service/authtoken_request_service.py", line 49, in save_authtoken_json
+    is_valid_authdata, error_code = self.validate_auth_data(authdata, mapping_required, request_json['mapping'])
+  File "/media/shibu/Workspace1/openg2p/mosip_token_seeder/authtokenapi/service/authtoken_request_service.py", line 118, in validate_auth_data
+    authdata = self.mapper.map_fields(authdata,mapping_json)
+TypeError: map_fields() missing 1 required positional argument: 'language'
+2022-07-07 20:11:25,908 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 20:11:25,909 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 20:11:25,910 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 20:11:25,911 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 20:11:25,914 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 20:11:25,914 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 20:11:25,915 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 20:11:25,915 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 20:11:25,919 - sqlalchemy.engine.Engine - INFO - INSERT INTO auth_requests (auth_request_id, input_type, output_type, delivery_type, status, created_time) VALUES (?, ?, ?, ?, ?, ?)
+2022-07-07 20:11:25,919 - sqlalchemy.engine.Engine - INFO - [generated in 0.00056s] ('e0f4ae96-fe02-11ec-b04d-0bb744b260a0', 'json', 'json', 'download', 'submitted', '2022-07-07')
+2022-07-07 20:11:25,922 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 20:11:25,935 - sqlalchemy.engine.Engine - INFO - INSERT INTO auth_request_data (auth_request_id, auth_request_line_no, auth_data_recieved, auth_data_input, auth_data_output, token, status, created_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+2022-07-07 20:11:25,937 - sqlalchemy.engine.Engine - INFO - [generated in 0.00218s] ('e0f4ae96-fe02-11ec-b04d-0bb744b260a0', 1, '{"DateIssued": "21 September 2021", "Issuer": "PSA", "Suffix": "", "fullname": "aaron-o-niel mName lName", "gender": "Male", "BF": "[1,7]", "dateOfBi ... (31 characters truncated) ... "City of Manila,NCR", "city": "CITY OF MANILA", "state": "State 1", "PCN": "5073-0634-8709-1024", "phone": "12312312", "email": "test@somewhere.com"}', '{"vid": "5073-0634-8709-1024", "name": [{"language": "eng", "value": "aaron-o-niel mName lName"}], "gender": "Male", "dateOfBirth": "2020-12-12", "phoneNumber": "12312312", "emailId": "test@somewhere.com", "fullAddress": [{"language": "eng", "value": "City of Manila,NCR CITY OF MANILA State 1"}]}', None, None, 'submitted', '2022-07-07')
+2022-07-07 20:11:25,947 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 20:22:44,300 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 20:22:44,300 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_requests")
+2022-07-07 20:22:44,301 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 20:22:44,301 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 20:22:44,303 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2022-07-07 20:22:44,303 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("auth_request_data")
+2022-07-07 20:22:44,303 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2022-07-07 20:22:44,304 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 20:22:44,306 - sqlalchemy.engine.Engine - INFO - INSERT INTO auth_requests (auth_request_id, input_type, output_type, delivery_type, status, created_time) VALUES (?, ?, ?, ?, ?, ?)
+2022-07-07 20:22:44,307 - sqlalchemy.engine.Engine - INFO - [generated in 0.00044s] ('754e90c4-fe04-11ec-b04d-0bb744b260a0', 'json', 'json', 'download', 'submitted', '2022-07-07')
+2022-07-07 20:22:44,308 - sqlalchemy.engine.Engine - INFO - COMMIT
+2022-07-07 20:22:44,325 - sqlalchemy.engine.Engine - INFO - INSERT INTO auth_request_data (auth_request_id, auth_request_line_no, auth_data_recieved, auth_data_input, auth_data_output, token, status, created_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+2022-07-07 20:22:44,325 - sqlalchemy.engine.Engine - INFO - [generated in 0.00045s] ('754e90c4-fe04-11ec-b04d-0bb744b260a0', 1, '{"DateIssued": "21 September 2021", "Issuer": "PSA", "Suffix": "", "fullname": "aaron-o-niel mName lName", "gender": "Male", "BF": "[1,7]", "dateOfBi ... (31 characters truncated) ... "City of Manila,NCR", "city": "CITY OF MANILA", "state": "State 1", "PCN": "5073-0634-8709-1024", "phone": "12312312", "email": "test@somewhere.com"}', '{"vid": "5073-0634-8709-1024", "name": [{"language": "eng", "value": "aaron-o-niel mName lName"}], "gender": "Male", "dateOfBirth": "2020-12-12", "phoneNumber": "12312312", "emailId": "test@somewhere.com", "fullAddress": [{"language": "eng", "value": "City of Manila,NCR CITY OF MANILA State 1"}]}', None, None, 'submitted', '2022-07-07')
+2022-07-07 20:22:44,326 - sqlalchemy.engine.Engine - INFO - COMMIT

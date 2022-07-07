@@ -1,10 +1,10 @@
-from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String
+from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, select
 
 class AuthTokenRequestDataRepository:
     def __init__(self) :
 
         self.meta = MetaData()
-        self.engine = create_engine('sqlite://', echo = True)
+        self.engine = create_engine('sqlite:///auth_seeder.db', echo = True)
         self.auth_request_data = Table(
             'auth_request_data', self.meta, 
             Column('auth_request_id', String, primary_key = True), 
@@ -36,6 +36,14 @@ class AuthTokenRequestDataRepository:
         conn = self.engine.connect()
         result = conn.execute(insert_obj)
 
+    def fetch_output(self, auth_request_id):
+        select_query = select([self.auth_request_data.columns.auth_data_output]).where(self.auth_request_data.columns.auth_request_id == auth_request_id).order_by(self.auth_request_data.columns.auth_request_line_no.asc())   
+        conn = self.engine.connect()
+        output = conn.execute(select_query).fetchall()
+        if output is not None:
+            return output
+        else :
+            return None
         
     # def __del__(self):
     #     self.conn.close()

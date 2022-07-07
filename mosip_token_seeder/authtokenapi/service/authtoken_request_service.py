@@ -1,6 +1,7 @@
 from datetime import date, datetime
 import json
 import logging
+from os import stat
 
 from .mosip_token_seeder_exception import MOSIPTokenSeederException
 from ..model.authtoken_request_model import AuthTokenRequestModel
@@ -27,7 +28,7 @@ class AuthTokenService:
             mapping_required = False
         elif len(request_json['mapping']) == 0: 
              mapping_required = False
-
+        language  = request_json['lang']
         if self.validate_json(request_json) == True :
 
             # call self.mapper(request_json)
@@ -45,10 +46,9 @@ class AuthTokenService:
             error_count = 0
             for authdata in request_json['authdata']:
 
-                is_valid_authdata, error_code = self.validate_auth_data(authdata, mapping_required, request_json['mapping'])
+                is_valid_authdata, error_code = self.validate_auth_data(authdata, mapping_required, request_json['mapping'], language)
                 if is_valid_authdata == True:    
-                    mapped_authdata = self.mapper.map_fields(authdata, request_json['mapping'] if 'mapping' in request_json else None)
-                    print('Mapped Input',mapped_authdata)
+                    mapped_authdata = self.mapper.map_fields(authdata, request_json['mapping'] if 'mapping' in request_json else None, language)
                     line_no += 1
                     authdata_model = AuthTokenRequestDataModel()
                     authdata_model.auth_request_id = authtoken_request.auth_request_id
@@ -71,34 +71,52 @@ class AuthTokenService:
                     authdata_model.error_code = error_code
 
             if(error_count == line_no) :
-                logger.error('ATS-REQ-101')
                 raise MOSIPTokenSeederException('ATS-REQ-101', 'none of the record form a valid request')
             else:
                 return authtoken_request.auth_request_id 
 
     def fetch_status(self, request_identifier):
-        return self.auth_request_repository.fetch_status(request_identifier)
+        status =  self.auth_request_repository.fetch_status(request_identifier)
+        if status is None :
+            raise MOSIPTokenSeederException('ATS-REQ-016', 'no auth request found for the given identifier')
+        return status
+
+    def get_file(self, request_identifier):
+        status =  self.auth_request_repository.fetch_status(request_identifier)
+        output_json = []
+        if status is None :
+            raise MOSIPTokenSeederException('ATS-REQ-016', 'no auth request found for the given identifier')
+        elif status != 'processed':
+            raise MOSIPTokenSeederException('ATS-REQ-017', 'auth request not processed yet')
+        else : 
+            output_records = self.auth_request_data_repository.fetch_output(request_identifier)
+            
+            for output_record in output_records:
+                output_json.append(json.loads(output_record[0]))
+
+        return str.encode(json.dumps(output_json))
 
 
     def validate_json(self, request_json):
         if 'authdata' not in  request_json :
-            raise MOSIPTokenSeederException('ATH-STA-001','json is not in valid format ')
+            raise MOSIPTokenSeederException('ATS-REQ-001','json is not in valid format ')
 
         if len(request_json['authdata']) == 0:
-            raise MOSIPTokenSeederException('ATH-STA-001','json is not in valid format ')
+            raise MOSIPTokenSeederException('ATS-REQ-001','json is not in valid format ')
 
         return True
 
 
-    def validate_auth_data(self, authdata, mapping_required, mapping_json):
+    def validate_auth_data(self, authdata, mapping_required, mapping_json, language):
         if mapping_required == False and ('vid' not in authdata or 'name' not in authdata or 'gender' not in authdata or'dateOfBirth' not in authdata or 'phoneNumber' not in authdata or'emailId' not in authdata or'fullAddress' not in authdata ):
             return False, 'ATS-REQ-001'
         elif mapping_required == True:
             is_valid_data, error_code = self.mapper.validate_map_fields(authdata, mapping_json)
             if is_valid_data == True:
-                authdata = self.mapper.map_fields(authdata,mapping_json)
+                authdata = self.mapper.map_fields(authdata,mapping_json, language)
             else: 
                 return is_valid_data, error_code
+       
         if len(authdata['vid']) <= 16 and len(authdata['vid']) >= 19:
             return False, 'ATS-REQ-002'
 
