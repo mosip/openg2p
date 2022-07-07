@@ -1,9 +1,11 @@
-from sqlalchemy import create_engine, MetaData, Table, Column, String
+from sqlalchemy import create_engine, MetaData, Table, Column, String, select
+
+from mosip_token_seeder.authtokenapi.service.mosip_token_seeder_exception import MOSIPTokenSeederException
 
 class AuthTokenRequestRepository:
     def __init__(self) :
         self.meta = MetaData()
-        self.engine = create_engine('sqlite://', echo = True)
+        self.engine = create_engine('sqlite:///auth_seeder.db', echo = True)
         self.auth_requests = Table(
             'auth_requests', self.meta, 
             Column('auth_request_id', String, primary_key = True), 
@@ -30,12 +32,15 @@ class AuthTokenRequestRepository:
         result = conn.execute(insert_obj)
 
     def fetch_status(self, auth_request_id):
-        select_query = self.auth_requests.select().where(auth_request_id == auth_request_id)   
+        select_query = select([self.auth_requests.columns.status]).where(self.auth_requests.columns.auth_request_id == auth_request_id)   
         conn = self.engine.connect()
-        output = conn.execute(select_query)
-        print("output", output)
+        output = conn.execute(select_query).fetchone()
+        if output is not None:
+            return output[0]
+        else :
+            return None
 
-
+    
     # def update(self,authtokenrequest, auth_request_id):
     #     auth_request_id, input_type, output_type, delivery_type, status, created_time, updated_time = ""
 
