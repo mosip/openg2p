@@ -1,22 +1,25 @@
 from datetime import datetime
+import re
+import traceback
 from fastapi import Request
 import uuid
 
-from mosip_token_seeder.service.seeder_exception import SeederException
+from mosip_token_seeder.authtokenapi.service.authtoken_request_service import AuthTokenService
+from mosip_token_seeder.authtokenapi.service.mosip_token_seeder_exception import MOSIPTokenSeederException
 
-from ..service.authtoken_request_service import AuthTokenService
+
 
 # from ..model.authtokenrequestmodel import AuthTokenRequestModel
-from .. import app, settings
-from pydantic import BaseModel
+from .. import app, config
 
 supported_output_types = ['json','csv']
 supported_delivery_types = ['download']
 
 
 
-@app.post(settings.root.context_path + "authtoken/json")
+@app.post(config.root.context_path + "authtoken/json")
 async def authtoken_json(request : Request):
+    print(config.root.context_path)
     requestjson = await request.json()
     if requestjson is None:
         return {
@@ -56,8 +59,22 @@ async def authtoken_json(request : Request):
 
     try:
         request_identifier = authtoken_service.save_authtoken_json((requestjson["request"]))
-        return request_identifier
-    except SeederException as exception:
+        return {
+            'id': '',
+            'version': '0.1',
+            'metadata': {},
+            'responsetime': datetime.now(),
+            'errors': None,
+            'response': {
+                'request_identifier': request_identifier
+            }
+        }  
+        request_identifier
+    except MOSIPTokenSeederException as exception:
+        print("******************************")
+        print(exception)
+        print(exception.error_code,exception.error_message)
+        print("******************************")
         #pass on proper response object 
         return {
             'id': '',
@@ -73,6 +90,11 @@ async def authtoken_json(request : Request):
             'response': None
         } 
     except Exception as exception:
+        print("******************************")
+        print(exception)
+        print(traceback.format_exc())
+        print("******************************")
+        
         #pass on proper response object 
         return {
             "id": "string",
@@ -81,8 +103,8 @@ async def authtoken_json(request : Request):
             "responsetime": "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
             "errors": [
                 {
-                "errorCode": "string",
-                "message": "string"
+                "errorCode": 'ATS-REQ-009',
+                "message": str(exception)
                 }
             ],
             "response": None

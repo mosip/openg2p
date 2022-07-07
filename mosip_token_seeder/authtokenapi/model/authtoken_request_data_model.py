@@ -24,5 +24,6 @@ class AuthTokenRequestDataModel(BaseModel):
     auth_data_input: Optional[str]
     token: Optional[str]
     status: Optional[str]
+    error_code:Optional[str]
     created_time: Optional[str]
     updated_time: Optional[str]
