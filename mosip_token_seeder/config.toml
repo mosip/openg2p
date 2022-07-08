@@ -1,51 +1,19 @@
 [root]
 context_path = '/'
 pid_grep_name = 'gunicorn'
+default_lang_code = "eng"
 
-[mosip_auth]
-timestamp_format = "%Y-%m-%dT%H:%M:%S"
-ida_auth_version = '1.0'
-ida_auth_request_id = 'mosip.identity.auth'
-ida_auth_env = 'Staging'
-authorization_header_constant = 'Authorization'
-# oidc_token_endpoint =
-ida_auth_url = 'https://api-internal.iiitb.mosip.net/idauthentication/v1/auth'
-ida_auth_domain_uri = 'https://api-internal.iiitb.mosip.net'
-ida_partner_cert_path = '/media/shibu/Workspace1/openg2p/mosip_token_seeder/certs/ida.partner.cert'
-partner_apikey = '449869'
-partner_misp_lk = 'bmgDCMGV8zSnpBV5b0Qe1L3GtY9RXPSBkUcVfONP9AkOsKYVLy'
-partner_cert_path = '/media/shibu/Workspace1/openg2p/mosip_token_seeder/certs/openg2p.cert'
-partner_privkey_path = '/media/shibu/Workspace1/openg2p/mosip_token_seeder/certs/openg2p.key'
-partner_id = 'openg2p'
+[logging]
+log_file_name = "mosip_token_seeder.log"
+log_format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 
-[crypto]
+[db]
+location = 'sqlite+pysqlcipher://:<password>@/auth_token_seeder.db'
+username = ''
+password = ''
+generate_db_always = true
+generate_password_always = true
 
-    [crypto.encrypt]
-    # symmetric_alogrithm = 'aes/gcm'
-    # asymmetric_alogrithm = 'rsa/oaep_with_sha256_and_mgf1_sha256_padding'
-    algorithm = '@none'
-    symmetric_key_size = 256
-    symmetric_nonce_size = 128
-    symmetric_gcm_tag_size = 128
-    public_key_path = '@format {this.mosip_auth.ida_partner_cert_path}'
-    public_key_password = '@none'
-    private_key_path = '@none'
-    private_key_password = '@none'
-
-    [crypto.signature]
-    algorithm = 'RS256'
-    public_key_path = '@format {this.mosip_auth.partner_cert_path}'
-    public_key_password = '@none'
-    private_key_path = '@format {this.mosip_auth.partner_privkey_path}'
-    private_key_password = '@none'
-
-[datasource]
-db_connection = 'sqlite:///auth_token_seeder.db'
-# server_host = 'localhost'
-# server_port = 5432
-# db_user = 'postgres'
-# db_pass = ''
-# db_name = 'mosip_tokenseeder'
 
 [gunicorn]
 worker_id = 0

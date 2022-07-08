@@ -16,10 +16,10 @@ class MOSIPAuthenticator:
         if not logger:
             self.logger = self._init_logger(config_obj.logging.log_file_path)
 
-        self.auth_rest_util = RestUtility(config_obj.mosip_auth.server.ida_auth_url, config_obj.mosip_auth.authorization_header_constant)
+        self.auth_rest_util = RestUtility(config_obj.mosip_auth_server.ida_auth_url, config_obj.mosip_auth.authorization_header_constant)
         self.crypto_util = CryptoUtility(config_obj.crypto.encrypt, config_obj.crypto.signature)
 
-        self.auth_domain_scheme = config_obj.mosip_auth.server.ida_auth_domain_uri
+        self.auth_domain_scheme = config_obj.mosip_auth_server.ida_auth_domain_uri
        
         self.partner_misp_lk =  config_obj.mosip_auth.partner_misp_lk
         self.partner_id = config_obj.mosip_auth.partner_id
