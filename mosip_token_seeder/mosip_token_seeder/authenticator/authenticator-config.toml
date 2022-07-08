@@ -8,9 +8,16 @@ authorization_header_constant = 'Authorization'
 # partner_misp_lk = 
 # partner_id = 
 
+partner_apikey = "449869"
+partner_misp_lk = "bmgDCMGV8zSnpBV5b0Qe1L3GtY9RXPSBkUcVfONP9AkOsKYVLy"
+partner_id = "openg2p"
+
 [mosip_auth_server]
 # ida_auth_domain_uri = 
 # ida_auth_url = 
+
+ida_auth_domain_uri = "https://api-internal.iiitb.mosip.net"
+ida_auth_url = "https://api-internal.iiitb.mosip.net/idauthentication/v1/auth"
 
 
 [crypto_encrypt]
@@ -21,10 +28,15 @@ symmetric_gcm_tag_size = 128
 # certificate from the below path is used to encrypt the Auth Request.
 # encrypt_cert_path = 
 
+encrypt_cert_path = "certs/openg2p.cert"
+
 [crypto_signature]
 algorithm = 'RS256'
 # sign_p12_file_path = 
 # sign_p12_file_password = 
+
+sign_p12_file_path = 'certs/openg2p.p12'
+sign_p12_file_password = '12345'
 
 [logging]
 log_file_path = 'authenticator.log'
