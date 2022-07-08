@@ -1,85 +1,101 @@
 import string
 import secrets
 from datetime import datetime
-from . import model
-from .utils import RestUtility, CryptoUtility
+from model.auth_request import MOSIPAuthRequest, DemographicsModel, MOSIPEncryptAuthRequest
+from utils.cryptoutil import CryptoUtility
+from utils.restutil import RestUtility
+import logging
+import sys
+import traceback
+from exceptions.authenticator_exception import AuthenticatorException, Errors
 
 class MOSIPAuthenticator:
-    def __init__(
-        self,
-        auth_rest_util : RestUtility,
-        encrypt_cryptoutil : CryptoUtility,
-        sign_cryptoutil : CryptoUtility,
-        ida_auth_domain_uri,
-        partner_misp_lk,
-        partner_id,
-        partner_apikey,
-        ida_auth_version,
-        ida_auth_request_id,
-        ida_auth_env,
-        authorization_header_constant,
-        timestamp_format,
-        **kwargs
-    ):
-        self.auth_rest_util = auth_rest_util
-        self.encrypt_cryptoutil = encrypt_cryptoutil
-        self.sign_cryptoutil = sign_cryptoutil
 
-        self.auth_domain_scheme = ida_auth_domain_uri
-        
-        if not self.auth_rest_util.url.endswith('/'):
-            self.auth_rest_util.url += '/'
-        self.auth_rest_util.url += partner_misp_lk + '/' + partner_id + '/' + partner_apikey
-        
-        self.ida_auth_version = ida_auth_version
-        self.ida_auth_request_id = ida_auth_request_id
-        self.ida_auth_env = ida_auth_env
-        self.timestamp_format = timestamp_format
-        self.authorization_header_constant = authorization_header_constant
+    def __init__(self, config_obj, logger=None, **kwargs ):
 
-        self.auth_request = model.MOSIPAuthRequest(
-            id=self.ida_auth_request_id,
-            version=self.ida_auth_version,
-            env=self.ida_auth_env,
-            domainUri=self.auth_domain_scheme,
-            specVersion=self.ida_auth_version,
-            consentObtained=True,
-            metadata={},
-            thumbprint=self.encrypt_cryptoutil.thumbprint,
-            individualId='',
-            transactionID='',
-            requestTime='',
-            request='',
-            requestSessionKey='',
-            requestHMAC='',
+        if not logger:
+            self.logger = self._init_logger(config_obj.logging.log_file_path)
+
+        self.auth_rest_util = RestUtility(config_obj.mosip_auth.server.ida_auth_url, config_obj.mosip_auth.authorization_header_constant)
+        self.crypto_util = CryptoUtility(config_obj.crypto.encrypt, config_obj.crypto.signature)
+
+        self.auth_domain_scheme = config_obj.mosip_auth.server.ida_auth_domain_uri
+       
+        self.partner_misp_lk =  config_obj.mosip_auth.partner_misp_lk
+        self.partner_id = config_obj.mosip_auth.partner_id
+        self.partner_apikey = config_obj.mosip_auth.partner_apikey
+
+        self.ida_auth_version = config_obj.mosip_auth.ida_auth_version
+        self.ida_auth_request_id = config_obj.mosip_auth.ida_auth_request_id
+        self.ida_auth_env = config_obj.mosip_auth.ida_auth_env
+        self.timestamp_format = config_obj.mosip_auth.timestamp_format
+        self.authorization_header_constant = config_obj.mosip_auth.authorization_header_constant
+
+        self.auth_request = MOSIPAuthRequest(
+            id = self.ida_auth_request_id,
+            version = self.ida_auth_version,
+            env = self.ida_auth_env,
+            domainUri = self.auth_domain_scheme,
+            specVersion = self.ida_auth_version,
+            consentObtained = True,
+            metadata = {},
+            thumbprint = self.crypto_util.enc_cert_thumbprint,
+            individualId = '',
+            transactionID = '',
+            requestTime = '',
+            request = '',
+            requestSessionKey = '',
+            requestHMAC = '',
         )
+
+    @staticmethod
+    def _init_logger(filename):
+        logger = logging.getLogger()
+        logger.setLevel(logging.INFO)
+        fileHandler = logging.FileHandler(filename)
+        streamHandler = logging.StreamHandler(sys.stdout)
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        streamHandler.setFormatter(formatter)
+        fileHandler.setFormatter(formatter)
+        logger.addHandler(streamHandler)
+        logger.addHandler(fileHandler)
+        return logger
     
-    def perform_demo_auth(self, data : dict):
-        vid = data.pop('vid')
-        demographicData = model.DemographicsModel(**data)
-        timestamp = datetime.utcnow()
-        timestamp_str = timestamp.strftime(self.timestamp_format) + timestamp.strftime('.%f')[0:4] + 'Z'
-        self.auth_request.requestTime = timestamp_str
-        self.auth_request.transactionID = ''.join([secrets.choice(string.digits) for _ in range(10)])
-        self.auth_request.individualId = vid
-
-        self.auth_request.requestedAuth.demo = True
+    def do_auth(self, auth_req_data : dict):
+        vid = auth_req_data.pop('vid')
         
-        request = model.MOSIPEncryptAuthRequest(
-            timestamp=timestamp_str,
-            biometrics=[],
-            demographics=demographicData
-        )
+        self.logger.info('Received Auth Request.')
+        try:
+            demographic_data = DemographicsModel(**auth_req_data)
+            timestamp = datetime.utcnow()
+            timestamp_str = timestamp.strftime(self.timestamp_format) + timestamp.strftime('.%f')[0:4] + 'Z'
+
+            self.auth_request.requestTime = timestamp_str
+            self.auth_request.transactionID = ''.join([secrets.choice(string.digits) for _ in range(10)])
+            self.auth_request.individualId = vid
+
+            self.auth_request.requestedAuth.demo = True
+            
+            request = MOSIPEncryptAuthRequest(
+                timestamp = timestamp_str,
+                biometrics = [],
+                demographics = demographic_data
+            )
+            
+            self.auth_request.request, self.auth_request.requestSessionKey, self.auth_request.requestHMAC = \
+                    self.crypto_util.encrypt_auth_data(request.json())
+
+            full_request_json = self.auth_request.json()
+
+            signature_header = {'Signature': self.crypto_util.sign_auth_request_data(full_request_json)}        
+
+            path_params = self.partner_misp_lk + '/' + self.partner_id + '/' + self.partner_apikey
+            response = self.auth_rest_util.post_request(path_params=path_params, data=full_request_json, additional_headers=signature_header)
+            self.logger.info('Auth Request Processed Completed.')
+            
+            return response.json()
+        except:
+            exp = traceback.format_exc()
+            self.logger.error('Error Processing Auth Request. Error Message: {}'.format(exp))
+            raise AuthenticatorException(Errors.AUT_BAS_001.name, Errors.AUT_BAS_001.value)
         
-        self.auth_request.request, self.auth_request.requestSessionKey, self.auth_request.requestHMAC = self.encrypt_cryptoutil.encrypt(request.json())
-
-        full_request_json = self.auth_request.json()
-
-        auth_headers = {
-            'Authorization': self.authorization_header_constant,
-            'content-type': 'application/json',
-        }
-        auth_headers['Signature'] = self.sign_cryptoutil.json_sign(full_request_json)
-
-        response = self.auth_rest_util.post(data=full_request_json,headers=auth_headers)
-        return response.json()
