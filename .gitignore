@@ -2,4 +2,3 @@ venv_token_seeder
 .vscode
 __pycache__
 certs
-auth_seeder.db

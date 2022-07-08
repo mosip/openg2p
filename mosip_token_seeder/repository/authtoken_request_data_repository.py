@@ -1,4 +1,4 @@
-from sqlalchemy import and_, create_engine, MetaData, Table, Column, Integer, String, select
+from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, select
 
 class AuthTokenRequestDataRepository:
     def __init__(self) :
@@ -37,7 +37,7 @@ class AuthTokenRequestDataRepository:
         result = conn.execute(insert_obj)
 
     def fetch_output(self, auth_request_id):
-        select_query = select([self.auth_request_data.columns.auth_data_output]).where(and_(self.auth_request_data.columns.auth_request_id == auth_request_id, self.auth_request_data.columns.status == 'processed')).order_by(self.auth_request_data.columns.auth_request_line_no.asc())   
+        select_query = select([self.auth_request_data.columns.auth_data_output]).where(self.auth_request_data.columns.auth_request_id == auth_request_id).order_by(self.auth_request_data.columns.auth_request_line_no.asc())   
         conn = self.engine.connect()
         output = conn.execute(select_query).fetchall()
         if output is not None:
