@@ -1,7 +1,6 @@
 import json
 
 from sqlalchemy import true
-from ..model import AuthTokenRequestModel
 from ..model import AuthTokenBaseModel
 
 class MappingService:

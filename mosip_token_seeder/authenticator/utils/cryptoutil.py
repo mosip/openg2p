@@ -1,13 +1,15 @@
 import os
 import base64
 import json
+import logging
+import traceback
+
 from cryptography import x509
 from cryptography.hazmat.primitives import hashes, asymmetric, ciphers, serialization
 from cryptography.hazmat.primitives.serialization import pkcs12, BestAvailableEncryption
 from jwcrypto import jwk, jws
-import logging
-import traceback
-from exceptions.authenticator_exception import AuthenticatorCryptoException, Errors
+
+from ..exceptions import AuthenticatorCryptoException, Errors
 
 class CryptoUtility:
 

@@ -5,7 +5,7 @@ import uuid
 from datetime import date, datetime
 
 from ..model import AuthTokenRequest
-from ..exception import MOSIPTokenSeederException
+from ..exception import MOSIPTokenSeederException, MOSIPTokenSeederNoException
 from mosip_token_seeder.repository import AuthTokenRequestRepository, AuthTokenRequestDataRepository
 from mosip_token_seeder.repository import db_tools
 from . import MappingService
@@ -69,25 +69,18 @@ class AuthTokenService:
             return authtoken_request_entry.auth_request_id 
 
     def fetch_status(self, request_identifier):
-        status =  self.auth_request_repository.fetch_status(request_identifier)
-        if status is None :
-            raise MOSIPTokenSeederException('ATS-REQ-016', 'no auth request found for the given identifier')
+        try:
+            status = AuthTokenRequestRepository.fetch_status(request_identifier)
+        except Exception as e:
+            raise MOSIPTokenSeederNoException('ATS-REQ-016', 'no auth request found for the given identifier', 404)
+        if not status:
+            raise MOSIPTokenSeederNoException('ATS-REQ-016', 'no auth request found for the given identifier', 404)
         return status
 
-    def get_file(self, request_identifier):
-        status =  self.auth_request_repository.fetch_status(request_identifier)
-        output_json = []
-        if status is None :
-            raise MOSIPTokenSeederException('ATS-REQ-016', 'no auth request found for the given identifier')
-        elif status != 'processed':
-            raise MOSIPTokenSeederException('ATS-REQ-017', 'auth request not processed yet')
-        else : 
-            output_records = self.auth_request_data_repository.fetch_output(request_identifier)
-            
-            for output_record in output_records:
-                output_json.append(json.loads(output_record[0]))
-
-        return str.encode(json.dumps(output_json))
+    def assert_download_status(self, request_identifier):
+        status =  self.fetch_status(request_identifier, self.db_engine)
+        if status != 'processed':
+            raise MOSIPTokenSeederNoException('ATS-REQ-017', 'Auth request not processed yet', 202)
 
     def validate_auth_data(self, authdata, mapping_required, mapping_json, language):
         if mapping_required == False and ('vid' not in authdata or 'name' not in authdata or 'gender' not in authdata or'dateOfBirth' not in authdata or 'phoneNumber' not in authdata or'emailId' not in authdata or'fullAddress' not in authdata ):

@@ -1,6 +1,4 @@
 from .authtoken_base_model import AuthTokenBaseModel
-from .authtoken_request_data_model import AuthTokenRequestDataModel
-from .authtoken_request_model import AuthTokenRequestModel
 from .authtoken_request import AuthTokenRequest
 from .authtoken_http_request import AuthTokenHttpRequest
 from .base_http_response import BaseHttpResponse, BaseError

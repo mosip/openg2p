@@ -1,5 +1,3 @@
-
-
 [mosip_auth]
 timestamp_format = "%Y-%m-%dT%H:%M:%S"
 ida_auth_version = '1.0'
@@ -15,7 +13,7 @@ authorization_header_constant = 'Authorization'
 # ida_auth_url = 
 
 
-[crypto.encrypt]
+[crypto_encrypt]
 algorithm = '@none'
 symmetric_key_size = 256
 symmetric_nonce_size = 128
@@ -23,7 +21,7 @@ symmetric_gcm_tag_size = 128
 # certificate from the below path is used to encrypt the Auth Request.
 # encrypt_cert_path = 
 
-[crypto.signature]
+[crypto_signature]
 algorithm = 'RS256'
 # sign_p12_file_path = 
 # sign_p12_file_password = 

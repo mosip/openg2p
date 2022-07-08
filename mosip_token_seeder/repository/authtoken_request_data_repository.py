@@ -3,9 +3,9 @@ from sqlalchemy import Column, DateTime, Index, Integer, String, UniqueConstrain
 from sqlalchemy import and_, select
 from sqlalchemy.orm import Session
 
-from . import ExtendedBase
+from . import Base, ExtendedBase
 
-class AuthTokenRequestDataRepository(ExtendedBase):
+class AuthTokenRequestDataRepository(Base,ExtendedBase):
     __tablename__ = "auth_token_transaction"
     __table_args__ = (
         UniqueConstraint('auth_request_id','auth_request_line_no'),

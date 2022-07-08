@@ -1,10 +1,12 @@
 from datetime import datetime
 
+from sqlalchemy import Column, Integer, DateTime
 from sqlalchemy.orm import Session, declarative_base
 
 Base = declarative_base()
 
-class ExtendedBase(Base):
+class ExtendedBase:
+
     def add_to_session(self, session : Session):
         session.add(self)
         return self
