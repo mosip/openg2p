@@ -1,60 +1,32 @@
-from sqlalchemy import create_engine, MetaData, Table, Column, String, select
+from datetime import datetime
+from sqlalchemy import Column, DateTime, Integer, String
+from sqlalchemy import select
+from sqlalchemy.orm import Session
 
-from mosip_token_seeder.authtokenapi.service.mosip_token_seeder_exception import MOSIPTokenSeederException
+from . import Base, ExtendedBase
 
-class AuthTokenRequestRepository:
-    def __init__(self) :
-        self.meta = MetaData()
-        self.engine = create_engine('sqlite:///auth_seeder.db', echo = True)
-        self.auth_requests = Table(
-            'auth_requests', self.meta, 
-            Column('auth_request_id', String, primary_key = True), 
-            Column('input_type', String), 
-            Column('output_type', String),
-            Column('delivery_type', String),
-            Column('status', String),
-            Column('created_time', String),
-            Column('updated_time', String)
-        )
-        self.meta.create_all(self.engine)
+class AuthTokenRequestRepository(Base, ExtendedBase):
+    __tablename__ = "auth_requests"
+    id = Column(Integer, primary_key=True)
+    auth_request_id = Column(String(36), nullable=False, unique=True, index=True)
+    number_processed = Column(Integer, default=0)
+    number_error = Column(Integer, default=0)
+    number_total = Column(Integer, nullable=False)
+    input_type = Column(String, nullable=False)
+    output_type = Column(String, nullable=False)
+    delivery_type = Column(String, nullable=False)
+    status = Column(String)
+    cr_dtimes = Column(DateTime, nullable=False, default=datetime.utcnow)
+    upd_dtimes = Column(DateTime)
+
+    @classmethod
+    def get_from_session(cls, session : Session, req_id):
+        stmt = select(cls).where(cls.auth_request_id==req_id)
+        return session.scalars(stmt).one()
     
-    def add(self,authtokenrequest):
-
-        insert_obj = self.auth_requests.insert().values(
-            auth_request_id = authtokenrequest.auth_request_id, 
-            input_type = authtokenrequest.input_type, 
-            output_type = authtokenrequest.output_type, 
-            delivery_type = authtokenrequest.delivery_type, 
-            status = authtokenrequest.status, 
-            created_time = authtokenrequest.created_time
-        )
-        conn = self.engine.connect()
-        result = conn.execute(insert_obj)
-
-    def fetch_status(self, auth_request_id):
-        select_query = select([self.auth_requests.columns.status]).where(self.auth_requests.columns.auth_request_id == auth_request_id)   
-        conn = self.engine.connect()
-        output = conn.execute(select_query).fetchone()
-        if output is not None:
-            return output[0]
-        else :
-            return None
-
-    
-    # def update(self,authtokenrequest, auth_request_id):
-    #     auth_request_id, input_type, output_type, delivery_type, status, created_time, updated_time = ""
-
-    #     insert_query = """
-    #     UPDATE "main"."auth_request"  SET 
-    #             "input_type" = ?, 
-    #             "output_type" ?, 
-    #             "delivery_type" = ?, 
-    #             "status" = ?, 
-    #             "created_time" = ?, 
-    #             "updated_time = ?"
-    #         WHERE  "auth_request_id" = ?;
-    #     """
-    #     data_tuple = (auth_request_id, input_type, output_type, delivery_type, status, created_time, updated_time)
-    #     self.dbsession.execute("UPDATE Person SET firstname=(\"Shibu\", lastname=\"Narayanan\" where id = 1")
-    #     self.conn.commit()
-    
+    @classmethod
+    def fetch_status(cls, req_id, engine):
+        status = None
+        with Session(engine) as session:
+            status = cls.get_from_session(session, req_id).status
+        return status
