@@ -70,7 +70,7 @@ class AuthTokenService:
 
     def fetch_status(self, request_identifier):
         try:
-            status = AuthTokenRequestRepository.fetch_status(request_identifier)
+            status = AuthTokenRequestRepository.fetch_status(request_identifier, self.db_engine)
         except Exception as e:
             raise MOSIPTokenSeederNoException('ATS-REQ-016', 'no auth request found for the given identifier', 404)
         if not status:
@@ -78,7 +78,7 @@ class AuthTokenService:
         return status
 
     def assert_download_status(self, request_identifier):
-        status =  self.fetch_status(request_identifier, self.db_engine)
+        status =  self.fetch_status(request_identifier)
         if status != 'processed':
             raise MOSIPTokenSeederNoException('ATS-REQ-017', 'Auth request not processed yet', 202)
 
