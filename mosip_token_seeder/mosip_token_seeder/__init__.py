@@ -49,8 +49,7 @@ def init_config():
             "/app/token_seeder.conf",
         ],
         envvar_prefix="TOKENSEEDER",
-        environments=False,
-        merge_enabled=True
+        environments=False
     )
     get_current_worker_id(config)
     get_pod_id(config)
