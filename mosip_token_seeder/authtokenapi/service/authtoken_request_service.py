@@ -1,79 +1,72 @@
-from datetime import date, datetime
 import json
 import logging
-from os import stat
-
-from .mosip_token_seeder_exception import MOSIPTokenSeederException
-from ..model.authtoken_request_model import AuthTokenRequestModel
-from ..model.authtoken_request_data_model import AuthTokenRequestDataModel
-from mosip_token_seeder.repository.authtoken_request_repository import AuthTokenRequestRepository
-from mosip_token_seeder.repository.authtoken_request_data_repository import AuthTokenRequestDataRepository
-from .mapping_service import MappingService
 import uuid
 
-logger = logging.getLogger(__name__)
+from datetime import date, datetime
+
+from ..model import AuthTokenRequest
+from ..exception import MOSIPTokenSeederException
+from mosip_token_seeder.repository import AuthTokenRequestRepository, AuthTokenRequestDataRepository
+from mosip_token_seeder.repository import db_tools
+from . import MappingService
 
 
 class AuthTokenService:
-    def __init__(self) :
-        self.auth_request_repository = AuthTokenRequestRepository()
-        self.auth_request_data_repository = AuthTokenRequestDataRepository()
+    def __init__(self, config, logger, request_id_queue) :
         self.mapper = MappingService()
+        self.config = config
+        self.db_engine = db_tools.db_init(config.db.location,config.db.password)
+        self.logger = logger
+        self.request_id_queue = request_id_queue
         
-    def save_authtoken_json(self,request_json):
-        authtoken_request = AuthTokenRequestModel()
+    def save_authtoken_json(self, request : AuthTokenRequest):
+        # authtoken_request = AuthTokenRequestModel()
         mapping_required = True
 
-        if 'mapping' not in  request_json :
+        if not request.mapping:
             mapping_required = False
-        elif len(request_json['mapping']) == 0: 
-             mapping_required = False
-        language  = request_json['lang']
-        if self.validate_json(request_json) == True :
+        
+        language = request.lang
+        if not request.lang:
+            language = self.config.root.default_lang_code
 
-            # call self.mapper(request_json)
-            authtoken_request.auth_request_id = str(uuid.uuid1())
-            
-            authtoken_request.input_type = 'json'
-            authtoken_request.output_type = request_json['output']
-            authtoken_request.delivery_type = request_json['deliverytype']
-            authtoken_request.status = 'submitted'
-            authtoken_request.created_time =  date.today().strftime('%Y-%m-%d')
+        # call self.mapper(request_json)
+        authtoken_request_entry = AuthTokenRequestRepository(
+            auth_request_id = str(uuid.uuid4()),
+            number_total = len(request.authdata),
+            input_type = 'json',
+            output_type = request.output,
+            delivery_type = request.deliverytype,
+            status = 'submitted'
+        )
 
-            self.auth_request_repository.add(authtoken_request)
+        authtoken_request_entry.add(self.db_engine)
 
-            line_no = 0
-            error_count = 0
-            for authdata in request_json['authdata']:
-
-                is_valid_authdata, error_code = self.validate_auth_data(authdata, mapping_required, request_json['mapping'], language)
-                if is_valid_authdata == True:    
-                    mapped_authdata = self.mapper.map_fields(authdata, request_json['mapping'] if 'mapping' in request_json else None, language)
-                    line_no += 1
-                    authdata_model = AuthTokenRequestDataModel()
-                    authdata_model.auth_request_id = authtoken_request.auth_request_id
-                    authdata_model.auth_request_line_no = line_no
-                    authdata_model.auth_data_recieved = json.dumps(authdata)
-                    authdata_model.auth_data_input = json.dumps(mapped_authdata)
-                    authdata_model.created_time =  date.today().strftime('%Y-%m-%d')
-                    authdata_model.status = 'submitted'
-
-                    self.auth_request_data_repository.add(authdata_model)
-                else:
-                    line_no +=1
-                    error_count += 1
-                    authdata_model = AuthTokenRequestDataModel()
-                    authdata_model.auth_request_id = authtoken_request.auth_request_id
-                    authdata_model.auth_request_line_no = line_no
-                    authdata_model.auth_data_recieved = json.dumps(authdata)
-                    authdata_model.created_time =  date.today().strftime('%Y-%m-%d')
-                    authdata_model.status = 'invalid'
-                    authdata_model.error_code = error_code
-
-            if(error_count == line_no) :
-                raise MOSIPTokenSeederException('ATS-REQ-101', 'none of the record form a valid request')
+        line_no = 0
+        error_count = 0
+        for authdata in request.authdata:
+            line_no += 1
+            authdata_model = AuthTokenRequestDataRepository(
+                auth_request_id = authtoken_request_entry.auth_request_id,
+                auth_request_line_no = line_no,
+                auth_data_recieved = json.dumps(authdata),
+            )
+            is_valid_authdata, error_code = self.validate_auth_data(authdata, mapping_required, request.mapping, language)
+            if is_valid_authdata == True:    
+                authdata_model.auth_data_input = self.mapper.map_fields(authdata, request.mapping, language)
+                authdata_model.status = 'submitted'
             else:
-                return authtoken_request.auth_request_id 
+                error_count += 1
+                authdata_model.status = 'invalid'
+                authdata_model.error_code = error_code
+            authdata_model.add(self.db_engine)
+        
+        self.request_id_queue.put(authtoken_request_entry.auth_request_id)
+
+        if(error_count == line_no) :
+            raise MOSIPTokenSeederException('ATS-REQ-101', 'none of the record form a valid request')
+        else:
+            return authtoken_request_entry.auth_request_id 
 
     def fetch_status(self, request_identifier):
         status =  self.auth_request_repository.fetch_status(request_identifier)
@@ -95,17 +88,6 @@ class AuthTokenService:
                 output_json.append(json.loads(output_record[0]))
 
         return str.encode(json.dumps(output_json))
-
-
-    def validate_json(self, request_json):
-        if 'authdata' not in  request_json :
-            raise MOSIPTokenSeederException('ATS-REQ-001','json is not in valid format ')
-
-        if len(request_json['authdata']) == 0:
-            raise MOSIPTokenSeederException('ATS-REQ-001','json is not in valid format ')
-
-        return True
-
 
     def validate_auth_data(self, authdata, mapping_required, mapping_json, language):
         if mapping_required == False and ('vid' not in authdata or 'name' not in authdata or 'gender' not in authdata or'dateOfBirth' not in authdata or 'phoneNumber' not in authdata or'emailId' not in authdata or'fullAddress' not in authdata ):

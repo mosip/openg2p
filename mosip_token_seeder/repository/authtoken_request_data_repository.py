@@ -1,49 +1,29 @@
-from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, select
+from datetime import datetime
+from sqlalchemy import Column, DateTime, Index, Integer, String, UniqueConstraint
+from sqlalchemy import and_, select
+from sqlalchemy.orm import Session
 
-class AuthTokenRequestDataRepository:
-    def __init__(self) :
+from . import ExtendedBase
 
-        self.meta = MetaData()
-        self.engine = create_engine('sqlite:///auth_seeder.db', echo = True)
-        self.auth_request_data = Table(
-            'auth_request_data', self.meta, 
-            Column('auth_request_id', String, primary_key = True), 
-            Column('auth_request_line_no',Integer, primary_key=True),
-            Column('auth_data_recieved', String), 
-            Column('auth_data_input', String),
-            Column('auth_data_output', String),
-            Column('token', String),
-            Column('error_code', String),
-            Column('status', String),
-            Column('created_time', String),
-            Column('updated_time', String)
-        )
-        self.meta.create_all(self.engine)
-        
+class AuthTokenRequestDataRepository(ExtendedBase):
+    __tablename__ = "auth_token_transaction"
+    __table_args__ = (
+        UniqueConstraint('auth_request_id','auth_request_line_no'),
+        Index('idx_req_id_index','auth_request_id','auth_request_line_no'),
+    )
+    id = Column(Integer, primary_key=True)
+    auth_request_id = Column(String(36), nullable=False)
+    auth_request_line_no = Column(Integer, nullable=False, default=0)
+    auth_data_recieved = Column(String, nullable=False)
+    auth_data_input = Column(String)
+    auth_data_output = Column(String)
+    token = Column(String)
+    error_code = Column(String)
+    status = Column(String)
+    cr_dtimes = Column(DateTime, nullable=False, default=datetime.utcnow)
+    upd_dtimes = Column(DateTime)
     
-    def add(self,authtoken_request_data):
-
-        insert_obj = self.auth_request_data.insert().values(
-            auth_request_id = authtoken_request_data.auth_request_id, 
-            auth_request_line_no = authtoken_request_data.auth_request_line_no,
-            auth_data_recieved = authtoken_request_data.auth_data_recieved, 
-            auth_data_input = authtoken_request_data.auth_data_input, 
-            auth_data_output = authtoken_request_data.auth_data_output, 
-            token = authtoken_request_data.token,
-            status = authtoken_request_data.status, 
-            created_time = authtoken_request_data.created_time
-        )
-        conn = self.engine.connect()
-        result = conn.execute(insert_obj)
-
-    def fetch_output(self, auth_request_id):
-        select_query = select([self.auth_request_data.columns.auth_data_output]).where(self.auth_request_data.columns.auth_request_id == auth_request_id).order_by(self.auth_request_data.columns.auth_request_line_no.asc())   
-        conn = self.engine.connect()
-        output = conn.execute(select_query).fetchall()
-        if output is not None:
-            return output
-        else :
-            return None
-        
-    # def __del__(self):
-    #     self.conn.close()
+    @classmethod
+    def get_from_session(cls, session : Session, req_id, line_no):
+        stmt = select(cls).where(and_(cls.auth_request_id==req_id,cls.auth_request_line_no==line_no))
+        return session.scalars(stmt).one()

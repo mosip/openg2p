@@ -1,10 +1,8 @@
 import json
-from logging import exception
-from multiprocessing.sharedctypes import Value
 
 from sqlalchemy import true
-from ..model.authtoken_request_model import AuthTokenRequestModel
-from ..model.authtoken_base_model import AuthTokenBaseModel
+from ..model import AuthTokenRequestModel
+from ..model import AuthTokenBaseModel
 
 class MappingService:
     def __init__(self) :
