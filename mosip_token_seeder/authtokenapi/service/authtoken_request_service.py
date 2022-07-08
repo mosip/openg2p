@@ -12,7 +12,8 @@ from .mapping_service import MappingService
 import uuid
 
 logger = logging.getLogger(__name__)
-
+supported_output_types = ['json','csv']
+supported_delivery_types = ['download']
 
 class AuthTokenService:
     def __init__(self) :
@@ -78,31 +79,57 @@ class AuthTokenService:
     def fetch_status(self, request_identifier):
         status =  self.auth_request_repository.fetch_status(request_identifier)
         if status is None :
-            raise MOSIPTokenSeederException('ATS-REQ-016', 'no auth request found for the given identifier')
+            raise MOSIPTokenSeederException('ATS-STA-002', 'no auth request found for the given identifier')
         return status
 
     def get_file(self, request_identifier):
         status =  self.auth_request_repository.fetch_status(request_identifier)
         output_json = []
         if status is None :
-            raise MOSIPTokenSeederException('ATS-REQ-016', 'no auth request found for the given identifier')
+            raise MOSIPTokenSeederException('ATS-DWN-002', 'no auth request found for the given identifier')
         elif status != 'processed':
-            raise MOSIPTokenSeederException('ATS-REQ-017', 'auth request not processed yet')
+            raise MOSIPTokenSeederException('ATS-DWN-003', 'auth request not processed yet')
         else : 
             output_records = self.auth_request_data_repository.fetch_output(request_identifier)
             
+           
+            if(len(output_records) ==0) :
+                raise MOSIPTokenSeederException('ATS-DWN-004', 'no records found')
             for output_record in output_records:
-                output_json.append(json.loads(output_record[0]))
-
+                print('output records',output_record[0])
+                if(output_record[0] is not None):
+                    output_json.append(json.loads(output_record[0]))
+        if len(output_json) == 0 :
+            raise MOSIPTokenSeederException('ATS-DWN-005', 'unable to locate any output geneated')
         return str.encode(json.dumps(output_json))
 
 
     def validate_json(self, request_json):
+   
+        if request_json["output"] is None:
+            raise MOSIPTokenSeederException('ATS-REQ-020','output format not mentioned')
+            
+        if request_json["output"] not in supported_output_types:
+            raise MOSIPTokenSeederException('ATS-REQ-021','output format not supported')
+
+        if request_json["deliverytype"] is None:
+            raise MOSIPTokenSeederException('ATS-REQ-022','delivery type not mentioned')
+
+        if request_json["deliverytype"]  not in supported_delivery_types:
+            raise MOSIPTokenSeederException('ATS-REQ-023','delivery type not supported')
+        
         if 'authdata' not in  request_json :
             raise MOSIPTokenSeederException('ATS-REQ-001','json is not in valid format ')
 
         if len(request_json['authdata']) == 0:
             raise MOSIPTokenSeederException('ATS-REQ-001','json is not in valid format ')
+        
+        if 'authdata' not in  request_json :
+            raise MOSIPTokenSeederException('ATS-REQ-001','json is not in valid format ')
+
+        if len(request_json['authdata']) == 0:
+            raise MOSIPTokenSeederException('ATS-REQ-001','json is not in valid format ')
+
 
         return True
 
@@ -129,7 +156,8 @@ class AuthTokenService:
         if len(authdata['gender']) == 0:
             return False, 'ATS-REQ-004' 
 
-        if authdata['gender'].lower() not in ['male','female','others']:
+        print("gender",authdata['gender'])
+        if authdata['gender'][0]['value'].lower() not in ['male','female','others']:
             return False, 'ATS-REQ-005' 
 
         if len(authdata['dateOfBirth']) == 0:
