@@ -1,11 +1,13 @@
 import os
 import sys
-from . import db_init
+from . import db_tools
 from dynaconf import Dynaconf
 
-config = Dynaconf(settings_files=["config.toml","/app/token_seeder.conf"], envvar_prefix="TOKENSEEDER", environments=False)
+from mosip_token_seeder import init_config
 
 available_subcommands = ['dbinit']
+
+config = init_config()
 
 if len(sys.argv)<2 or sys.argv[1] not in available_subcommands:
     sys.exit('Available subcommands:\n\t%s' % '\n\t'.join(available_subcommands))
@@ -18,9 +20,7 @@ if subcommand == available_subcommands[0]:
         password = config.db.password
         location = config.db.location
         if config.db.get('generate_password_always',True):
-            password = db_init.generate_password(config.db.random_password_length)
-        location = location.replace('<username>',username)
-        location = location.replace('<password>',password)
-        eng = db_init.db_init(location)
-        db_init.db_create(eng)
+            password = db_tools.generate_password(config.db.random_password_length)
+        eng = db_tools.db_init(location, username, password)
+        db_tools.db_create(eng)
         print(password)

@@ -15,7 +15,7 @@ class AuthTokenService:
     def __init__(self, config, logger, request_id_queue) :
         self.mapper = MappingService()
         self.config = config
-        self.db_engine = db_tools.db_init(config.db.location,config.db.password)
+        self.db_engine = db_tools.db_init(config.db.location,password=config.db.password)
         self.logger = logger
         self.request_id_queue = request_id_queue
         
