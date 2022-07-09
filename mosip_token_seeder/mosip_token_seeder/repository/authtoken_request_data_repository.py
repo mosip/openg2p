@@ -1,5 +1,5 @@
 from datetime import datetime
-from sqlalchemy import Column, DateTime, Identity, Index, Integer, String, UniqueConstraint
+from sqlalchemy import Column, DateTime, Index, Integer, String, UniqueConstraint
 from sqlalchemy import and_, select
 from sqlalchemy.orm import Session
 
@@ -11,9 +11,9 @@ class AuthTokenRequestDataRepository(Base,ExtendedBase):
         UniqueConstraint('auth_request_id','auth_request_line_no'),
         Index('idx_req_id_index','auth_request_id','auth_request_line_no'),
     )
-    # id = Column(Integer, primary_key=True,  Identity(start=42, cycle=True))
-    auth_request_id = Column(String(36), nullable=False, primary_key=True)
-    auth_request_line_no = Column(Integer, nullable=False, default=0, primary_key=True)
+    id = Column(Integer, primary_key=True)
+    auth_request_id = Column(String(36), nullable=False)
+    auth_request_line_no = Column(Integer, nullable=False, default=0)
     auth_data_recieved = Column(String, nullable=False)
     auth_data_input = Column(String)
     auth_data_output = Column(String)

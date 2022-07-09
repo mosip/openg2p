@@ -13,10 +13,8 @@ class ExtendedBase:
     
     def add(self, engine):
         with Session(engine) as session:
-            session.expire_on_commit = False
             self.add_to_session(session)
             session.commit()
-            
         return self
     
     def update_change(self, session : Session):

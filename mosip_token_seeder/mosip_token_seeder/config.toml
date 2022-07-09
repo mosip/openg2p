@@ -4,14 +4,6 @@ pid_grep_name = 'gunicorn'
 default_lang_code = "eng"
 output_stored_files_path = "stored_files"
 
-
-[mosip_auth_server]
-# ida_auth_domain_uri = 
-# ida_auth_url = 
-
-ida_auth_domain_uri = "https://api-internal.iiitb.mosip.net"
-ida_auth_url = "https://api-internal.iiitb.mosip.net/idauthentication/v1/auth"
-
 [logging]
 log_file_name = "mosip_token_seeder.log"
 log_format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"

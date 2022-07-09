@@ -9,7 +9,7 @@ from ..exception import MOSIPTokenSeederException, MOSIPTokenSeederNoException
 from mosip_token_seeder.repository import AuthTokenRequestRepository, AuthTokenRequestDataRepository
 from mosip_token_seeder.repository import db_tools
 from . import MappingService
-from sqlalchemy.orm import Session
+
 
 class AuthTokenService:
     def __init__(self, config, logger, request_id_queue) :
@@ -29,10 +29,10 @@ class AuthTokenService:
         language = request.lang
         if not request.lang:
             language = self.config.root.default_lang_code
-        request_identifier = str(uuid.uuid4())
+
         # call self.mapper(request_json)
         authtoken_request_entry = AuthTokenRequestRepository(
-            auth_request_id = request_identifier,
+            auth_request_id = str(uuid.uuid4()),
             number_total = len(request.authdata),
             input_type = 'json',
             output_type = request.output,
@@ -40,29 +40,27 @@ class AuthTokenService:
             status = 'submitted'
         )
 
-        test = authtoken_request_entry.add(self.db_engine)
-        
+        authtoken_request_entry.add(self.db_engine)
+
         line_no = 0
         error_count = 0
         for authdata in request.authdata:
             line_no += 1
             authdata_model = AuthTokenRequestDataRepository(
-                auth_request_id = request_identifier,
+                auth_request_id = authtoken_request_entry.auth_request_id,
                 auth_request_line_no = line_no,
                 auth_data_recieved = json.dumps(authdata),
             )
             is_valid_authdata, error_code = self.validate_auth_data(authdata, mapping_required, request.mapping, language)
             if is_valid_authdata == True:    
-                authdata_model.auth_data_input = str(self.mapper.map_fields(authdata, request.mapping, language))
+                authdata_model.auth_data_input = self.mapper.map_fields(authdata, request.mapping, language)
                 authdata_model.status = 'submitted'
             else:
                 error_count += 1
                 authdata_model.status = 'invalid'
                 authdata_model.error_code = error_code
-            session = Session(self.db_engine)
-            
             authdata_model.add(self.db_engine)
-
+        
         self.request_id_queue.put(authtoken_request_entry.auth_request_id)
 
         if(error_count == line_no) :
@@ -106,7 +104,7 @@ class AuthTokenService:
         if len(authdata['gender']) == 0:
             return False, 'ATS-REQ-004' 
 
-        if authdata['gender'][0]["value"].lower() not in ['male','female','others']:
+        if authdata['gender'].lower() not in ['male','female','others']:
             return False, 'ATS-REQ-005' 
 
         if len(authdata['dateOfBirth']) == 0:
