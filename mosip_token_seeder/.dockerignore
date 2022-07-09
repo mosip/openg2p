@@ -1,7 +1,9 @@
+samples
 __pycache__
 .vscode
 venv_token_seeder
 certs
-**.log
-**.db
-**.dbsqlite
+stored_files
+**/*.log
+**/*.db
+**/*.dbsqlite

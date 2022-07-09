@@ -7,7 +7,7 @@ class MappingService:
     def __init__(self) :
         pass
     
-    def map_fields(self,authdata_json, mapping_json, language):
+    def map_fields(self, authdata_json, mapping_json, language):
         mapped_auth_object = AuthTokenBaseModel()
 
         if 'vid' in authdata_json :
@@ -28,11 +28,11 @@ class MappingService:
             mapped_field = [{"language" : language, "value": self.get_mapped_field(mapping_json, 'gender')}]
             mapped_auth_object.gender = [{"language" : language, "value": self.get_mapped_value(authdata_json,mapped_field)}]
 
-        if 'dateOfBirth' in authdata_json :
-            mapped_auth_object.dateOfBirth = authdata_json['dateOfBirth']
+        if 'dob' in authdata_json :
+            mapped_auth_object.dob = authdata_json['dob']
         else :
-            mapped_field = self.get_mapped_field(mapping_json, 'dateOfBirth')
-            mapped_auth_object.dateOfBirth = self.get_mapped_value(authdata_json,mapped_field)
+            mapped_field = self.get_mapped_field(mapping_json, 'dob')
+            mapped_auth_object.dob = self.get_mapped_value(authdata_json,mapped_field)
             
         if 'phoneNumber' in authdata_json :
             mapped_auth_object.phoneNumber = authdata_json['phoneNumber']
@@ -77,8 +77,8 @@ class MappingService:
             elif self.is_valid_mapped_field(authdata_json,mapped_field) == False:
                 return False, 'ATS-REQ-011'
 
-        if 'dateOfBirth' not in authdata_json :
-            mapped_field = self.get_mapped_field(mapping_json, 'dateOfBirth')
+        if 'dob' not in authdata_json :
+            mapped_field = self.get_mapped_field(mapping_json, 'dob')
             if mapped_field is None:
                 return False, 'ATS-REQ-012'
             elif self.is_valid_mapped_field(authdata_json,mapped_field) == False:

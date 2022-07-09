@@ -14,7 +14,7 @@ class DemographicLanguageField(BaseModel):
 class DemographicsModel(BaseModel):
     name : List[DemographicLanguageField]
     gender : List[DemographicLanguageField]
-    dateOfBirth : str
+    dob : str
     phoneNumber : str
     emailId : str
     fullAddress : List[DemographicLanguageField]
