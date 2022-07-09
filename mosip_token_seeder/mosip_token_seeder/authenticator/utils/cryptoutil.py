@@ -13,15 +13,17 @@ from ..exceptions import AuthenticatorCryptoException, Errors
 
 class CryptoUtility:
 
-    def __init__(self, encrypt_config, sign_config, **kwargs):
-
-        self.logger = logging.getLogger(__name__)
+    def __init__(self, encrypt_config, sign_config, logger=None, **kwargs):
+        if not logger:
+            self.logger = logging.getLogger(__name__)
+        else:
+            self.logger = logger
 
         self.encrypt_cert_obj = CryptoUtility._get_certificate_obj(encrypt_config.encrypt_cert_path, self.logger)
         self.sign_private_key, self.sign_cert, self.ca_chain = CryptoUtility._get_priv_key_cert(sign_config.sign_p12_file_path, 
-                                                sign_config.sign_p12_file_password, self.logger)
+                                                str(sign_config.sign_p12_file_password), self.logger)
 
-        self.sign_priv_key_jws = CryptoUtility._get_jwk_private_key(self.sign_private_key, sign_config.sign_p12_file_password, self.logger)
+        self.sign_priv_key_jws = CryptoUtility._get_jwk_private_key(self.sign_private_key, str(sign_config.sign_p12_file_password), self.logger)
 
         self.enc_cert_thumbprint = base64.urlsafe_b64encode(self.encrypt_cert_obj.fingerprint(hashes.SHA256()))
 

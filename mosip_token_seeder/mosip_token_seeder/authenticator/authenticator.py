@@ -16,15 +16,17 @@ class MOSIPAuthenticator:
     def __init__(self, config_obj, logger=None, **kwargs ):
         if not logger:
             self.logger = self._init_logger(config_obj.logging.log_file_path)
+        else:
+            self.logger = logger
 
         self.auth_rest_util = RestUtility(config_obj.mosip_auth_server.ida_auth_url, config_obj.mosip_auth.authorization_header_constant)
         self.crypto_util = CryptoUtility(config_obj.crypto_encrypt, config_obj.crypto_signature)
 
         self.auth_domain_scheme = config_obj.mosip_auth_server.ida_auth_domain_uri
        
-        self.partner_misp_lk =  config_obj.mosip_auth.partner_misp_lk
-        self.partner_id = config_obj.mosip_auth.partner_id
-        self.partner_apikey = config_obj.mosip_auth.partner_apikey
+        self.partner_misp_lk =  str(config_obj.mosip_auth.partner_misp_lk)
+        self.partner_id = str(config_obj.mosip_auth.partner_id)
+        self.partner_apikey = str(config_obj.mosip_auth.partner_apikey)
 
         self.ida_auth_version = config_obj.mosip_auth.ida_auth_version
         self.ida_auth_request_id = config_obj.mosip_auth.ida_auth_request_id
@@ -88,13 +90,13 @@ class MOSIPAuthenticator:
 
             full_request_json = self.auth_request.json()
 
-            signature_header = {'Signature': self.crypto_util.sign_auth_request_data(full_request_json)}        
+            signature_header = {'Signature': self.crypto_util.sign_auth_request_data(full_request_json)}
 
             path_params = self.partner_misp_lk + '/' + self.partner_id + '/' + self.partner_apikey
             response = self.auth_rest_util.post_request(path_params=path_params, data=full_request_json, additional_headers=signature_header)
             self.logger.info('Auth Request Processed Completed.')
             
-            return response.json()
+            return response.text
         except:
             exp = traceback.format_exc()
             self.logger.error('Error Processing Auth Request. Error Message: {}'.format(exp))

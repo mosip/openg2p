@@ -1,8 +1,9 @@
 FROM python:3.8.13-slim-bullseye
 
-ADD ./requirements.txt /app/requirements.txt
-
-RUN cd /app; pip3 install -r requirements.txt
+ADD ./mosip_token_seeder/requirements.txt /seeder/mosip_token_seeder/requirements.txt
+RUN apt-get update
+RUN apt-get -y install build-essential libsqlcipher-dev libsqlite3-dev
+RUN pip3 install -r /seeder/mosip_token_seeder/requirements.txt
 
 ARG container_user=mosip
 ARG container_user_group=mosip
@@ -12,9 +13,11 @@ ARG container_user_gid=1001
 RUN groupadd -g ${container_user_gid} ${container_user_group} \
 && useradd -mN -u ${container_user_uid} -G ${container_user_group} -s /bin/bash ${container_user}
 
+RUN chown -R ${container_user}:${container_user_group} /seeder
+
 USER ${container_user}
-ADD --chown=${container_user}:${container_user_group} . /app
-WORKDIR /
+ADD --chown=${container_user}:${container_user_group} . /seeder
+WORKDIR /seeder
 
 ENV TOKENSEEDER_ROOT__PID_GREP_NAME='gunicorn'
 ENV TOKENSEEDER_GUNICORN__WORKERS=4
@@ -22,7 +25,7 @@ ENV TOKENSEEDER_GUNICORN__MAX_REQUESTS=10000
 ENV TOKENSEEDER_GUNICORN__TIMEOUT=5
 ENV TOKENSEEDER_GUNICORN__KEEP_ALIVE=5
 
-CMD gunicorn \
+CMD TOKENSEEDER_DB__PASSWORD=$(python3 -m mosip_token_seeder.repository dbinit) gunicorn \
     --worker-class uvicorn.workers.UvicornWorker \
     --workers ${TOKENSEEDER_GUNICORN__WORKERS} \
     --bind 0.0.0.0:8080 \

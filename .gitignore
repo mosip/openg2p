@@ -3,6 +3,6 @@ venv_token_seeder
 __pycache__
 stored_files
 certs
-**.log
-**.db
-**.dbsqlite
+**/*.log
+**/*.db
+**/*.dbsqlite

@@ -3,6 +3,8 @@ context_path = '/'
 pid_grep_name = 'gunicorn'
 default_lang_code = "eng"
 output_stored_files_path = "stored_files"
+full_address_delimiter = ', '
+name_delimiter = ' '
 
 [logging]
 log_file_name = "mosip_token_seeder.log"

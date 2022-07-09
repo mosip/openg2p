@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from . import Base, ExtendedBase
 
 class AuthTokenRequestDataRepository(Base,ExtendedBase):
-    __tablename__ = "auth_token_transaction"
+    __tablename__ = "auth_request_data"
     __table_args__ = (
         UniqueConstraint('auth_request_id','auth_request_line_no'),
         Index('idx_req_id_index','auth_request_id','auth_request_line_no'),
@@ -27,3 +27,8 @@ class AuthTokenRequestDataRepository(Base,ExtendedBase):
     def get_from_session(cls, session : Session, req_id, line_no):
         stmt = select(cls).where(and_(cls.auth_request_id==req_id,cls.auth_request_line_no==line_no))
         return session.scalars(stmt).one()
+    
+    @classmethod
+    def get_all_from_session(cls, session : Session, req_id):
+        stmt = select(cls).where(cls.auth_request_id==req_id)
+        return session.scalars(stmt)

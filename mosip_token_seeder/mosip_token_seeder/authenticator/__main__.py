@@ -1,8 +1,10 @@
+import os
 import json
 from dynaconf import Dynaconf
-from authenticator import MOSIPAuthenticator
+import logging
+from . import MOSIPAuthenticator
 
-config = Dynaconf(settings_files=['authenticator-config.toml','/app/token_seeder.conf'], envvar_prefix='TOKENSEEDER', environments=False)
+config = Dynaconf(settings_files=[os.path.join(os.path.dirname(__file__),'authenticator-config.toml'),'/app/token_seeder.conf'], envvar_prefix='TOKENSEEDER', environments=False)
 
 if __name__ == "__main__":
     mosip_authenticator = MOSIPAuthenticator(config)
@@ -10,4 +12,4 @@ if __name__ == "__main__":
     with open('samples/qrcod.json') as file:
         json_data = json.load(file)
     auth_resp = mosip_authenticator.do_auth(json_data)
-    print (json.dumps(auth_resp))
+    print (auth_resp)
