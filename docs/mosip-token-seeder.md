@@ -2,18 +2,17 @@
 
 ## Overview
 
-MOSIP Token Seeder (MTS) is a standalone service that outputs (MOSIP Token ID)[https://docs.mosip.io/1.2.0/id-lifecycle-management/identifiers#token-id) for a given input list of UIN/VIDs after performing authentication with [IDA](https://docs.mosip.io/1.2.0/id-authentication). The service is a convenience module that makes it easy for [Relying Parties](https://docs.mosip.io/1.2.0/id-authentication#relying-parties-and-policies) to perform bulk authentication to onboad users to to their systems. One of the indented use cases of MTS is to seed existing beneficiary registeries for deduplication. Similary, entities like banks can run the MTS service to onboard users.
+MOSIP Token Seeder (MTS) is a standalone service that outputs [MOSIP Token ID](https://docs.mosip.io/1.2.0/id-lifecycle-management/identifiers#token-id) for a given input list of UIN/VIDs after performing authentication with [IDA](https://docs.mosip.io/1.2.0/id-authentication). The service is a convenience module that makes it easy for [Relying Parties](https://docs.mosip.io/1.2.0/id-authentication#relying-parties-and-policies) to perform bulk authentication to onboard users to their systems. One of the indented use cases of MTS is to seed existing beneficiary registries for deduplication. Similarly, entities like banks can run the MTS service to onboard users.
 
 Some of the features of MTS:
-* Bulk upload 
-* Support for multiple inputs and outputs (see diagram below). For instance, a CSV file may be uploaded, and the downloaded file will contain a column with tokens populated.
-* [REST interface](#api)
-* PII  at rest is encrypted. Further, the PII is removed after processing. 
-* Works in asynchronus mode - queues all the requests.
 
+* Bulk upload.
+* Support for multiple inputs and outputs (see diagram below). For instance, a CSV file may be uploaded, and the downloaded file will contain a column with tokens populated.
+* [REST interface](mosip-token-seeder.md#api).
+* PII at rest is encrypted. Further, the PII is erased after processing.
+* Works in asynchronous mode - queues all the requests.
 
 ![](https://github.com/mosip/openg2p/raw/main/docs/.gitbook/assets/seeder.png)
-
 
 ## Inputs
 
@@ -44,35 +43,33 @@ Some of the features of MTS:
 * **Status management** - Various status of a token seeding request. (Uploaded/Processing/Completed/Archived)
 * **Database** - Data persistence for the whole system
   * <mark style="color:purple;">Derby Or SQLite for local in-memory storage.</mark>
-  * <mark style="color:purple;">Design should be open for external connect to any db like Postgres/Oracle/SQL Server</mark>&#x20;
-  * <mark style="color:purple;">DB access design should also allow a seamless integration with odoo/openG2P, in case core service is directly integrated there.</mark> &#x20;
+  * <mark style="color:purple;">Design should be open for external connect to any db like Postgres/Oracle/SQL Server</mark>
+  * <mark style="color:purple;">DB access design should also allow a seamless integration with odoo/openG2P, in case core service is directly integrated there.</mark>
 * **Processed CSV/JSON** - How do we persist the csv/json for which token generation is completed.
 * **VC** - Should we be verifying the Digital Signature
 * **VC** - Shouldn't we define a output fields?
 * **Biometric inputs** - Should we consider Biometric inputs for the authentication?
 * **Scheduled jobs** - Repeated tasks can be configured through a API call (for instance, Daily ODK Pull)
 * **Status check** - API for querying on the status of a token seeding request.
-* **MOSIP authentication fields** - API to fetch the list of MOSIP Authentication fields so that a mapper configuration can be generated to make CSV/JSON token seeder request.   &#x20;
+* **MOSIP authentication fields** - API to fetch the list of MOSIP Authentication fields so that a mapper configuration can be generated to make CSV/JSON token seeder request.
 * <mark style="color:purple;">Queue Management - Avoid using external systems for any queue implementation</mark>
-* <mark style="color:purple;">Decoupled Seeder Service - The seeder service should be separate enough</mark>&#x20;
+* <mark style="color:purple;">Decoupled Seeder Service - The seeder service should be separate enough</mark>
 * <mark style="color:purple;">Programing language - Python</mark>
 * <mark style="color:purple;">Framework - Fast API</mark>
 
-<mark style="color:purple;"></mark>
-
 ## API
 
-| API                    | Input      | Output | Method | Notes                                                                                                                                                            |
-| ---------------------- | ---------- | ------ | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| /authtoken/authfields  |            | array  | GET    | Get the MOSIP Auth Fields                                                                                                                                        |
-| /authtoken/status/{id} | GUID       | json   | GET    | Get the status of Token Seeding Request submitted earlier                                                                                                        |
-| /authtoken/file/{id}   | GUID       | file   | GET    | Gets the file (csv/json) if the seeding is completed.                                                                                                            |
-| /authtoken/json        | json       | json   | POST   | Takes in json array along with field mapping and process the token seeding.                                                                                      |
-| /authtoken/csv         | file, json | json   | POST   | Takes in csv file along with field mapping and process the token seeding.                                                                                        |
-| /authtoken/odk         | json       | json   | POST   | Takes in input in VC format and process the token seeding.                                                                                                       |
-| /authtoken/vc          | json       | json   | POST   | Takes in odk setup configuration and credentials to enable real-time odk pull or setup a scheduled odk pull.  Token seeding will be done subsequent to odk pull. |
+| API                    | Input      | Output | Method | Notes                                                                                                                                                           |
+| ---------------------- | ---------- | ------ | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| /authtoken/authfields  |            | array  | GET    | Get the MOSIP Auth Fields                                                                                                                                       |
+| /authtoken/status/{id} | GUID       | json   | GET    | Get the status of Token Seeding Request submitted earlier                                                                                                       |
+| /authtoken/file/{id}   | GUID       | file   | GET    | Gets the file (csv/json) if the seeding is completed.                                                                                                           |
+| /authtoken/json        | json       | json   | POST   | Takes in json array along with field mapping and process the token seeding.                                                                                     |
+| /authtoken/csv         | file, json | json   | POST   | Takes in csv file along with field mapping and process the token seeding.                                                                                       |
+| /authtoken/odk         | json       | json   | POST   | Takes in input in VC format and process the token seeding.                                                                                                      |
+| /authtoken/vc          | json       | json   | POST   | Takes in odk setup configuration and credentials to enable real-time odk pull or setup a scheduled odk pull. Token seeding will be done subsequent to odk pull. |
 
-## KYC token API&#x20;
+## KYC token API
 
 ### Input type
 
@@ -97,15 +94,15 @@ Some of the features of MTS:
 ## Request flow
 
 1. Validate the request input
-1. Do a scan for the input.
-1. Split the input and validate
-1. If valid&#x20;
-    1. Create Identifier
-    1. Create Default status equals "Submitted"
-    1. Split the input, convert to JSON and persist with the status "Submitted"
-    1. Return status submitted with the identifier
-1. Else
-    1. Return Error
+2. Do a scan for the input.
+3. Split the input and validate
+4. If valid
+   1. Create Identifier
+   2. Create Default status equals "Submitted"
+   3. Split the input, convert to JSON and persist with the status "Submitted"
+   4. Return status submitted with the identifier
+5. Else
+   1. Return Error
 
 ## Notes
 
