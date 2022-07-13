@@ -11,7 +11,6 @@ def db_init(datasource_location : str, username=None, password=None):
     if username:
         loc = loc.replace('<username>',username)
     eng = create_engine(datasource_location)
-    
     return eng
 
 def generate_password(random_password_length : int):

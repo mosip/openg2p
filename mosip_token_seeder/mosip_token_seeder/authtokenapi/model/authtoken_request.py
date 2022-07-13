@@ -2,6 +2,7 @@ from pydantic import BaseModel, validator
 from typing import List, Optional
 
 from ..exception import MOSIPTokenSeederException
+from . import MapperFields
 
 supported_output_types = ['json','csv']
 supported_delivery_types = ['download']
@@ -10,7 +11,7 @@ class AuthTokenRequest(BaseModel):
     output: str
     deliverytype: str
     authdata: Optional[List[dict]]
-    mapping: Optional[dict]
+    mapping: MapperFields = MapperFields()
     lang: Optional[str]
 
     @validator('output', pre=True)

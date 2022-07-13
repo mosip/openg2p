@@ -24,3 +24,5 @@ if subcommand == available_subcommands[0]:
         eng = db_tools.db_init(location, username, password)
         db_tools.db_create(eng)
         print(password)
+    else:
+        print(config.db.password)
