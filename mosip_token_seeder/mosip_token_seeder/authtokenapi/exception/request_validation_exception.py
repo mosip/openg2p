@@ -14,7 +14,7 @@ class RequestValidationErrorHandler:
         self.logger = logger
         @app.exception_handler(MOSIPTokenSeederException)
         async def tokenseeder_exception_handler(request, exc):
-            self.logger.error('Handling exception: %s' % str(exc))
+            self.logger.error('Handling exception: %s' % repr(exc))
             if isinstance(exc, MOSIPTokenSeederNoException):
                 code = exc.error_code
                 message = exc.error_message
@@ -37,7 +37,7 @@ class RequestValidationErrorHandler:
         
         @app.exception_handler(Exception)
         async def unknown_exception_handler(request, exc):
-            self.logger.error('Handling exception: %s' % str(exc))
+            self.logger.error('Handling exception: %s' % repr(exc))
             l = str(exc).split('::')
             if len(l)>1:
                 code = l[0]

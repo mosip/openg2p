@@ -11,7 +11,7 @@ class AuthTokenApi:
     def __init__(self, app, config, logger, request_id_queue):
         self.authtoken_service = AuthTokenService(config, logger, request_id_queue)
 
-        @app.post(config.root.context_path + "authtoken/json")
+        @app.post(config.root.api_path_prefix + "authtoken/json")
         async def authtoken_json(request : AuthTokenHttpRequest = None):
             if not request:
                 raise MOSIPTokenSeederException('ATS-REQ-100', 'mission request body')

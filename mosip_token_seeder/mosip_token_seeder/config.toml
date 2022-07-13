@@ -1,5 +1,6 @@
 [root]
 context_path = '/'
+api_path_prefix = '/'
 pid_grep_name = 'gunicorn'
 default_lang_code = "eng"
 output_stored_files_path = "stored_files"

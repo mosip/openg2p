@@ -17,9 +17,14 @@ class ExtendedBase:
             session.commit()
         return self
     
-    def update_change(self, session : Session):
+    def update_timestamp(self):
         self.upd_dtimes = datetime.utcnow()
-        session.commit()
+    
+    def update_commit_timestamp(self, session : Session = None):
+        self.update_timestamp()
+        if session:
+            session.commit()
+        return self
 
 from .authtoken_request_data_repository import AuthTokenRequestDataRepository
 from .authtoken_request_repository import AuthTokenRequestRepository
