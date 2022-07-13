@@ -37,8 +37,25 @@ Some of the features of MTS:
 3. SFTP
 4. Download URL
 
-## Design considerations/open questions
-
+* **Secrets management** - Save the credentials for SFTP/ODK etc.
+* **Status management** - Various status of a token seeding request. (Uploaded/Processing/Completed/Archived)
+* **Database** - Data persistence for the whole system
+  * <mark style="color:purple;">Derby Or SQLite for local in-memory storage.</mark>
+  * <mark style="color:purple;">Design should be open for external connect to any db like Postgres/Oracle/SQL Server</mark>&#x20;
+  * <mark style="color:purple;">DB access design should also allow a seamless integration with odoo/openG2P, in case core service is directly integrated there.</mark> &#x20;
+* **Processed CSV/JSON** - How do we persist the csv/json for which token generation is completed.
+* **VC** - Should we be verifying the Digital Signature
+* **VC** - Shouldn't we define a output fields?
+* **Biometric inputs** - Should we consider Biometric inputs for the authentication?
+* **Scheduled jobs** - Repeated tasks can be configured through a API call (for instance, Daily ODK Pull)
+* **Status check** - API for querying on the status of a token seeding request.
+* **MOSIP authentication fields** - API to fetch the list of MOSIP Authentication fields so that a mapper configuration can be generated to make CSV/JSON token seeder request.   &#x20;
+* <mark style="color:purple;">Queue Management - Avoid using external systems for any queue implementation</mark>
+* <mark style="color:purple;">Decoupled Seeder Service - The seeder service should be separate enough</mark>&#x20;
+* <mark style="color:purple;">Programing language - Python</mark>
+* <mark style="color:purple;">Framework - Fast API</mark>
+* Source Index to keep the sequence of row intact.
+* Expiring the processed data as soon as its downloaded or reaches the expiry after the processing.
 * **Secrets management** - Save the credentials for SFTP/ODK etc.
 * **Status management** - Various status of a token seeding request. (Uploaded/Processing/Completed/Archived)
 * **Database** - Data persistence for the whole system
@@ -69,9 +86,9 @@ Some of the features of MTS:
 | /authtoken/odk         | json       | json   | POST   | Takes in input in VC format and process the token seeding.                                                                                                      |
 | /authtoken/vc          | json       | json   | POST   | Takes in odk setup configuration and credentials to enable real-time odk pull or setup a scheduled odk pull. Token seeding will be done subsequent to odk pull. |
 
-## KYC token API
+### Token API&#x20;
 
-### Input type
+#### Input type
 
 * `json`
 * `odk`
@@ -80,12 +97,12 @@ Some of the features of MTS:
 * `form.io`
 * `googlsheet`
 
-### Output type <a href="#output-type" id="output-type"></a>
+#### Output type <a href="#output-type" id="output-type"></a>
 
 * json
 * csv
 
-### Delivery method
+#### Delivery method
 
 * websub
 * download
@@ -93,10 +110,12 @@ Some of the features of MTS:
 
 ## Request flow
 
+
+
 1. Validate the request input
 2. Do a scan for the input.
 3. Split the input and validate
-4. If valid
+4. If valid&#x20;
    1. Create Identifier
    2. Create Default status equals "Submitted"
    3. Split the input, convert to JSON and persist with the status "Submitted"
@@ -104,7 +123,4 @@ Some of the features of MTS:
 5. Else
    1. Return Error
 
-## Notes
-
-* SourceIndex to keep the sequence of row intact.
-* Expiring the processed data as soon as its downloaded or reaches the expiry after the processing.
+#### Notes
