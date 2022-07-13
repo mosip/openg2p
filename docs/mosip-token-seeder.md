@@ -2,27 +2,20 @@
 
 ## Overview
 
+MOSIP Token Seeder (MTS) is a standalone service that outputs (MOSIP Token ID)[https://docs.mosip.io/1.2.0/id-lifecycle-management/identifiers#token-id) for a given input list of UIN/VIDs after performing authentication with [IDA](https://docs.mosip.io/1.2.0/id-authentication). The service is a convenience module that makes it easy for [Relying Parties](https://docs.mosip.io/1.2.0/id-authentication#relying-parties-and-policies) to perform bulk authentication to onboad users to to their systems. One of the indented use cases of MTS is to seed existing beneficiary registeries for deduplication. Similary, entities like banks can run the MTS service to onboard users.
+
+Some of the features of MTS:
+* Bulk upload 
+* Support for multiple inputs and outputs (see diagram below). For instance, a CSV file may be uploaded, and the downloaded file will contain a column with tokens populated.
+* [REST interface](#api)
+* PII  at rest is encrypted. Further, the PII is removed after processing. 
+* Works in asynchronus mode - queues all the requests.
+
+
 ![](https://github.com/mosip/openg2p/raw/main/docs/.gitbook/assets/seeder.png)
 
-## Overview
 
-## Initial thoughts
-
-* We are addressing one of the last mile problems
-* Token seeding - main function
-* KYC fields in the form automatically populated
-* Additional fields related to scheme may be present
-* Seeder is agnostic to a scheme/registry/form as long as mandatory KYC fields are present.
-* All the fields are forwarded to the department via Websub with attached MOSIP auth token.
-* Auth failure handled — error message sent to Dept using the same Websub mechanism
-* Data at rest (in WebSub) encoded using public key of subscribed department (like partner management in MOSIP).
-* No persistence of PII data
-
-## Octopus model architecture
-
-A multi-point system which can cater any type of input and output to make the MOSIP Token Seeder effective in any possible use cases.
-
-### Inputs
+## Inputs
 
 1. Direct Plain KYC Request
 2. CSV Upload
@@ -32,20 +25,20 @@ A multi-point system which can cater any type of input and output to make the MO
 6. Form.IO Sheets upload
 7. VC
 
-### Outputs
+## Outputs
 
 1. Direct Synchronous Response
 2. CSV
 3. JSON
 
-### Delivery method
+## Delivery method
 
 1. Synchronous Response
 2. WebSub
 3. SFTP
 4. Download URL
 
-### Design considerations/open questions
+## Design considerations/open questions
 
 * **Secrets management** - Save the credentials for SFTP/ODK etc.
 * **Status management** - Various status of a token seeding request. (Uploaded/Processing/Completed/Archived)
@@ -67,7 +60,7 @@ A multi-point system which can cater any type of input and output to make the MO
 
 <mark style="color:purple;"></mark>
 
-### API
+## API
 
 | API                    | Input      | Output | Method | Notes                                                                                                                                                            |
 | ---------------------- | ---------- | ------ | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -79,9 +72,9 @@ A multi-point system which can cater any type of input and output to make the MO
 | /authtoken/odk         | json       | json   | POST   | Takes in input in VC format and process the token seeding.                                                                                                       |
 | /authtoken/vc          | json       | json   | POST   | Takes in odk setup configuration and credentials to enable real-time odk pull or setup a scheduled odk pull.  Token seeding will be done subsequent to odk pull. |
 
-### KYC token API&#x20;
+## KYC token API&#x20;
 
-#### Input type
+### Input type
 
 * `json`
 * `odk`
@@ -90,35 +83,31 @@ A multi-point system which can cater any type of input and output to make the MO
 * `form.io`
 * `googlsheet`
 
-#### Output type <a href="#output-type" id="output-type"></a>
+### Output type <a href="#output-type" id="output-type"></a>
 
 * json
 * csv
 
-#### Delivery method
+### Delivery method
 
 * websub
 * download
 * sftp
 
-### Design
-
-****
-
-**Token seeder request flow**
+## Request flow
 
 1. Validate the request input
-2. Do a scan for the input.
-3. Split the input and validate
-4. If valid&#x20;
-   1. Create Identifier
-   2. Create Default status equals "Submitted"
-   3. Split the input, convert to JSON and persist with the status "Submitted"
-   4. Return status submitted with the identifier
-5. Else
-   1. Return Error
+1. Do a scan for the input.
+1. Split the input and validate
+1. If valid&#x20;
+    1. Create Identifier
+    1. Create Default status equals "Submitted"
+    1. Split the input, convert to JSON and persist with the status "Submitted"
+    1. Return status submitted with the identifier
+1. Else
+    1. Return Error
 
-#### Notes
+## Notes
 
 * SourceIndex to keep the sequence of row intact.
 * Expiring the processed data as soon as its downloaded or reaches the expiry after the processing.
