@@ -2,13 +2,13 @@
 
 ## Overview
 
-MOSIP Token Seeder (MTS) is a standalone service that outputs [MOSIP Token ID](https://docs.mosip.io/1.2.0/id-lifecycle-management/identifiers#token-id) for a given input list of UIN/VIDs after performing authentication with [IDA](https://docs.mosip.io/1.2.0/id-authentication). The service is a convenience module that makes it easy for [Relying Parties](https://docs.mosip.io/1.2.0/id-authentication#relying-parties-and-policies) to perform bulk authentication to onboard users to their systems. One of the indented use cases of MTS is to seed existing beneficiary registries for deduplication. Similarly, entities like banks can run the MTS service to onboard users.
+MOSIP Token Seeder (**MTS**) is a standalone service that outputs [MOSIP Token ID](https://docs.mosip.io/1.2.0/id-lifecycle-management/identifiers#token-id) for a given input list of UIN/VIDs after performing authentication with [IDA](https://docs.mosip.io/1.2.0/id-authentication). The service is a convenience module that makes it easy for [Relying Parties](https://docs.mosip.io/1.2.0/id-authentication#relying-parties-and-policies) to perform bulk authentication to onboard users to their systems. One of the indented use cases of MTS is to seed existing beneficiary registries for deduplication. Similarly, entities like banks can run the MTS service to onboard users.
 
 Some of the features of MTS:
 
 * Bulk upload.
 * Support for multiple inputs and outputs (see diagram below). For instance, a CSV file may be uploaded, and the downloaded file will contain a column with tokens populated.
-* [REST interface](mosip-token-seeder.md#api).
+* [REST interface](./#api).
 * PII at rest is encrypted. Further, the PII is erased after processing.
 * Works in asynchronous mode - queues all the requests.
 
@@ -29,6 +29,13 @@ Some of the features of MTS:
 1. Direct Synchronous Response
 2. CSV
 3. JSON
+4. &#x20;
+
+## Source code
+
+
+
+## User stories
 
 ## Delivery method
 
@@ -75,42 +82,8 @@ Some of the features of MTS:
 | /authtoken/odk         | json       | json   | POST   | Takes in input in VC format and process the token seeding.                                                                                                      |
 | /authtoken/vc          | json       | json   | POST   | Takes in odk setup configuration and credentials to enable real-time odk pull or setup a scheduled odk pull. Token seeding will be done subsequent to odk pull. |
 
-### Token API&#x20;
 
-#### Input type
 
-* `json`
-* `odk`
-* `csv`
-* `vc`
-* `form.io`
-* `googlsheet`
-
-#### Output type <a href="#output-type" id="output-type"></a>
-
-* json
-* csv
-
-#### Delivery method
-
-* websub
-* download
-* sftp
-
-### Version 0.1.0&#x20;
-
-#### Features
-
-* Input type __ :- _****_ csv, json
-* Output type _:-_ csv, json
-* Delivery Type __ :- download
-* Asynchronous token seeding
-* Status API
-* Download API
-* Authfield Mapping
-* Output file expiration
-* Dockerization
-
-### Design
+## Design
 
 ![](https://raw.githubusercontent.com/mosip/openg2p/main/docs/\_images/mosip-token-token-seeder-block-diagram.png)
