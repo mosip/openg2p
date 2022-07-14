@@ -1,22 +1,35 @@
-from datetime import datetime
-from fastapi import Request
+import json
+from typing import Optional
+from fastapi import File, Form, UploadFile
 
 from mosip_token_seeder.repository import db_tools
 
 from .service import AuthTokenService
 from .exception import MOSIPTokenSeederException
-from .model import AuthTokenHttpRequest, BaseHttpResponse
+from .model import AuthTokenHttpRequest, AuthTokenCsvHttpRequest, BaseHttpResponse
 
 class AuthTokenApi:
     def __init__(self, app, config, logger, request_id_queue):
         self.authtoken_service = AuthTokenService(config, logger, request_id_queue)
 
-        @app.post(config.root.context_path + "authtoken/json")
+        @app.post(config.root.api_path_prefix + "authtoken/json", response_model=BaseHttpResponse, responses={422:{'model': BaseHttpResponse}})
         async def authtoken_json(request : AuthTokenHttpRequest = None):
             if not request:
                 raise MOSIPTokenSeederException('ATS-REQ-100', 'mission request body')
             ##call service to save the details.
-            request_identifier = self.authtoken_service.save_authtoken_json((request.request))
+            request_identifier = self.authtoken_service.save_authtoken_json(request.request)
+            return BaseHttpResponse(response={
+                'request_identifier': request_identifier
+            })
+
+        @app.post(config.root.api_path_prefix + "authtoken/csv", response_model=BaseHttpResponse, responses={422:{'model': BaseHttpResponse}})
+        async def authtoken_csv(request : str = Form(None), csv_file : Optional[UploadFile] = None):
+            if not request:
+                raise MOSIPTokenSeederException('ATS-REQ-100', 'Missing request body')
+            request : AuthTokenCsvHttpRequest = AuthTokenCsvHttpRequest(**json.loads(request))
+            if not csv_file:
+                raise MOSIPTokenSeederException('ATS-REQ-100', 'Requires CSV file')
+            request_identifier = self.authtoken_service.save_authtoken_csv(request.request, csv_file)
             return BaseHttpResponse(response={
                 'request_identifier': request_identifier
             })

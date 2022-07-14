@@ -31,3 +31,12 @@ class MapperFields(BaseModel):
     phoneNumber : str = 'phoneNumber'
     emailId : str = 'emailId'
     fullAddress: List[str] = ['fullAddress']
+
+class MapperFieldIndices(BaseModel):
+    vid : int = 0
+    name : List[int] = [1]
+    gender : int = 2
+    dob : int = 3
+    phoneNumber : int = 4
+    emailId : int = 5
+    fullAddress: List[int] = [6]

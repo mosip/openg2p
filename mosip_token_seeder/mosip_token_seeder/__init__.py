@@ -24,6 +24,7 @@ def init_app(config):
             "name":"Mozilla Public License 2.0",
             "url": "https://www.mozilla.org/en-US/MPL/2.0/",
         },
+        root_path=config.root.context_path if config.root.context_path else '/'
     )
     return app
 

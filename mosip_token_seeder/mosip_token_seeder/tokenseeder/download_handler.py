@@ -1,10 +1,11 @@
+import errno
 import os
 import json
 import csv
 
 from sqlalchemy.orm import Session
 
-from mosip_token_seeder.repository import AuthTokenRequestDataRepository
+from mosip_token_seeder.repository import AuthTokenRequestDataRepository, AuthTokenRequestRepository
 
 class DownloadHandler:
     def __init__(self, config, logger, req_id, output_type, session=None, db_engine=None):
@@ -21,16 +22,28 @@ class DownloadHandler:
                 self.handle()
     
     def handle(self):
-        if self.output_type == 'json':
-            try:
+        try:
+            if self.output_type == 'json':
                 self.write_request_output_to_json()
-            except Exception as e:
-                self.logger.error('Error Writing to file: %s', str(e))
-        if self.output_type == 'csv':
-            try:
+            elif self.output_type == 'csv':
                 self.write_request_output_to_csv()
-            except Exception as e:
-                self.logger.error('Error Writing to file: %s', str(e))
+            error_status = None
+        except PermissionError as e:
+            error_status = 'error_creating_download_disk_permission_error'
+            self.logger.error('Error handling file: %s', repr(e))
+        except IOError as e:
+            if e.errno == errno.ENOSPC:
+                error_status = 'error_creating_download_disk_space_error'
+            else:
+                error_status = 'error_creating_download_unknown_io_error'
+            self.logger.error('Error handling file: %s', repr(e))
+        except Exception as e:
+            error_status = 'error_creating_download_unknown_exception'
+            self.logger.error('Error handling file: %s', repr(e))
+        if error_status:
+            auth_request : AuthTokenRequestRepository = AuthTokenRequestRepository.get_from_session(self.session, self.req_id)
+            auth_request.status = error_status
+            auth_request.update_commit_timestamp(self.session)
     
     def write_request_output_to_json(self):
         if not os.path.isdir(self.config.root.output_stored_files_path):
