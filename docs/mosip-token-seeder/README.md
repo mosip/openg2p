@@ -31,9 +31,11 @@ Some of the features of MTS:
 3. JSON
 4. &#x20;
 
+## Design
+
+![](https://raw.githubusercontent.com/mosip/openg2p/main/docs/\_images/mosip-token-token-seeder-block-diagram.png)
+
 ## Source code
-
-
 
 ## User stories
 
@@ -70,20 +72,4 @@ Some of the features of MTS:
   * <mark style="color:purple;">Design should be open for external connect to any db like Postgres/Oracle/SQL Server</mark>
   * <mark style="color:purple;">DB access design should also allow a seamless integration with odoo/openG2P, in case core service is directly integrated there.</mark>
 
-## API
 
-| API                    | Input      | Output | Method | Notes                                                                                                                                                           |
-| ---------------------- | ---------- | ------ | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| /authtoken/authfields  |            | array  | GET    | Get the MOSIP Auth Fields                                                                                                                                       |
-| /authtoken/status/{id} | GUID       | json   | GET    | Get the status of Token Seeding Request submitted earlier                                                                                                       |
-| /authtoken/file/{id}   | GUID       | file   | GET    | Gets the file (csv/json) if the seeding is completed.                                                                                                           |
-| /authtoken/json        | json       | json   | POST   | Takes in json array along with field mapping and process the token seeding.                                                                                     |
-| /authtoken/csv         | file, json | json   | POST   | Takes in csv file along with field mapping and process the token seeding.                                                                                       |
-| /authtoken/odk         | json       | json   | POST   | Takes in input in VC format and process the token seeding.                                                                                                      |
-| /authtoken/vc          | json       | json   | POST   | Takes in odk setup configuration and credentials to enable real-time odk pull or setup a scheduled odk pull. Token seeding will be done subsequent to odk pull. |
-
-
-
-## Design
-
-![](https://raw.githubusercontent.com/mosip/openg2p/main/docs/\_images/mosip-token-token-seeder-block-diagram.png)
