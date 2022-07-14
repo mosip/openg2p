@@ -62,17 +62,6 @@ Some of the features of MTS:
   * <mark style="color:purple;">Derby Or SQLite for local in-memory storage.</mark>
   * <mark style="color:purple;">Design should be open for external connect to any db like Postgres/Oracle/SQL Server</mark>
   * <mark style="color:purple;">DB access design should also allow a seamless integration with odoo/openG2P, in case core service is directly integrated there.</mark>
-* **Processed CSV/JSON** - How do we persist the csv/json for which token generation is completed.
-* **VC** - Should we be verifying the Digital Signature
-* **VC** - Shouldn't we define a output fields?
-* **Biometric inputs** - Should we consider Biometric inputs for the authentication?
-* **Scheduled jobs** - Repeated tasks can be configured through a API call (for instance, Daily ODK Pull)
-* **Status check** - API for querying on the status of a token seeding request.
-* **MOSIP authentication fields** - API to fetch the list of MOSIP Authentication fields so that a mapper configuration can be generated to make CSV/JSON token seeder request.
-* <mark style="color:purple;">Queue Management - Avoid using external systems for any queue implementation</mark>
-* <mark style="color:purple;">Decoupled Seeder Service - The seeder service should be separate enough</mark>
-* <mark style="color:purple;">Programing language - Python</mark>
-* <mark style="color:purple;">Framework - Fast API</mark>
 
 ## API
 
@@ -108,19 +97,20 @@ Some of the features of MTS:
 * download
 * sftp
 
-## Request flow
+### Version 0.1.0&#x20;
 
+#### Features
 
+* Input type __ :- _****_ csv, json
+* Output type _:-_ csv, json
+* Delivery Type __ :- download
+* Asynchronous token seeding
+* Status API
+* Download API
+* Authfield Mapping
+* Output file expiration
+* Dockerization
 
-1. Validate the request input
-2. Do a scan for the input.
-3. Split the input and validate
-4. If valid&#x20;
-   1. Create Identifier
-   2. Create Default status equals "Submitted"
-   3. Split the input, convert to JSON and persist with the status "Submitted"
-   4. Return status submitted with the identifier
-5. Else
-   1. Return Error
+### Design
 
-#### Notes
+![](https://raw.githubusercontent.com/mosip/openg2p/main/docs/\_images/mosip-token-token-seeder-block-diagram.png)
