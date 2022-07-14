@@ -6,6 +6,9 @@ class MOSIPTokenSeederException(Exception):
     
     def __str__(self):
         return '[%s] %s' % (self.error_code, self.error_message)
+    
+    def __repr__(self):
+        return '%s(error_code=\'%s\', error_message=\'%s\')' % (self.__class__.__name__,self.error_code, self.error_message)
 
 class MOSIPTokenSeederNoException(MOSIPTokenSeederException):
     def __init__(self, error_code, error_message, return_status_code):

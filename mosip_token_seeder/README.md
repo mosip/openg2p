@@ -37,7 +37,7 @@ Refer [documentation](https://docs.mosip.io/openg2p/mosip-token-seeder).
 - Install the python requirements:
     ```sh
     source venv_token_seeder/bin/activate
-    pip3 install -r requirements.txt
+    pip3 install -r mosip_token_seeder/requirements.txt
     deactivate
     ```
 

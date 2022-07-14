@@ -6,9 +6,10 @@
   "request": {
     "output": "csv",
     "deliverytype": "download",
+    "lang": "eng",
+    "csvWithHeader": true,
     "authdata": [{
       "vid": "2014391641351279",
-      "langCode":"eng",
       "fullName": "EMANASAR-TEST-6",
       "gender": "Male",
       "dateOfBirth": "1976/01/01",
