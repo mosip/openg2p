@@ -71,3 +71,10 @@ docker run -it --rm \
     -e TOKENSEEDER_CRYPTO_SIGNATURE__SIGN_P12_FILE_PASSWORD= \
     mosipdev/mosip-token-seeder:develop
 ```
+
+## Installing on k8s cluster using the helm
+- Install `kubectl` and `helm` utilities. Then run:
+    ```sh
+    cd helm
+    ./install.sh [cluster-kubeconfig-file]
+    ```

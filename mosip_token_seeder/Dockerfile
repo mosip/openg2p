@@ -1,8 +1,8 @@
 FROM python:3.8.13-slim-bullseye
 
-ADD ./mosip_token_seeder/requirements.txt /seeder/mosip_token_seeder/requirements.txt
 RUN apt-get update
-RUN apt-get -y install build-essential libsqlcipher-dev libsqlite3-dev
+RUN apt-get -y install build-essential libsqlcipher-dev libsqlite3-dev curl
+ADD ./mosip_token_seeder/requirements.txt /seeder/mosip_token_seeder/requirements.txt
 RUN pip3 install -r /seeder/mosip_token_seeder/requirements.txt
 
 ARG container_user=mosip
@@ -24,6 +24,7 @@ ENV TOKENSEEDER_GUNICORN__WORKERS=4
 ENV TOKENSEEDER_GUNICORN__MAX_REQUESTS=10000
 ENV TOKENSEEDER_GUNICORN__TIMEOUT=5
 ENV TOKENSEEDER_GUNICORN__KEEP_ALIVE=5
+ENV TOKENSEEDER_DB__PRINT_PASSWORD_ON_STARTUP='false'
 
 CMD TOKENSEEDER_DB__PASSWORD=$(python3 -m mosip_token_seeder.repository dbinit) gunicorn \
     --worker-class uvicorn.workers.UvicornWorker \
@@ -32,7 +33,6 @@ CMD TOKENSEEDER_DB__PASSWORD=$(python3 -m mosip_token_seeder.repository dbinit) 
     --max-requests ${TOKENSEEDER_GUNICORN__MAX_REQUESTS} \
     --timeout ${TOKENSEEDER_GUNICORN__TIMEOUT} \
     --keep-alive ${TOKENSEEDER_GUNICORN__KEEP_ALIVE} \
-    --access-logformat "${TOKENSEEDER_GUNICORN__ACCESSLOG_FORMAT}" \
     --access-logfile "-" \
     --error-logfile "-" \
     app:app

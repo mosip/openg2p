@@ -7,10 +7,9 @@ from . import MapperFields
 supported_output_types = ['json','csv']
 supported_delivery_types = ['download']
 
-class AuthTokenRequest(BaseModel):
+class AuthTokenBaseRequest(BaseModel):
     output: str
     deliverytype: str
-    authdata: Optional[List[dict]]
     mapping: MapperFields = MapperFields()
     lang: Optional[str]
 
@@ -29,7 +28,10 @@ class AuthTokenRequest(BaseModel):
         if value not in supported_delivery_types:
             raise MOSIPTokenSeederException('ATS-REQ-100','delivery type is not supported')
         return value
-    
+
+class AuthTokenRequest(AuthTokenBaseRequest):
+    authdata: Optional[List[dict]]
+
     @validator('authdata')
     def auth_data_validate(cls, value):
         if not value:

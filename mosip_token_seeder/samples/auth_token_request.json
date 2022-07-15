@@ -7,7 +7,6 @@
     "output": "csv",
     "deliverytype": "download",
     "lang": "eng",
-    "csvWithHeader": true,
     "authdata": [{
       "vid": "2014391641351279",
       "fullName": "EMANASAR-TEST-6",

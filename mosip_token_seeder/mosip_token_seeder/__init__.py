@@ -39,7 +39,7 @@ def get_current_worker_id(config):
         config.gunicorn.worker_id = -1
 
 def get_pod_id(config):
-    config.docker.pod_id = int(config.docker.pod_name.split('-')[-1])
+    config.docker.pod_id = str(config.docker.pod_name.split('-')[-1])
 
 def init_config():
     config = Dynaconf(
