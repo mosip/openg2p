@@ -29,47 +29,26 @@ Some of the features of MTS:
 1. Direct Synchronous Response
 2. CSV
 3. JSON
-4. &#x20;
+
+### Delivery type
+
+1. Synchronous Response
+2. Web Sub
+3. SFTP
+4. Download URL
 
 ## Design
 
 ![](https://raw.githubusercontent.com/mosip/openg2p/main/docs/\_images/mosip-token-token-seeder-block-diagram.png)
 
+## API
+
+Ref [API](mts-api.md)
+
 ## Source code
+
+Ref [GitHub](https://github.com/mosip/openg2p/tree/develop)
 
 ## User stories
 
-## Delivery method
-
-1. Synchronous Response
-2. WebSub
-3. SFTP
-4. Download URL
-
-* **Secrets management** - Save the credentials for SFTP/ODK etc.
-* **Status management** - Various status of a token seeding request. (Uploaded/Processing/Completed/Archived)
-* **Database** - Data persistence for the whole system
-  * <mark style="color:purple;">Derby Or SQLite for local in-memory storage.</mark>
-  * <mark style="color:purple;">Design should be open for external connect to any db like Postgres/Oracle/SQL Server</mark>&#x20;
-  * <mark style="color:purple;">DB access design should also allow a seamless integration with odoo/openG2P, in case core service is directly integrated there.</mark> &#x20;
-* **Processed CSV/JSON** - How do we persist the csv/json for which token generation is completed.
-* **VC** - Should we be verifying the Digital Signature
-* **VC** - Shouldn't we define a output fields?
-* **Biometric inputs** - Should we consider Biometric inputs for the authentication?
-* **Scheduled jobs** - Repeated tasks can be configured through a API call (for instance, Daily ODK Pull)
-* **Status check** - API for querying on the status of a token seeding request.
-* **MOSIP authentication fields** - API to fetch the list of MOSIP Authentication fields so that a mapper configuration can be generated to make CSV/JSON token seeder request.   &#x20;
-* <mark style="color:purple;">Queue Management - Avoid using external systems for any queue implementation</mark>
-* <mark style="color:purple;">Decoupled Seeder Service - The seeder service should be separate enough</mark>&#x20;
-* <mark style="color:purple;">Programing language - Python</mark>
-* <mark style="color:purple;">Framework - Fast API</mark>
-* Source Index to keep the sequence of row intact.
-* Expiring the processed data as soon as its downloaded or reaches the expiry after the processing.
-* **Secrets management** - Save the credentials for SFTP/ODK etc.
-* **Status management** - Various status of a token seeding request. (Uploaded/Processing/Completed/Archived)
-* **Database** - Data persistence for the whole system
-  * <mark style="color:purple;">Derby Or SQLite for local in-memory storage.</mark>
-  * <mark style="color:purple;">Design should be open for external connect to any db like Postgres/Oracle/SQL Server</mark>
-  * <mark style="color:purple;">DB access design should also allow a seamless integration with odoo/openG2P, in case core service is directly integrated there.</mark>
-
-
+Ref [Jira](https://mosip.atlassian.net/browse/MOSIP-23029)
