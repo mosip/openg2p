@@ -11,7 +11,6 @@
 * Status API
 * Download API
 * Authfield Mapping
-* Output file expiration
 * Dockerization
 * Helm chart
 
