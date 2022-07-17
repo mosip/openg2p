@@ -85,6 +85,7 @@ class AuthTokenService:
 
         if isinstance(request, AuthTokenCsvRequestWithHeader):
             with_header = True
+            csv_header = None
         elif isinstance(request, AuthTokenCsvRequestWithoutHeader):
             with_header = False
         
@@ -92,18 +93,18 @@ class AuthTokenService:
         error_count = 0
         csv_reader = csv.reader(codecs.iterdecode(csv_file.file,'UTF-8'), delimiter=request.csvDelimiter)
         for csv_line in csv_reader:
-            line_no += 1
-            if with_header and line_no==1:
+            if with_header and line_no==0 and not csv_header:
                 csv_header = csv_line
                 continue
-            elif with_header and line_no>1:
+            elif with_header:
                 authdata = { column_name: csv_line[i] for i, column_name in enumerate(csv_header) }
             elif not with_header:
                 authdata = csv_line
+            line_no += 1
             
             authdata_model = AuthTokenRequestDataRepository(
                 auth_request_id = req_id,
-                auth_request_line_no = line_no if not with_header else line_no-1,
+                auth_request_line_no = line_no,
                 auth_data_recieved = json.dumps(authdata),
             )
             valid_authdata, error_code = self.validate_auth_data(authdata, request.mapping, language)
@@ -118,7 +119,7 @@ class AuthTokenService:
         
         authtoken_request_entry = AuthTokenRequestRepository(
             auth_request_id = req_id,
-            number_total = line_no if not with_header else line_no-1,
+            number_total = line_no,
             input_type = 'csv',
             output_type = request.output,
             delivery_type = request.deliverytype,

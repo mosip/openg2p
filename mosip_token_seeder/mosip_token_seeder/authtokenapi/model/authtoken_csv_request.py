@@ -1,12 +1,14 @@
 from typing import Literal, Union
-from . import AuthTokenHttpRequest, AuthTokenRequest, MapperFields, MapperFieldIndices
+from . import AuthTokenHttpRequest, AuthTokenBaseRequest, MapperFields, MapperFieldIndices
 
-class AuthTokenCsvRequestWithHeader(AuthTokenRequest):
-    csvWithHeader : Literal[True]
+class AuthTokenCsvRequestWithHeader(AuthTokenBaseRequest):
+    # Enabled csv expected with header by default.
+    # csvWithHeader : Literal[True] = True
     mapping : MapperFields = MapperFields()
     csvDelimiter : str = ','
 
-class AuthTokenCsvRequestWithoutHeader(AuthTokenRequest):
+class AuthTokenCsvRequestWithoutHeader(AuthTokenBaseRequest):
+    # This class is ignored as of now
     csvWithHeader : Literal[False]
     mapping : MapperFieldIndices = MapperFieldIndices()
     csvDelimiter : str = ','
@@ -14,4 +16,4 @@ class AuthTokenCsvRequestWithoutHeader(AuthTokenRequest):
 AuthTokenCsvRequest = Union[AuthTokenCsvRequestWithHeader, AuthTokenCsvRequestWithoutHeader]
 
 class AuthTokenCsvHttpRequest(AuthTokenHttpRequest):
-    request : AuthTokenCsvRequest
+    request : AuthTokenCsvRequestWithHeader

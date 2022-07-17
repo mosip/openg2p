@@ -1,6 +1,7 @@
 samples
 __pycache__
 .vscode
+helm
 venv_token_seeder
 certs
 stored_files
