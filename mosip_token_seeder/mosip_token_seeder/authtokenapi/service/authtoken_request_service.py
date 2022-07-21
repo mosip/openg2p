@@ -11,7 +11,7 @@ from fastapi import UploadFile
 
 from ..model import AuthTokenRequest, MapperFields, MapperFieldIndices, AuthTokenBaseModel
 from ..model import AuthTokenCsvRequest, AuthTokenCsvRequestWithHeader, AuthTokenCsvRequestWithoutHeader
-from ..exception import MOSIPTokenSeederException, MOSIPTokenSeederNoException
+from ..exception import MOSIPTokenSeederNoException
 from mosip_token_seeder.repository import AuthTokenRequestRepository, AuthTokenRequestDataRepository
 from mosip_token_seeder.repository import db_tools
 from . import MappingService
@@ -68,11 +68,16 @@ class AuthTokenService:
             authdata_model.add(self.db_engine)
         
         authtoken_request_entry.number_error = error_count
-        authtoken_request_entry.add(self.db_engine)
 
         if(error_count == line_no) :
-            raise MOSIPTokenSeederException('ATS-REQ-101', 'none of the record form a valid request')
+            authtoken_request_entry.status = 'submitted_with_errors'
+            authtoken_request_entry.add(self.db_engine)
+            self.request_id_queue.put(req_id)
+            raise MOSIPTokenSeederNoException('ATS-REQ-101', 'none of the record form a valid request', 200, response={
+                'request_identifier': req_id
+            })
         
+        authtoken_request_entry.add(self.db_engine)
         self.request_id_queue.put(req_id)
         return req_id
     
@@ -126,11 +131,16 @@ class AuthTokenService:
             status = 'submitted',
             number_error = error_count,
         )
-        authtoken_request_entry.add(self.db_engine)
 
         if(error_count == line_no) :
-            raise MOSIPTokenSeederException('ATS-REQ-101', 'none of the record form a valid request')
+            authtoken_request_entry.status = 'submitted_with_errors'
+            authtoken_request_entry.add(self.db_engine)
+            self.request_id_queue.put(req_id)
+            raise MOSIPTokenSeederNoException('ATS-REQ-101', 'none of the record form a valid request', 200,response={
+                'request_identifier': req_id
+            })
         
+        authtoken_request_entry.add(self.db_engine)
         self.request_id_queue.put(req_id)
         return req_id
 
