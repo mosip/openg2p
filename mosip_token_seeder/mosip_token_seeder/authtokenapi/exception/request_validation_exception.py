@@ -44,7 +44,7 @@ class RequestValidationErrorHandler:
             errors = []
             for err in exc.errors():
                 errors.append(BaseError(
-                    errorCode='ATS-REQ-100',
+                    errorCode='ATS-REQ-102',
                     errorMessage='%s. %s. %s' % ('->'.join([str(i) for i in err['loc']]), str(err['type']), str(err['msg']))
                 ))
             res = BaseHttpResponse(
