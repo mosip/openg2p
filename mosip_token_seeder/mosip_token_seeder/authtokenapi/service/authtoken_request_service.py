@@ -158,8 +158,8 @@ class AuthTokenService:
         final_dict = {}
         if mapping.vid not in authdata:
             return None, 'ATS-REQ-009'
-        if len(authdata[mapping.vid]) <= 16 and len(authdata[mapping.vid]) >= 19:
-            return None, 'ATS-REQ-002'
+        # if len(authdata[mapping.vid]) <= 16 and len(authdata[mapping.vid]) >= 19:
+        #     return None, 'ATS-REQ-002'
         final_dict['vid'] = authdata[mapping.vid]
 
         name_arr = []
@@ -173,28 +173,29 @@ class AuthTokenService:
 
         if mapping.gender not in authdata:
             return None, 'ATS-REQ-011'
-        if len(authdata[mapping.gender]) > 256:
-            return None, 'ATS-REQ-003'
+        # if len(authdata[mapping.gender]) > 256:
+        #     return None, 'ATS-REQ-003'
         if len(authdata[mapping.gender]) == 0:
             return None, 'ATS-REQ-004'
-        if authdata[mapping.gender].lower() not in ['male','female','others']:
-            return None, 'ATS-REQ-005' 
+        # if authdata[mapping.gender].lower() not in ['male','female','others']:
+        #     return None, 'ATS-REQ-005' 
         final_dict['gender'] = [{'language':language,'value': authdata[mapping.gender]}]
 
         if mapping.dob not in authdata:
             return None, 'ATS-REQ-012'
         if len(authdata[mapping.dob]) == 0:
             return False, 'ATS-REQ-006'
-        try:
-            if bool(datetime.strptime(authdata[mapping.dob], '%Y/%m/%d')) == False:
-                return None, 'ATS-REQ-007'
-        except ValueError:
-            return None, 'ATS-REQ-007'
+        # try:
+        #     if bool(datetime.strptime(authdata[mapping.dob], '%Y/%m/%d')) == False:
+        #         return None, 'ATS-REQ-007'
+        # except ValueError:
+        #     return None, 'ATS-REQ-007'
         final_dict['dob'] = authdata[mapping.dob]
         
         if mapping.phoneNumber not in authdata:
             return None, 'ATS-REQ-013'
         final_dict['phoneNumber'] = authdata[mapping.phoneNumber]
+
         if mapping.emailId not in authdata:
             return None, 'ATS-REQ-014'
         final_dict['emailId'] = authdata[mapping.emailId]
