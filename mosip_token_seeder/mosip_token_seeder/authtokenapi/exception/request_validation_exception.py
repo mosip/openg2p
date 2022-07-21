@@ -20,10 +20,12 @@ class RequestValidationErrorHandler:
                 code = exc.error_code
                 message = exc.error_message
                 status_code = exc.return_status_code
+                response = exc.response
             else:
                 code = exc.error_code
                 message = exc.error_message
                 status_code = 400
+                response = None
             res = BaseHttpResponse(
                 errors=[
                     BaseError(
@@ -31,7 +33,7 @@ class RequestValidationErrorHandler:
                         errorMessage=message
                     )
                 ],
-                response=None
+                response=response
             )
             res_dict = json.loads(res.json())
             return JSONResponse(content=res_dict, status_code=status_code)
@@ -42,7 +44,7 @@ class RequestValidationErrorHandler:
             errors = []
             for err in exc.errors():
                 errors.append(BaseError(
-                    errorCode='ATS-REQ-100',
+                    errorCode='ATS-REQ-102',
                     errorMessage='%s. %s. %s' % ('->'.join([str(i) for i in err['loc']]), str(err['type']), str(err['msg']))
                 ))
             res = BaseHttpResponse(

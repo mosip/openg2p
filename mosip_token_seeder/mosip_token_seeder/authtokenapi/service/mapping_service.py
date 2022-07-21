@@ -1,147 +1,133 @@
 import json
 
+from datetime import datetime
+from typing import Union
+
 from sqlalchemy import true
-from ..model import AuthTokenBaseModel
+from ..model import MapperFieldIndices, MapperFields, AuthTokenBaseModel
 
 class MappingService:
-    def __init__(self) :
-        pass
-    
-    def map_fields(self, authdata_json, mapping_json, language):
-        mapped_auth_object = AuthTokenBaseModel()
+    def __init__(self, config, logger):
+        self.config = config
+        self.logger = logger
 
-        if 'vid' in authdata_json :
-            mapped_auth_object.vid = authdata_json['vid']
-        else :
-            mapped_field = self.get_mapped_field(mapping_json, 'vid')
-            mapped_auth_object.vid = self.get_mapped_value(authdata_json,mapped_field)
+    def validate_auth_data(self, authdata, mapping: Union[MapperFields, MapperFieldIndices], language):
+        if isinstance(mapping, MapperFields):
+            return self.validate_auth_data_json_mapper(authdata, mapping, language)
+        elif isinstance(mapping, MapperFieldIndices):
+            return self.validate_auth_data_indices_mapper(authdata, mapping, language)
+
+    def validate_auth_data_json_mapper(self, authdata : dict, mapping: MapperFields, language):
+        final_dict = {}
+        if mapping.vid not in authdata:
+            return None, 'ATS-REQ-009'
+        # if len(authdata[mapping.vid]) <= 16 and len(authdata[mapping.vid]) >= 19:
+        #     return None, 'ATS-REQ-002'
+        final_dict['vid'] = authdata[mapping.vid]
+
+        name_arr = []
+        for name_var in mapping.name:
+            if name_var not in authdata:
+                return None, 'ATS-REQ-010'
+            if len(authdata[name_var]) == 0:
+                return None, 'ATS-REQ-003'
+            name_arr.append(authdata[name_var])
+        final_dict['name'] = [{'language':language,'value': self.config.root.name_delimiter.join(name_arr)}]
+
+        if mapping.gender not in authdata:
+            return None, 'ATS-REQ-011'
+        if len(authdata[mapping.gender]) == 0:
+            return None, 'ATS-REQ-004'
+        # if len(authdata[mapping.gender]) > 256:
+        #     return None, 'ATS-REQ-003'
+        # if authdata[mapping.gender].lower() not in ['male','female','others']:
+        #     return None, 'ATS-REQ-005'
+        final_dict['gender'] = [{'language':language,'value': authdata[mapping.gender]}]
+
+        if mapping.dob not in authdata:
+            return None, 'ATS-REQ-012'
+        if len(authdata[mapping.dob]) == 0:
+            return False, 'ATS-REQ-006'
+        # try:
+        #     if bool(datetime.strptime(authdata[mapping.dob], '%Y/%m/%d')) == False:
+        #         return None, 'ATS-REQ-007'
+        # except ValueError:
+        #     return None, 'ATS-REQ-007'
+        final_dict['dob'] = authdata[mapping.dob]
         
-        if 'name' in authdata_json :
-            mapped_auth_object.name = [{"language" : language, "value": authdata_json['name']}]
-        else :
-            mapped_field = self.get_mapped_field(mapping_json, 'name')
-            mapped_auth_object.name = [{"language" : language, "value": self.get_mapped_value(authdata_json,mapped_field)}]
+        if mapping.phoneNumber not in authdata:
+            return None, 'ATS-REQ-013'
+        final_dict['phoneNumber'] = authdata[mapping.phoneNumber]
+
+        if mapping.emailId not in authdata:
+            return None, 'ATS-REQ-014'
+        final_dict['emailId'] = authdata[mapping.emailId]
+
+        addr_arr = []
+        for addr in mapping.fullAddress:
+            if addr not in authdata:
+                return None, 'ATS-REQ-015'
+            if len(authdata[addr]) == 0:
+                return False, 'ATS-REQ-008'
+            addr_arr.append(authdata[addr])
+        final_dict['fullAddress'] = [{'language':language,'value': self.config.root.full_address_delimiter.join(addr_arr)}]
+
+        return AuthTokenBaseModel(**final_dict),""
+
+    def validate_auth_data_indices_mapper(self, authdata : list, mapping: MapperFieldIndices, language):
+        final_dict = {}
+        len_of_authdata = len(authdata)
+        if mapping.vid >= len_of_authdata:
+            return None, 'ATS-REQ-009'
+        # if len(authdata[mapping.vid]) <= 16 and len(authdata[mapping.vid]) >= 19:
+        #     return None, 'ATS-REQ-002'
+        final_dict['vid'] = authdata[mapping.vid]
+
+        name_arr = []
+        for name_index in mapping.name:
+            if name_index >= len_of_authdata:
+                return None, 'ATS-REQ-010'
+            if len(authdata[name_index]) == 0:
+                return None, 'ATS-REQ-003'
+            name_arr.append(authdata[name_index])
+        final_dict['name'] = [{'language':language,'value': self.config.root.name_delimiter.join(name_arr)}]
+
+        if mapping.gender >= len_of_authdata:
+            return None, 'ATS-REQ-011'
+        if len(authdata[mapping.gender]) == 0:
+            return None, 'ATS-REQ-004'
+        # if len(authdata[mapping.gender]) > 256:
+        #     return None, 'ATS-REQ-003'
+        # if authdata[mapping.gender].lower() not in ['male','female','others']:
+        #     return None, 'ATS-REQ-005'
+        final_dict['gender'] = [{'language':language,'value': authdata[mapping.gender]}]
+
+        if mapping.dob >= len_of_authdata:
+            return None, 'ATS-REQ-012'
+        if len(authdata[mapping.dob]) == 0:
+            return False, 'ATS-REQ-006'
+        # try:
+        #     if bool(datetime.strptime(authdata[mapping.dob], '%Y/%m/%d')) == False:
+        #         return None, 'ATS-REQ-007'
+        # except ValueError:
+        #     return None, 'ATS-REQ-007'
+        final_dict['dob'] = authdata[mapping.dob]
         
-        if 'gender' in authdata_json :
-            mapped_auth_object.gender = [{"language" : language, "value": authdata_json['gender']}]
-        else :
-            mapped_field = [{"language" : language, "value": self.get_mapped_field(mapping_json, 'gender')}]
-            mapped_auth_object.gender = [{"language" : language, "value": self.get_mapped_value(authdata_json,mapped_field)}]
+        if mapping.phoneNumber >= len_of_authdata:
+            return None, 'ATS-REQ-013'
+        final_dict['phoneNumber'] = authdata[mapping.phoneNumber]
 
-        if 'dob' in authdata_json :
-            mapped_auth_object.dob = authdata_json['dob']
-        else :
-            mapped_field = self.get_mapped_field(mapping_json, 'dob')
-            mapped_auth_object.dob = self.get_mapped_value(authdata_json,mapped_field)
-            
-        if 'phoneNumber' in authdata_json :
-            mapped_auth_object.phoneNumber = authdata_json['phoneNumber']
-        else :
-            mapped_field = self.get_mapped_field(mapping_json, 'phoneNumber')
-            mapped_auth_object.phoneNumber = self.get_mapped_value(authdata_json,mapped_field)
-            
-        if 'emailId' in authdata_json :
-            mapped_auth_object.emailId = authdata_json['emailId']
-        else :
-            mapped_field = self.get_mapped_field(mapping_json, 'emailId')
-            mapped_auth_object.emailId = self.get_mapped_value(authdata_json,mapped_field)
+        if mapping.emailId >= len_of_authdata:
+            return None, 'ATS-REQ-014'
+        final_dict['emailId'] = authdata[mapping.emailId]
 
-        if 'fullAddress' in authdata_json :
-            mapped_auth_object.fullAddress = [{"language" : language, "value": authdata_json['fullAddress']}]
-        else :
-            mapped_field = self.get_mapped_field(mapping_json, 'fullAddress')
-            mapped_auth_object.fullAddress = [{"language" : language, "value": self.get_mapped_value(authdata_json,mapped_field)}]
-            
-        return json.loads(mapped_auth_object.json())
+        addr_arr = []
+        for addr_index in mapping.fullAddress:
+            if addr_index >= len_of_authdata:
+                return None, 'ATS-REQ-015'
+            if len(authdata[addr_index]) == 0:
+                return False, 'ATS-REQ-008'
+            addr_arr.append(authdata[addr_index])
+        final_dict['fullAddress'] = [{'language':language,'value': self.config.root.full_address_delimiter.join(addr_arr)}]
 
-
-    def validate_map_fields(self,authdata_json, mapping_json):
-        if 'vid' not in authdata_json :
-            mapped_field = self.get_mapped_field(mapping_json, 'vid')
-            if mapped_field is None:
-                return False, 'ATS-REQ-009'
-            elif self.is_valid_mapped_field(authdata_json,mapped_field) == False:
-                return False, 'ATS-REQ-009'
-        
-        if 'name' not in authdata_json :
-            mapped_field = self.get_mapped_field(mapping_json, 'name')
-            if mapped_field is None:
-                return False, 'ATS-REQ-010'
-            elif self.is_valid_mapped_field(authdata_json,mapped_field) == False:
-                return False, 'ATS-REQ-010'
-        
-        if 'gender' not in authdata_json :
-            mapped_field = self.get_mapped_field(mapping_json, 'gender')
-            if mapped_field is None:
-               return False, 'ATS-REQ-011'
-            elif self.is_valid_mapped_field(authdata_json,mapped_field) == False:
-                return False, 'ATS-REQ-011'
-
-        if 'dob' not in authdata_json :
-            mapped_field = self.get_mapped_field(mapping_json, 'dob')
-            if mapped_field is None:
-                return False, 'ATS-REQ-012'
-            elif self.is_valid_mapped_field(authdata_json,mapped_field) == False:
-                return False, 'ATS-REQ-012'
-        
-        if 'phoneNumber' not in authdata_json :
-            mapped_field = self.get_mapped_field(mapping_json, 'phoneNumber')
-            if mapped_field is None:
-                return False, 'ATS-REQ-013'
-            elif self.is_valid_mapped_field(authdata_json,mapped_field) == False:
-                return False, 'ATS-REQ-013'
-
-        if 'emailId' not in authdata_json :
-            mapped_field = self.get_mapped_field(mapping_json, 'emailId')
-            if mapped_field is None:
-                return False, 'ATS-REQ-014'
-            elif self.is_valid_mapped_field(authdata_json,mapped_field) == False:
-                return False, 'ATS-REQ-014'
-
-        if 'fullAddress' not in authdata_json :
-            mapped_field = self.get_mapped_field(mapping_json, 'fullAddress')
-            if mapped_field is None:
-                return False, 'ATS-REQ-015'
-            elif self.is_valid_mapped_field(authdata_json,mapped_field) == False:
-                return False, 'ATS-REQ-015'
-
-        return True, ''
-
-
-    def get_mapped_field(self, mapping_json,field_name):
-        output = None
-        if field_name in mapping_json:
-            output = mapping_json[field_name]   
-        return output
-
-
-    def get_mapped_value(self,auth_data, mapped_field):
-        output = None
-        if isinstance(mapped_field, list):
-            # delimiter = mapped_field['delimiter'] if 'delimiter' in mapped_field else ' '
-            delimiter = ' '
-            output = ""
-            for field_item in mapped_field:
-                if field_item in auth_data:
-                    output = output + auth_data[field_item] + delimiter
-            output = output.strip(delimiter)
-        else:
-            output = auth_data[mapped_field]
-        
-        # if output != None and  mapped_field["withLangCode"] == true :
-        #     lang = auth_data["lang"] if "lang" in  auth_data else "eng"
-        #     output = [{'language': lang, 'value': output}]
-            
-        return output
-
-
-    def is_valid_mapped_field(self,auth_data,mapped_field):
-        output = True
-        if isinstance(mapped_field, list):
-            for field_item in mapped_field:
-                if field_item not in auth_data:
-                    output = False
-                    break
-        elif mapped_field not in auth_data:
-                output = False
-        output
+        return AuthTokenBaseModel(**final_dict),""
