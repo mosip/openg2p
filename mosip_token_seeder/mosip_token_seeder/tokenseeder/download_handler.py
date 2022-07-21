@@ -53,11 +53,18 @@ class DownloadHandler:
             for i, each_request in enumerate(AuthTokenRequestDataRepository.get_all_from_session(self.session, self.req_id)):
                 f.write(',') if i!=0 else None
                 each_err = each_request.error_code
+                each_err_message = each_request.error_message
+                if each_request.auth_data_input:
+                    each_vid = json.loads(each_request.auth_data_input)['vid']
+                else:
+                    each_received = json.loads(each_request.auth_data_received)
+                    each_vid = each_received['vid'] if 'vid' in each_received else None
                 json.dump({
-                    'index': each_request.auth_request_line_no,
+                    'vid': each_vid,
                     'token': each_request.token,
                     'status': each_request.status,
-                    'error_code': each_err if each_err else None
+                    'errorCode': each_err if each_err else None,
+                    'errorMessage': each_err_message if each_err_message else None,
                 },f)
             f.write(']')
     
@@ -66,12 +73,19 @@ class DownloadHandler:
             os.mkdir(self.config.root.output_stored_files_path)
         with open(os.path.join(self.config.root.output_stored_files_path, self.req_id), 'w+') as f:
             csvwriter = csv.writer(f)
-            csvwriter.writerow(['index', 'token', 'status', 'error_code'])
+            csvwriter.writerow(['vid', 'token', 'status', 'errorCode', 'errorMessage'])
             for i, each_request in enumerate(AuthTokenRequestDataRepository.get_all_from_session(self.session, self.req_id)):
                 each_err = each_request.error_code
+                each_err_message = each_request.error_message
+                if each_request.auth_data_input:
+                    each_vid = json.loads(each_request.auth_data_input)['vid']
+                else:
+                    each_received = json.loads(each_request.auth_data_received)
+                    each_vid = each_received['vid'] if 'vid' in each_received else None
                 csvwriter.writerow([
-                    each_request.auth_request_line_no,
+                    each_vid,
                     each_request.token,
                     each_request.status,
-                    each_err if each_err else None
+                    each_err if each_err else None,
+                    each_err_message if each_err_message else None,
                 ])

@@ -49,7 +49,7 @@ class AuthTokenService:
             authdata_model = AuthTokenRequestDataRepository(
                 auth_request_id = req_id,
                 auth_request_line_no = line_no,
-                auth_data_recieved = json.dumps(authdata),
+                auth_data_received = json.dumps(authdata),
             )
             valid_authdata, error_code = self.mapping_service.validate_auth_data(authdata, request.mapping, language)
             if valid_authdata:
@@ -104,7 +104,7 @@ class AuthTokenService:
             authdata_model = AuthTokenRequestDataRepository(
                 auth_request_id = req_id,
                 auth_request_line_no = line_no,
-                auth_data_recieved = json.dumps(authdata),
+                auth_data_received = json.dumps(authdata),
             )
             valid_authdata, error_code = self.mapping_service.validate_auth_data(authdata, request.mapping, language)
             if valid_authdata:

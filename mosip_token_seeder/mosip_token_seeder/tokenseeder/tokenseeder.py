@@ -50,12 +50,23 @@ class TokenSeeder(Thread):
                                         auth_token_data_entry.status = "processed"
                                         auth_request.number_processed += 1
                                     else:
+                                        self.logger.error('Authenticator Exception: %s', repr(auth_data_output['errors']))
                                         auth_token_data_entry.status = "error"
-                                        auth_token_data_entry.error_code = ','.join([err['errorCode'] for err in auth_data_output['errors']])
+                                        if len(auth_data_output['errors']) > 1:
+                                            auth_token_data_entry.error_code = 'ATS-REQ-103'
+                                            auth_token_data_entry.error_message = ','.join(["%s::%s" % (err['errorCode'], err['errorMessage']) for err in auth_data_output['errors']])
+                                        elif len(auth_data_output['errors']) == 1:
+                                            auth_token_data_entry.error_code = auth_data_output['errors'][0]['errorCode']
+                                            auth_token_data_entry.error_message = auth_data_output['errors'][0]['errorMessage']
+                                        else:
+                                            auth_token_data_entry.error_code = 'ATS-REQ-100'
+
                                         auth_request.number_error += 1
                                 except AuthenticatorException as ae:
+                                    self.logger.error('Authenticator Exception: %s', repr(ae))
                                     auth_token_data_entry.status = "error"
                                     auth_token_data_entry.error_code = ae.error_code
+                                    auth_token_data_entry.error_message = ae.error_message
                                     auth_request.number_error += 1
                                 auth_token_data_entry.update_timestamp()
                                 auth_request.update_timestamp()
