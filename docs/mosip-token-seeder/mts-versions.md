@@ -1,8 +1,6 @@
 # MTS Versions
 
-## Version 1.0.0&#x20;
-
-_(Yet to be released)_
+## Version 0.1.0&#x20;
 
 ### Features
 
@@ -16,6 +14,4 @@ _(Yet to be released)_
 * Dockerization
 * Helm chart
 
-### Version 1.1.0
-
-* ODK input support
+###
