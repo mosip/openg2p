@@ -4,10 +4,14 @@ import json
 import logging
 from typing import List, Union
 import uuid
+import http.client
 
 from datetime import date, datetime
+from webbrowser import get
 
 from fastapi import UploadFile
+
+from mosip_token_seeder.authtokenapi.model.authtoken_odk_request import AuthTokenODKRequest
 
 from ..model import AuthTokenRequest, MapperFields, MapperFieldIndices, AuthTokenBaseModel
 from ..model import AuthTokenCsvRequest, AuthTokenCsvRequestWithHeader, AuthTokenCsvRequestWithoutHeader
@@ -15,7 +19,6 @@ from ..exception import MOSIPTokenSeederNoException
 from mosip_token_seeder.repository import AuthTokenRequestRepository, AuthTokenRequestDataRepository
 from mosip_token_seeder.repository import db_tools
 from . import MappingService
-
 
 class AuthTokenService:
     def __init__(self, config, logger, request_id_queue) :
@@ -138,7 +141,50 @@ class AuthTokenService:
         self.request_id_queue.put(req_id)
         return req_id
 
+    def save_authtoken_odk(self, request : AuthTokenODKRequest):
+        
+        print(request)
+        
+        
+        odata_url = 'https://odk.openg2p.mosip.net/v1/projects/1/forms/fourps_program.svc/Submissions'
+        service_url = 'https://odk.openg2p.mosip.net/v1/projects/{project_id}/forms/{form_id}/submissions'
+        
+        SESSION_URL = 'odk.openg2p.mosip.net'
+        credentials = {
+            "email": "shibu.narayanan@technoforte.co.in",
+            "password": "Shibu@123#"
+            }
+        connection = http.client.HTTPSConnection("odk.openg2p.mosip.net")
+
+        headers = {'Content-type': 'application/json'}
+        connection.request(method='POST',url='https://odk.openg2p.mosip.net/v1/sessions', body = json.dumps(credentials),headers= headers)
+        response = connection.getresponse()
+        response_json_string = response.read().decode()
+        print(response_json_string)
+        auth_data =  json.loads(response_json_string)
+        token = auth_data['token']
+
+        print('token:', token)
+        auth_header = {'Authorization': 'Bearer ' + token}
+        connection.request(method = "GET", url = service_url.format(project_id="1",form_id="fourps_program"), headers = auth_header)
+        response = connection.getresponse()
+        response_json_string = response.read().decode()
+        print(response_json_string)
+        submissions =  json.loads(response_json_string)
+
+        for submission in submissions['value']:
+            print(submission['fullName'])
+        # session = requests.Session()
+        # session.headers.update({"Authorization": "Bearer " + token})
+        # client = pyodata.Client(SERVICE_URL, session)
+        # # for submission in client.entity_sets.Submissions.get_entities().execute():
+        # #     print(submission)
+        
+        # print(client)
+        # return client
+
     def fetch_status(self, request_identifier):
+
         try:
             status = AuthTokenRequestRepository.fetch_status(request_identifier, self.db_engine)
         except Exception as e:

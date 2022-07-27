@@ -1,13 +1,13 @@
 import json
 from typing import Optional
-from fastapi import File, Form, UploadFile
+from fastapi import File, Form, Request, UploadFile
 from pydantic import Json
 
 from mosip_token_seeder.repository import db_tools
 
 from .service import AuthTokenService
 from .exception import MOSIPTokenSeederException
-from .model import AuthTokenHttpRequest, AuthTokenCsvHttpRequest, BaseHttpResponse
+from .model import AuthTokenHttpRequest, AuthTokenCsvHttpRequest, BaseHttpResponse, AuthTokenODKHttpRequest
 
 class AuthTokenApi:
     def __init__(self, app, config, logger, request_id_queue):
@@ -30,6 +30,18 @@ class AuthTokenApi:
             if not csv_file:
                 raise MOSIPTokenSeederException('ATS-REQ-102', 'Requires CSV file')
             request_identifier = self.authtoken_service.save_authtoken_csv(request.request, csv_file)
+            return BaseHttpResponse(response={
+                'request_identifier': request_identifier
+            })
+        
+        @app.post(config.root.api_path_prefix + "authtoken/odk", response_model=BaseHttpResponse, responses={422:{'model': BaseHttpResponse}})
+        async def authtoken_odk(request : AuthTokenODKHttpRequest = None):
+            # test = AuthTokenODKHttpRequest()
+            # print(json.dumps(request))
+            # if not request:
+            #     raise MOSIPTokenSeederException('ATS-REQ-102', 'Missing request body.')
+           
+            request_identifier = self.authtoken_service.save_authtoken_odk(request)
             return BaseHttpResponse(response={
                 'request_identifier': request_identifier
             })
