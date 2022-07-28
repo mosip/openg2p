@@ -69,4 +69,4 @@ class ODKPullService:
             return submissions['value']
         else:
             raise MOSIPTokenSeederException(
-                'ATS-REQ-20', 'no submissions found for odk pull')
+                'ATS-REQ-23', 'no submissions found for odk pull')
