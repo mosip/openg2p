@@ -8,6 +8,7 @@ supported_output_types = ['json','csv']
 supported_delivery_types = ['download']
 
 class AuthTokenBaseRequest(BaseModel):
+    print("AuthTokenBaseRequest called")
     output: str
     deliverytype: str
     mapping: MapperFields = MapperFields()
