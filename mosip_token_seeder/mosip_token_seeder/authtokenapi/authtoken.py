@@ -41,7 +41,7 @@ class AuthTokenApi:
             # if not request:
             #     raise MOSIPTokenSeederException('ATS-REQ-102', 'Missing request body.')
            
-            request_identifier = self.authtoken_service.save_authtoken_odk(request)
+            request_identifier = self.authtoken_service.save_authtoken_odk(request.request)
             return BaseHttpResponse(response={
                 'request_identifier': request_identifier
             })

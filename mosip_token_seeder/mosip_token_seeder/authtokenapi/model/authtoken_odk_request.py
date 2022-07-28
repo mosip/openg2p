@@ -14,15 +14,15 @@ supported_delivery_types = ['download']
 
 class ODKConfig(BaseModel):
     print("ODKConfig called")
-    odataurl : str = "odataurl"
-    baseurl : str = "baseurl"
-    version : str = "version"
-    projectid : str = "projectid"
-    formid : str = "formid"
-    emailId : str = "emailId"
-    password : str = "password"
-    startdate : str = "startdate"
-    enddate : str = "enddate"
+    odataurl : str
+    baseurl : str
+    version : str = "v1"
+    projectid : str
+    formid : str
+    email : str
+    password : str
+    startdate : Optional[str]
+    enddate : Optional[str]
 
 
 class AuthTokenODKRequest(AuthTokenBaseRequest):

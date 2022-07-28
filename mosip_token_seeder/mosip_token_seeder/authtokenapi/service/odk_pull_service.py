@@ -1,80 +1,72 @@
 import http
 import json
 
-from datetime import datetime
-from typing import Union
-
-from sqlalchemy import true
-
 from mosip_token_seeder.authtokenapi.exception.mosip_token_seeder_exception import MOSIPTokenSeederException, MOSIPTokenSeederNoException
+from mosip_token_seeder.authtokenapi.model.authtoken_odk_request import ODKConfig
+
 
 class ODKPullService:
     def __init__(self, logger):
         self.logger = logger
-    
-    def odk_pull(self, config):
-        if not 'baseurl' in config or not len(config['baseurl']) :
-                raise MOSIPTokenSeederException('ATS-REQ-18', 'no odk baseurl provided')
 
-        if not 'email' in config or not len(config['email']) :
-                raise MOSIPTokenSeederException('ATS-REQ-19', 'no email provided')
+    def odk_pull(self, config: ODKConfig):
 
-        if not 'password' in config or not len(config['password']) :
-                raise MOSIPTokenSeederException('ATS-REQ-20', 'no password provided')
-        
+        if config.baseurl is None or not len(config.baseurl):
+            raise MOSIPTokenSeederException(
+                'ATS-REQ-18', 'no odk baseurl provided')
+
+        if config.email is None or not len(config.email):
+            raise MOSIPTokenSeederException('ATS-REQ-19', 'no email provided')
+
+        if config.password is None or not len(config.password):
+            raise MOSIPTokenSeederException(
+                'ATS-REQ-20', 'no password provided')
+
         credentials = {
-            "email": config['email'],
-            "password": config['password']
-            }
+            "email": config.email,
+            "password": config.password
+        }
         auth_url = 'https://{domain}/{version}/sessions'
-        domain = config['baseurl'] 
-        version = config['version'] if 'version' in config and len(config['version']) else 'v1'
+        domain = config.baseurl
+        version = config.version if config.version is not None and len(
+            config.version) else 'v1'
 
         connection = http.client.HTTPSConnection(domain)
-        headers = {'Content-type': 'application/json'} 
-        connection.request(method='POST',url=auth_url.format(domain=domain,version=version), body = json.dumps(credentials),headers= headers)
+        headers = {'Content-type': 'application/json'}
+        connection.request(method='POST', url=auth_url.format(
+            domain=domain, version=version), body=json.dumps(credentials), headers=headers)
         response = connection.getresponse()
         response_json_string = response.read().decode()
-        auth_data =  json.loads(response_json_string)
+        auth_data = json.loads(response_json_string)
         token = auth_data['token']
 
-        if 'odataurl' in config and len(config['odataurl']):
-            odata_url = config['odataurl']
-            start_date = config['startdate'] if 'startdate' in config and len(config['startdate']) else None 
-            end_date = config['enddate'] if 'enddate' in config and len(config['enddate']) else None
-            
+        if config.odataurl is not None and len(config.odataurl):
+            odata_url = config.odataurl + "/Submissions"
+        else:
+            if config.projectid is None or not len(config.projectid):
+                raise MOSIPTokenSeederException(
+                    'ATS-REQ-21', 'no odk project id provided')
 
-        else :
-            if not 'baseurl' in config or not len(config['baseurl']) :
-                raise MOSIPTokenSeederException('ATS-REQ-18', 'no odk baseurl provided')
-            
-            if not 'projectid' in config or not len(config['projectid']) :
-                raise MOSIPTokenSeederException('ATS-REQ-19', 'no odk project id provided')
-            
-            if not 'formid' in config or not len(config['formid']) :
-                raise MOSIPTokenSeederException('ATS-REQ-19', 'no odk form id provided')
-            
-        service_url = 'https://{domain}/{version}/projects/{projectid}/forms/{formid}.svc/Submissions'  
-        if 'startdate' in config and len(config['startdate']) and 'enddate' in config and len(config['enddate']):
-            filter = '?$filter=__system/submissionDate gt ' + config['startdate'] + ' and __system/submissionDate lt ' +  config['enddate']
+            if config.formid is not None or not len(config.formid):
+                raise MOSIPTokenSeederException(
+                    'ATS-REQ-22', 'no odk form id provided')
+
+        service_url = 'https://{domain}/{version}/projects/{projectid}/forms/{formid}.svc/Submissions'
+        if config.startdate is not None and len(config.startdate) and config.enddate is not None and len(config.enddate):
+            filter = '?$filter=__system/submissionDate%20gt%20' + config.startdate + \
+                '%20and%20__system/submissionDate%20lt%20' + config.enddate
             odata_url = odata_url + filter
-        service_url.format(domain = domain, version = version, projectid = config['projectid'], formid = config['formid'])
-        self.odk_pull_data(token, domain, service_url, start_date, end_date)
+
+        service_url.format(domain=domain, version=version,
+                           projectid=config.projectid, formid=config.formid)
+        
         auth_header = {'Authorization': 'Bearer ' + token}
-        connection.request(method = "GET", url = odata_url, headers = auth_header)
+        connection.request(method="GET", url=odata_url, headers=auth_header)
         response = connection.getresponse()
         response_json_string = response.read().decode()
-        print(response_json_string)
-        submissions =  json.loads(response_json_string)
+        submissions = json.loads(response_json_string)
         if 'value' in submissions:
             return submissions['value']
-        else :
-            raise MOSIPTokenSeederException('ATS-REQ-20', 'no submissions found for odk pull')
-            
-        
-        
-        
-
-
-        odata_url = config['odataurl']
-        # 'https://odk.openg2p.mosip.net/v1/projects/1/forms/fourps_program.svc/Submissions'
+        else:
+            raise MOSIPTokenSeederException(
+                'ATS-REQ-20', 'no submissions found for odk pull')
