@@ -37,6 +37,3 @@
 * The form gets filled automatically with necessary KYC information available in VC.
 * &#x20;Enumerator uploads Auth information to server for backend authentication, issue of token and de-duplication
 
-
-
-## Backend authentication
