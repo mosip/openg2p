@@ -7,6 +7,8 @@ A very basic requirement is to clean the registries by deduplicating their benef
 
 To enable the offline authentication flow, various entities and tools may be used for the varied operational functions. Refer below for details.
 
+![](https://raw.githubusercontent.com/mosip/openg2p/main/docs/\_images/openg2p\_offline\_authentication\_flow\_4ps.png)
+
 ### Features and Tools:
 
 | Block                                            | Feature                              | Tool/System                                                                                    |
