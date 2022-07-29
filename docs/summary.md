@@ -4,7 +4,7 @@
 * [Features](features.md)
 * [MOSIP Authentication](mosip-authentication.md)
 * [Use Cases](use-cases/README.md)
-  * [Deduplication of Existing Registry & Offline Authentication](use-cases/deduplication-of-existing-registry-and-offline-authentication.md)
+  * [Deduplication of Existing Registry Using Offline Authentication](use-cases/deduplication-of-existing-registry-using-offline-authentication.md)
   * [Beneficiary Onboarding Using Offline Authentication](use-cases/beneficiary-onboarding-using-offline-authentication.md)
 * [MOSIP Token Seeder](mosip-token-seeder/README.md)
   * [MTS Versions](mosip-token-seeder/mts-versions.md)

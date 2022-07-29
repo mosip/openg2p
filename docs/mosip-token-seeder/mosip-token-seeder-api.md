@@ -122,7 +122,74 @@ csv_file: string
       "errorMessage": "string"
     }
   ],
-  "response": {}
+  "response": {
+       "request_identifier" :"[GUID]"
+  }
+}
+```
+
+## Authtoken (ODK)
+
+```http
+POST /authtoken/odk HTTP/1.1
+
+Content-Type: application/json
+Accept: application/json
+```
+
+### `POST /authtoken/odk`
+
+```yaml
+{
+    "id": "string",
+    "version": "string",
+    "metadata": "",
+    "requesttime": "2022-06-21T10:10:10.121Z",
+    "request": {
+        "output":"json",
+        "deliverytype":"download",
+        "lang":"eng",
+        "odkconfig":{
+            "odataurl":"https://odk.openg2p.mosip.net/v1/projects/1/forms/meals_program.svc",
+            "baseurl":"odk.openg2p.mosip.net",
+            "version":"v1",
+            "projectid":"1",
+            "formid":"meals_program",
+            "email":"xxxxx@xxx.com",
+            "password":"xxxxxxxx"
+            },
+        "mapping": {
+            "vid" : "pcn",
+            "phoneNumber": "phone",
+            "emailId" : "email",
+            "name" : ["fullName"],
+            "gender" : "gender",
+            "fullAddress" : ["address", "city", "state"],
+            "dob":"dateOfBirth",
+            "startdate":"",
+            "enddate":""
+        }
+    }
+}
+```
+
+#### 200 Response
+
+```yaml
+{
+  "id": "mosip.token.seeder",
+  "version": "1.0",
+  "metadata": {},
+  "responsetime": "2022-07-14T19:17:14.940894",
+  "errors": [
+    {
+      "errorCode": "string",
+      "errorMessage": "string"
+    }
+  ],
+  "response": {
+       "request_identifier" :"[GUID]"
+  }
 }
 ```
 
@@ -205,6 +272,13 @@ file
 | ATS-REQ-015 | fullAddress or its mapping not present         |
 | ATS-REQ-016 | no auth request found for the given identifier |
 | ATS-REQ-017 | auth request not processed yet                 |
+| ATS-REQ-18  | no odk baseurl provided                        |
+| ATS-REQ-19  | no email provided                              |
+| ATS-REQ-20  | no password provided                           |
+| ATS-REQ-21  | no odk project id provided                     |
+| ATS-REQ-22  | no odk form id provided                        |
+| ATS-REQ-23  | no submissions found for odk pull              |
 | ATS-REQ-100 | unknown error                                  |
 | ATS-REQ-101 | none of the record form a valid request        |
 | ATS-REQ-102 | invalid input                                  |
+
