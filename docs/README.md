@@ -17,6 +17,8 @@ Key features of openg2p-ng system:
 
 ![](https://raw.githubusercontent.com/mosip/openg2p/main/docs/\_images/openg2p\_high\_level\_view.png)
 
+![](https://raw.githubusercontent.com/mosip/openg2p/main/docs/\_images/openg2p\_high\_level\_view.png)
+
 ## Beneficiary onboarding
 
 * Self registration
