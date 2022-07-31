@@ -1,4 +1,4 @@
 # MOSIP Token Seeder
 
-Moved to an [independent repo](https://github.com/mosip/mosip-token-seeder).
+Moved to [mosip-token-seeder](https://github.com/mosip/mosip-token-seeder) repository.
 
