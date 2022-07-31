@@ -65,7 +65,7 @@ Ref [API](mosip-token-seeder-api.md)
 
 ### Source code
 
-Ref [GitHub](https://github.com/mosip/openg2p/tree/develop)
+Ref [GitHub](https://github.com/mosip/mosip-token-seeder)
 
 ### User stories
 
