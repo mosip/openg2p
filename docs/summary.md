@@ -9,5 +9,5 @@
 * [MOSIP Token Seeder](mosip-token-seeder/README.md)
   * [MTS Versions](mosip-token-seeder/mts-versions.md)
   * [MOSIP Token Seeder API](mosip-token-seeder/mosip-token-seeder-api.md)
-* [Roadmap (Draft)](roadmap-draft.md)
+* [Roadmap](roadmap-draft.md)
 * [Country Pilot (Draft)](country-pilot-draft.md)

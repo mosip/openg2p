@@ -1,8 +1,14 @@
-# Roadmap (Draft)
+---
+description: (Draft)
+---
 
+# Roadmap
 
+## Overview
 
-### MOSIP & OpenG2P Use cases - Roadmap
+This is **draft** roadmap of OpenG2P from MOSIP point of view.
+
+## Roadmap
 
 ![](https://raw.githubusercontent.com/mosip/openg2p/main/docs/\_images/openg2p\_roadmap.png)
 
