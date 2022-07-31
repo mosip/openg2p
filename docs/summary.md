@@ -10,4 +10,4 @@
   * [MTS Versions](mosip-token-seeder/mts-versions.md)
   * [MOSIP Token Seeder API](mosip-token-seeder/mosip-token-seeder-api.md)
 * [Roadmap](roadmap-draft.md)
-* [Country Pilot (Draft)](country-pilot-draft.md)
+* [Country Pilot](country-pilot.md)
