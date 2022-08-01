@@ -3,7 +3,7 @@
 ## Overview
 
 Governments already have existing beneficiary registries that may contain duplicates or ghosts.\
-A very basic requirement is to clean the registries by deduplicating their beneficiary lists, thereby avoiding double dipping. This can be enabled with **token seeding -** Wherein a unique alias token identifier referred as \*\*\*\* [Token ID](https://docs.mosip.io/1.2.0/id-lifecycle-management/identifiers#token-id) \*\*\*\* is generated and linked to the corresponding UIN for every authentication request. The [MOSIP Token Seeder ](https://docs.mosip.io/openg2p/mosip-token-seeder)(MTS) is a convenience module that supports the above requirement. Refer to [this Jira](https://mosip.atlassian.net/browse/MOSIP-21658) for possible work flows.
+A very basic requirement is to clean the registries by deduplicating their beneficiary lists, thereby avoiding double dipping. This can be enabled with **token seeding -** Wherein a unique alias token identifier referred as [Token ID](https://docs.mosip.io/1.2.0/id-lifecycle-management/identifiers#token-id) is generated and linked to the corresponding UIN for every authentication request. The [MOSIP Token Seeder ](https://docs.mosip.io/openg2p/mosip-token-seeder)(MTS) is a convenience module that supports the above requirement. Refer to [this Jira](https://mosip.atlassian.net/browse/MOSIP-21658) for possible work flows.
 
 To enable the offline authentication flow, various entities and tools may be used for the varied operational functions. Refer below for details.
 
