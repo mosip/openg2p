@@ -27,7 +27,7 @@ This is an evolving section with ongoing updates.
    5. TBD - II.5.2
    6. UBD - Need clarity
    7. **Pre-requisites**: **IAM (Odoo module), Reporting** tool/**system, Master data setup** to pre-exist, maybe via Odoo
-3. **Scope of PH pilot**:
+3. **Scope of pilot**:
    1.  **TBD** - Offline authentication using ODK - Click [here](https://mosip.atlassian.net/browse/MOSIP-21658) for details
 
        \
