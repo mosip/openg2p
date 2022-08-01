@@ -156,7 +156,9 @@ Accept: application/json
             "projectid":"1",
             "formid":"meals_program",
             "email":"xxxxx@xxx.com",
-            "password":"xxxxxxxx"
+            "password":"xxxxxxxx",  
+            "startdate":"",
+            "enddate":""
             },
         "mapping": {
             "vid" : "pcn",
@@ -165,9 +167,8 @@ Accept: application/json
             "name" : ["fullName"],
             "gender" : "gender",
             "fullAddress" : ["address", "city", "state"],
-            "dob":"dateOfBirth",
-            "startdate":"",
-            "enddate":""
+            "dob":"dateOfBirth"
+           
         }
     }
 }
