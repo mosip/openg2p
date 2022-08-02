@@ -6,8 +6,8 @@ _(Yet to be released)_
 
 ### Features
 
-* Input type __ :- _****_ csv, json, ODK
-* Output type _:-_ csv, json
+* Input type __ :- _****_ CSV, JSON, ODK
+* Output type _:-_ CSV, JSON
 * Delivery Type __ :- download
 * Asynchronous token seeding
 * Status API
