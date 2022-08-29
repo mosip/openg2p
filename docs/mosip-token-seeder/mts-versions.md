@@ -16,5 +16,9 @@ _(Yet to be released)_
 * Dockerization
 * Helm chart
 
+## version 1.1.0
 
+### Features
+
+* Delivery type : callback
 
