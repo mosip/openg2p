@@ -2,7 +2,7 @@
 
 ## Overview
 
-MTS ODK Importer (MOI) is a OpenG2P module which will be an addon to [Odoo](https://www.odoo.com/).  MOI will help in fetching the tokenized data from the ODK Central by calling the [MOSIP Token Seeder](mosip-token-seeder/) (MTS) and store the same in beneficiary registry. This will be an important module in deduplication process when OpenG2P system is using MOSIP as its id platform. &#x20;
+MTS ODK Importer (MOI) is a OpenG2P module which will be an addon to [Odoo](https://www.odoo.com/).  MOI will help in fetching the tokenized data from the ODK Central by calling the [MOSIP Token Seeder](./) (MTS) and store the same in beneficiary registry. This will be an important module in deduplication process when OpenG2P system is using MOSIP as its id platform. &#x20;
 
 Features of MOI
 
