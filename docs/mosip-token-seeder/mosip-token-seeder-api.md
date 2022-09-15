@@ -264,34 +264,39 @@ file
 
 ## Failure Details
 
-| Error Code  | Error Message                                  |
-| ----------- | ---------------------------------------------- |
-| ATS-REQ-001 | json is not in valid format                    |
-| ATS-REQ-002 | invalid vid construct                          |
-| ATS-REQ-003 | name is not provided                           |
-| ATS-REQ-004 | gender is empty                                |
-| ATS-REQ-005 | gender value is wrong                          |
-| ATS-REQ-006 | date of birth is empty                         |
-| ATS-REQ-007 | not a valid date format for date of birth      |
-| ATS-REQ-008 | address is empty                               |
-| ATS-REQ-009 | vid or its mapping not present                 |
-| ATS-REQ-010 | name or its mapping not present                |
-| ATS-REQ-011 | gender or its mapping not present              |
-| ATS-REQ-012 | dateOfBirth or its mapping not present         |
-| ATS-REQ-013 | phoneNumber or its mapping not present         |
-| ATS-REQ-014 | emailId or its mapping not present             |
-| ATS-REQ-015 | fullAddress or its mapping not present         |
-| ATS-REQ-016 | no auth request found for the given identifier |
-| ATS-REQ-017 | auth request not processed yet                 |
-| ATS-REQ-18  | no odk baseurl provided                        |
-| ATS-REQ-19  | no email provided                              |
-| ATS-REQ-20  | no password provided                           |
-| ATS-REQ-21  | no odk project id provided                     |
-| ATS-REQ-22  | no odk form id provided                        |
-| ATS-REQ-23  | no submissions found for odk pull              |
-| ATS-REQ-100 | unknown error                                  |
-| ATS-REQ-101 | none of the record form a valid request        |
-| ATS-REQ-102 | invalid input                                  |
+| Error Code    | Error Message                                                 |
+| ------------- | ------------------------------------------------------------- |
+| ATS-REQ-001   | json is not in valid format                                   |
+| ATS-REQ-002   | invalid vid construct                                         |
+| ATS-REQ-003   | name is not provided                                          |
+| ATS-REQ-004   | gender is empty                                               |
+| ATS-REQ-005   | gender value is wrong                                         |
+| ATS-REQ-006   | date of birth is empty                                        |
+| ATS-REQ-007   | not a valid date format for date of birth                     |
+| ATS-REQ-008   | address is empty                                              |
+| ATS-REQ-009   | vid or its mapping not present                                |
+| ATS-REQ-010   | name or its mapping not present                               |
+| ATS-REQ-011   | gender or its mapping not present                             |
+| ATS-REQ-012   | dateOfBirth or its mapping not present                        |
+| ATS-REQ-013   | phoneNumber or its mapping not present                        |
+| ATS-REQ-014   | emailId or its mapping not present                            |
+| ATS-REQ-015   | fullAddress or its mapping not present                        |
+| ATS-REQ-016   | no auth request found for the given identifier                |
+| ATS-REQ-017   | auth request not processed yet                                |
+| ATS-REQ-18    | no odk baseurl provided                                       |
+| ATS-REQ-19    | no email provided                                             |
+| ATS-REQ-20    | no password provided                                          |
+| ATS-REQ-21    | no odk project id provided                                    |
+| ATS-REQ-22    | no odk form id provided                                       |
+| ATS-REQ-23    | no submissions found for odk pull                             |
+| ATS-REQ-100   | unknown error                                                 |
+| ATS-REQ-101   | none of the record form a valid request                       |
+| ATS-REQ-102   | invalid input                                                 |
+| AUT\_CRY\_001 | Error parsing encryption certificate provided in config file. |
+| AUT\_CRY\_002 | Error reading P12 file provided in config file.               |
+| AUT\_CRY\_003 | Error Encrypting Auth Data                                    |
+| AUT\_CRY\_004 | Error Signing Auth Request Data                               |
+| AUT\_BAS\_001 | Not Able to process auth request                              |
 
 ## Mapping Config
 
